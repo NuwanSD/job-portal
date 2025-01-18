@@ -68,6 +68,23 @@ const RecruiterController = {
       return res.status(204).send();
     });
   },
+
+  updateRecruiter: (req, res) => {
+    const recruiter_id = req.params.id;
+    const updatedRecruiterData = req.body;
+    RecruiterService.updateRecruiter(
+      recruiter_id,
+      updatedRecruiterData,
+      (err, result) => {
+        if (err) {
+          return res.status(500).send("Internal Server Error");
+        }
+        return res
+          .status(200)
+          .json({ message: "Recruiter updated successfully" });
+      }
+    );
+  },
 };
 
 module.exports = RecruiterController;

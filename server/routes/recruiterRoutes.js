@@ -7,5 +7,6 @@ router.get("/recruiters", RecruiterController.getRecruiters);
 router.get("/recruiters/:id", RecruiterController.getRecruiterById);
 router.post("/recruiters", RecruiterController.saveRecruiter);
 router.delete("/recruiters/:id", RecruiterController.deleteRecruiter);
+router.patch("/recruiters/:id", RecruiterController.updateRecruiter);
 
 module.exports = router;

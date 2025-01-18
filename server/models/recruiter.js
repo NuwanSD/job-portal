@@ -28,6 +28,17 @@ const Recruiter = {
     const query = "DELETE FROM recruiter WHERE recruiter_id = ?";
     db.query(query, [recruiter_id], callback);
   },
+
+  updateRecruiter: (recruiter_id, new_data, callback) => {
+    const query =
+      "UPDATE recruiter SET name = ?, email = ?, phone = ?, address = ?, description = ? WHERE recruiter_id = ?";
+    const { name, email, phone, address, description } = new_data;
+    db.query(
+      query,
+      [name, email, phone, address, description, recruiter_id],
+      callback
+    );
+  },
 };
 
 module.exports = Recruiter;

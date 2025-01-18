@@ -16,9 +16,14 @@ const deleteRecruiter = (recruiter_id, callback) => {
   RecruiterModel.deleteRecruiter(recruiter_id, callback);
 };
 
+const updateRecruiter = (recruiter_id, new_data, callback) => {
+  RecruiterModel.updateRecruiter(recruiter_id, new_data, callback);
+};
+
 module.exports = {
   getAllRecruiters,
   getRecruiterById,
   saveRecruiter,
   deleteRecruiter,
+  updateRecruiter,
 };
