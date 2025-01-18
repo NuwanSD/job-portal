@@ -5,6 +5,7 @@ require("dotenv").config();
 const jobSeekerRoutes = require("./routes/jobSeekerRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
 const jobRoutes = require("./routes/jobRoutes");
+const postedJobRoutes = require("./routes/postedJobRoutes");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.get("/", (req, res) => {
 app.use(jobSeekerRoutes);
 app.use(recruiterRoutes);
 app.use(jobRoutes);
+app.use(postedJobRoutes);
 
 //Start server
 const PORT = process.env.PORT || 3000;
