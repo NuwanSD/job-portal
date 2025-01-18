@@ -6,6 +6,7 @@ const jobSeekerRoutes = require("./routes/jobSeekerRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
 const jobRoutes = require("./routes/jobRoutes");
 const postedJobRoutes = require("./routes/postedJobRoutes");
+const appliedJobRoutes = require("./routes/appliedJobRoutes");
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(jobSeekerRoutes);
 app.use(recruiterRoutes);
 app.use(jobRoutes);
 app.use(postedJobRoutes);
+app.use(appliedJobRoutes);
 
 //Start server
 const PORT = process.env.PORT || 3000;
