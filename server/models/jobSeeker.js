@@ -36,6 +36,18 @@ const JobSeekerModel = {
     const query = "DELETE FROM job_seeker WHERE seeker_id = ?";
     db.query(query, [seeker_id], callback);
   },
+
+  updateSeeker: (seeker_id, new_data, callback) => {
+    const query =
+      "UPDATE job_seeker SET name = ?, email = ?, phone = ?, birth_date = ?, address = ?, city = ?, country = ?, bio = ? WHERE seeker_id = ?";
+    const { name, email, phone, birth_date, address, city, country, bio } =
+      new_data;
+    db.query(
+      query,
+      [name, email, phone, birth_date, address, city, country, bio, seeker_id],
+      callback
+    );
+  },
 };
 
 module.exports = JobSeekerModel;

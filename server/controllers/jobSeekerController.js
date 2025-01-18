@@ -38,15 +38,15 @@ const JobSeekerController = {
     } = req.body;
 
     if (
-      !seeker_id ||
-      !name ||
-      !email ||
-      !phone ||
-      !birth_date ||
-      !address ||
-      !city ||
-      !country ||
-      !bio
+      seeker_id === undefined ||
+      name === undefined ||
+      email === undefined ||
+      phone === undefined ||
+      birth_date === undefined ||
+      address === undefined ||
+      city === undefined ||
+      country === undefined ||
+      bio === undefined
     ) {
       return res.status(400).send("All field are required");
     }
@@ -81,6 +81,19 @@ const JobSeekerController = {
         return res.status(500).send("Error deleting job seeker");
       }
       return res.status(204).send();
+    });
+  },
+
+  updateJobSeeker: (req, res) => {
+    const seeer_id = req.params.id;
+    const updatedData = req.body;
+    JobSeekerService.updateJobSeeker(seeer_id, updatedData, (err, result) => {
+      if (err) {
+        return res.status(500).send("Internal Server Error");
+      }
+      return res
+        .status(200)
+        .json({ message: "Job Seeker updated successfully" });
     });
   },
 };
