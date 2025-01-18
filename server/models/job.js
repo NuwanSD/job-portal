@@ -23,6 +23,12 @@ const Job = {
     const query = "DELETE FROM job WHERE job_id = ?";
     db.query(query, [job_id], callback);
   },
+
+  updateJob: (job_id, updatedData, callback) => {
+    const query = "UPDATE job SET title = ?, description = ? WHERE job_id = ?";
+    const { title, description } = updatedData;
+    db.query(query, [title, description, job_id], callback);
+  },
 };
 
 module.exports = Job;

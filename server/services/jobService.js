@@ -16,9 +16,14 @@ const deleteJobById = (job_id, callback) => {
   JobModel.deleteJob(job_id, callback);
 };
 
+const updateJobData = (job_id, updatedData, callback) => {
+  JobModel.updateJob(job_id, updatedData, callback);
+};
+
 module.exports = {
   getAllJobs,
   getJobById,
   saveJob,
   deleteJobById,
+  updateJobData,
 };

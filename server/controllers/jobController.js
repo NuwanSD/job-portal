@@ -50,6 +50,19 @@ const JobController = {
       return res.status(204).send();
     });
   },
+
+  updateJob: (req, res) => {
+    const job_id = req.params.id;
+    const updatedData = req.body;
+
+    JobService.updateJobData(job_id, updatedData, (err, result) => {
+      if (err) {
+        return res.status(500).send("Internal Server Error");
+      }
+
+      return res.status(200).send("Job updated successfully");
+    });
+  },
 };
 
 module.exports = JobController;
