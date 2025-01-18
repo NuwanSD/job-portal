@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-//const path = require("path");
+require("dotenv").config();
 
 const jobSeekerRoutes = require("./routes/jobSeekerRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
@@ -11,19 +11,16 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// app.set("view engine", "ejs");
-// app.set("views", path.join(__dirname, "views"));
-
 //Route
 app.get("/", (req, res) => {
-  res.send("Job Portal with MVC");
+  res.send("Hello World");
 });
 
 app.use(jobSeekerRoutes);
 app.use(recruiterRoutes);
 
 //Start server
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
