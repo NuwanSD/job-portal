@@ -1,0 +1,22 @@
+* {
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+:root {
+  --primary-color: #3498db;
+  --secondary-color: #2ecc71;
+  --accent-color: #e74c3c;
+  --background-color: #ecf5ff;
+  --text-color: #333333;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.banner {
+  background-color: var(--background-color);
+}
