@@ -7,12 +7,24 @@ import Footer from "./components/Footer";
 import Home from "./pages/home/Home";
 
 import Candidate from "./pages/candidates/Candidate";
+import Recruiter from "./pages/recruiters/Recruiter";
+import Contact from "./pages/contact/Contact";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home />, errorElement: <div>404 Not Found</div> },
   {
     path: "/candidate",
     element: <Candidate />,
+    errorElement: <div>404 Not Found</div>,
+  },
+  {
+    path: "/recruiters",
+    element: <Recruiter />,
+    errorElement: <div>404 Not Found</div>,
+  },
+  {
+    path: "/contact",
+    element: <Contact />,
     errorElement: <div>404 Not Found</div>,
   },
 ]);

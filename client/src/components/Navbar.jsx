@@ -12,15 +12,16 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { Link as RouterLink } from "react-router-dom";
 
 const pages = [
-  "Home",
-  "Find Job",
-  "Recruiters",
-  "Candidates",
-  "Pricing Plans",
-  "Customer Supports",
+  { name: "Home", path: "/" },
+  { name: "Find Job", path: "/" }, //unplan
+  { name: "Recruiters", path: "/recruiters" },
+  { name: "Candidates", path: "/candidate" },
+  { name: "Contact Us", path: "/contact" },
 ];
+
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
@@ -64,7 +65,7 @@ const Navbar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -105,8 +106,18 @@ const Navbar = () => {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: "center" }}>{page}</Typography>
+                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                  <Typography
+                    component="a"
+                    href={page.path}
+                    sx={{
+                      textAlign: "center",
+                      textDecoration: "none",
+                      color: "inherit",
+                    }}
+                  >
+                    {page.name}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -122,7 +133,7 @@ const Navbar = () => {
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -138,8 +149,10 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.name}
                 onClick={handleCloseNavMenu}
+                LinkComponent="a"
+                href={page.path}
                 sx={{
                   my: 2,
                   color: "primary",
@@ -148,7 +161,7 @@ const Navbar = () => {
                   fontWeight: "bold",
                 }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
