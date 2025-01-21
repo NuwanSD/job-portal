@@ -9,9 +9,15 @@ import Home from "./pages/home/Home";
 import Candidate from "./pages/candidates/Candidate";
 import Recruiter from "./pages/recruiters/Recruiter";
 import Contact from "./pages/contact/Contact";
+import Job from "./pages/FindJobs/Job";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home />, errorElement: <div>404 Not Found</div> },
+  {
+    path: "/job",
+    element: <Job />,
+    errorElement: <div>404 Not Found</div>,
+  },
   {
     path: "/candidate",
     element: <Candidate />,

@@ -12,17 +12,14 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link as RouterLink } from "react-router-dom";
 
 const pages = [
   { name: "Home", path: "/" },
-  { name: "Find Job", path: "/" }, //unplan
+  { name: "Find Job", path: "/job" }, //unplan
   { name: "Recruiters", path: "/recruiters" },
   { name: "Candidates", path: "/candidate" },
   { name: "Contact Us", path: "/contact" },
 ];
-
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
