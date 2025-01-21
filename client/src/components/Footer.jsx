@@ -25,7 +25,7 @@ const Footer = () => {
               }}
             >
               <WorkOutlineIcon />
-              <Typography variant="h5">JOBPilot</Typography>
+              <Typography variant="h5">JobSpotlight</Typography>
             </Box>
             <Box>
               <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
@@ -34,10 +34,10 @@ const Footer = () => {
                   Subscribe
                 </Button>
               </Box>
-              <p>
+              <Typography variant="body2" color="#b4b4b4">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. At,
                 optio?
-              </p>
+              </Typography>
             </Box>
           </Box>
 
@@ -51,39 +51,71 @@ const Footer = () => {
             }}
           >
             <Box>
-              <Typography>Quick Link</Typography>
+              <Typography sx={{ mb: 1 }}>Quick Link</Typography>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <a href="/">link</a>
-                <a href="/">link</a>
-                <a href="/">link</a>
-                <a href="/">link</a>
+                <Typography variant="body2" component="a" href="/">
+                  About Us
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Contact Us
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Pricing
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Blog
+                </Typography>
               </Box>
             </Box>
             <Box>
-              <Typography>Candidate</Typography>
+              <Typography sx={{ mb: 1 }}>Candidate</Typography>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <a href="/">link</a>
-                <a href="/">link</a>
-                <a href="/">link</a>
-                <a href="/">link</a>
+                <Typography variant="body2" component="a" href="/">
+                  Browse Jobs
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Browse Employers
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Candidate Dashboard
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Saved Jobs
+                </Typography>
               </Box>
             </Box>
             <Box>
-              <Typography>Employers</Typography>
+              <Typography sx={{ mb: 1 }}>Employers</Typography>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <a href="/">link</a>
-                <a href="/">link</a>
-                <a href="/">link</a>
-                <a href="/">link</a>
+                <Typography variant="body2" component="a" href="/">
+                  Post a Job
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Browse Candidate
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Employers Dashboard
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Applications
+                </Typography>
               </Box>
             </Box>
             <Box>
-              <Typography>Support</Typography>
+              <Typography sx={{ mb: 1 }}>Contact</Typography>
               <Box sx={{ display: "flex", flexDirection: "column" }}>
-                <a href="/">link</a>
-                <a href="/">link</a>
-                <a href="/">link</a>
-                <a href="/">link</a>
+                <Typography variant="body2" component="a" href="/">
+                  Privacy Policy
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Terms & Conditions
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  Contact Us
+                </Typography>
+                <Typography variant="body2" component="a" href="/">
+                  News
+                </Typography>
               </Box>
             </Box>
           </Box>

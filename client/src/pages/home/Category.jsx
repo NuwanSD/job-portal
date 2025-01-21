@@ -3,59 +3,68 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
-import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
-import ZoomInOutlinedIcon from "@mui/icons-material/ZoomInOutlined";
-import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
 
-const cards = [
+import AccountBalanceOutlinedIcon from "@mui/icons-material/AccountBalanceOutlined";
+import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
+import ConstructionOutlinedIcon from "@mui/icons-material/ConstructionOutlined";
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import HealthAndSafetyOutlinedIcon from "@mui/icons-material/HealthAndSafetyOutlined";
+import DevicesOutlinedIcon from "@mui/icons-material/DevicesOutlined";
+import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
+import BorderColorOutlinedIcon from "@mui/icons-material/BorderColorOutlined";
+
+const jobCategories = [
   {
     id: 1,
-    icon: <PersonAddAltOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Plants",
-    description: "157 Open Position",
+    icon: <AccountBalanceOutlinedIcon sx={{ color: "#1976D2", scale: 1.5 }} />,
+    title: "Accounting & Finance",
+    description: "41,523 open positions",
   },
   {
     id: 2,
-    icon: <CloudUploadOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Animals",
-    description: "157 Open Position",
+    icon: (
+      <AdminPanelSettingsOutlinedIcon sx={{ color: "#1976D2", scale: 1.5 }} />
+    ),
+    title: "Administration & Office Support",
+    description: "30,789 open positions",
   },
   {
     id: 3,
-    icon: <ZoomInOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Humans",
-    description: "157 Open Position",
+    icon: <ConstructionOutlinedIcon sx={{ color: "#1976D2", scale: 1.5 }} />,
+    title: "Construction & Building Services",
+    description: "12,345 open positions",
   },
   {
     id: 4,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Nature",
-    description: "157 Open Position",
+    icon: <SchoolOutlinedIcon sx={{ color: "#1976D2", scale: 1.5 }} />,
+    title: "Education & Training",
+    description: "9,876 open positions",
   },
   {
     id: 5,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Water",
-    description: "157 Open Position",
+    icon: <HealthAndSafetyOutlinedIcon sx={{ color: "#1976D2", scale: 1.5 }} />,
+    title: "Healthcare & Medical",
+    description: "5,432 open positions",
   },
   {
     id: 6,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Earth",
-    description: "157 Open Position",
+    icon: <DevicesOutlinedIcon sx={{ color: "#1976D2", scale: 1.5 }} />,
+    title: "IT & Telecommunications",
+    description: "7,890 open positions",
   },
   {
     id: 7,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Air",
-    description: "157 Open Position",
+    icon: <BorderColorOutlinedIcon sx={{ color: "#1976D2", scale: 1.5 }} />,
+    title: "Marketing & Communications",
+    description: "6,789 open positions",
   },
   {
     id: 8,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Sun",
-    description: "157 Open Position",
+    icon: (
+      <LocalGroceryStoreOutlinedIcon sx={{ color: "#1976D2", scale: 1.5 }} />
+    ),
+    title: "Retail & Consumer Products",
+    description: "10,123 open positions",
   },
 ];
 
@@ -69,8 +78,8 @@ function Category() {
         gap: 5,
       }}
     >
-      {cards.map((card) => (
-        <Card key={card.id} sx={{ boxShadow: "none" }}>
+      {jobCategories.map((job) => (
+        <Card key={job.id} sx={{ boxShadow: "none" }}>
           <CardContent
             sx={{
               height: "100%",
@@ -79,13 +88,13 @@ function Category() {
               alignItems: "center",
             }}
           >
-            <Box sx={{ backgroundColor: "#f7f7f8", p: 1.5 }}>{card.icon}</Box>
+            <Box sx={{ backgroundColor: "#f7f7f8", p: 1.5 }}>{job.icon}</Box>
             <Box>
-              <Typography variant="h6" component="div">
-                {card.title}
+              <Typography variant="h7" component="div">
+                {job.title}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {card.description}
+                {job.description}
               </Typography>
             </Box>
           </CardContent>

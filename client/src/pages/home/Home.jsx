@@ -93,6 +93,8 @@ const Home = () => {
               </Box>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Button
+                  LinkComponent="a"
+                  href="/job"
                   sx={{ textTransform: "none", fontWeight: "bold", gap: 1 }}
                 >
                   View All
@@ -123,6 +125,8 @@ const Home = () => {
               </Box>
               <Box sx={{ display: "flex", alignItems: "center" }}>
                 <Button
+                  LinkComponent="a"
+                  href="/recruiters"
                   sx={{ textTransform: "none", fontWeight: "bold", gap: 1 }}
                 >
                   View All

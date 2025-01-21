@@ -12,51 +12,67 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 const cards = [
   {
     id: 1,
-    icon: <PersonAddAltOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Plants",
-    description: "Plants are essential for all life.",
+    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
+    title: "Software Engineer",
+    type: "FULL-TIME",
+    salary: "Salary: $20,000 - $25,000",
+    company: "Google",
   },
   {
     id: 2,
-    icon: <CloudUploadOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Animals",
-    description: "Animals are a part of nature.",
+    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
+    title: "Data Analyst",
+    type: "PART-TIME",
+    salary: "Salary: $20,000 - $25,000",
+    company: "Facebook",
   },
   {
     id: 3,
-    icon: <ZoomInOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Humans",
-    description: "Humans depend on plants and animals for survival.",
+    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
+    title: "Product Manager",
+    type: "FULL-TIME",
+    salary: "Salary: $20,000 - $25,000",
+    company: "Amazon",
   },
   {
     id: 4,
     icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Nature",
-    description: "Nature provides us with everything we need.",
+    title: "UX Designer",
+    type: "PART-TIME",
+    salary: "Salary: $20,000 - $25,000",
+    company: "Apple",
   },
   {
     id: 5,
     icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Water",
-    description: "Water is essential for life.",
+    title: "DevOps Engineer",
+    type: "PART-TIME",
+    salary: "Salary: $20,000 - $25,000",
+    company: "Microsoft",
   },
   {
     id: 6,
     icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Earth",
-    description: "The Earth is our home.",
+    title: "Marketing Specialist",
+    type: "INTERNSHIP",
+    salary: "Salary: $20,000 - $25,000",
+    company: "Netflix",
   },
   {
     id: 7,
     icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Air",
-    description: "Clean air is vital for health.",
+    title: "Cybersecurity Analyst",
+    type: "PART-TIME",
+    salary: "Salary: $20,000 - $25,000",
+    company: "IBM",
   },
   {
     id: 8,
     icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Sun",
-    description: "The sun provides energy for life.",
+    title: "Customer Manager",
+    type: "PART-TIME",
+    salary: "Salary: $20,000 - $25,000",
+    company: "Salesforce",
   },
 ];
 
@@ -77,9 +93,21 @@ function FeaturedJob() {
               <Typography variant="h6" component="div">
                 {card.title}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {card.description}
-              </Typography>
+              <Box sx={{ display: "flex", gap: 1 }}>
+                <Box
+                  sx={{
+                    bgcolor: "#4dff4d",
+                    fontSize: "10px",
+                    fontWeight: "bold",
+                    alignContent: "center",
+                  }}
+                >
+                  {card.type}
+                </Box>
+                <Typography variant="body2" color="text.secondary">
+                  {card.salary}
+                </Typography>
+              </Box>
             </Box>
             <Box
               sx={{
