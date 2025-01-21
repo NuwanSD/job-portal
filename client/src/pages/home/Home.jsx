@@ -1,10 +1,6 @@
 import React from "react";
-import { Box, Button, Container, Typography, Grid } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
-import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
-import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 
 import Banner from "../../assets/img-01.png";
@@ -15,6 +11,7 @@ import FeaturedJob from "./FeaturedJob";
 import Companies from "./Companies";
 import Testimonial from "./Testimonial";
 import BottomCard from "./BottomCard";
+import BannerCards from "./BannerCards";
 
 const Home = () => {
   return (
@@ -52,97 +49,8 @@ const Home = () => {
               <img src={Banner} width="500px" alt="image" />
             </Box>
           </Box>
-          <Box
-            sx={{
-              mt: 5,
-              flexGrow: 1,
-            }}
-          >
-            <Grid
-              container
-              columns={{ xs: 2, sm: 8, md: 16 }}
-              spacing={{ xs: 2, md: 3 }}
-            >
-              <Grid item xs={2} sm={4} md={4}>
-                <Box
-                  variant="outlined"
-                  sx={{
-                    px: 5,
-                    py: 2,
-                    boxShadow: 2,
-                    backgroundColor: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    borderRadius: 2,
-                    "@media (min-width:600px)": { width: 200 },
-                  }}
-                >
-                  <EmailOutlinedIcon sx={{ color: "#1976D2" }} />
-                  <span>Live Jobs</span>
-                </Box>
-              </Grid>
-
-              <Grid item xs={2} sm={4} md={4}>
-                <Box
-                  variant="outlined"
-                  sx={{
-                    px: 5,
-                    py: 2,
-                    boxShadow: 2,
-                    backgroundColor: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    borderRadius: 2,
-                    "@media (min-width:600px)": { width: 200 },
-                  }}
-                >
-                  <ApartmentOutlinedIcon sx={{ color: "#1976D2" }} />
-                  Comapnies
-                </Box>
-              </Grid>
-
-              <Grid item xs={2} sm={4} md={4}>
-                <Box
-                  variant="outlined"
-                  sx={{
-                    px: 5,
-                    py: 2,
-                    boxShadow: 2,
-                    backgroundColor: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    borderRadius: 2,
-                    "@media (min-width:600px)": { width: 200 },
-                  }}
-                >
-                  <PeopleAltOutlinedIcon sx={{ color: "#1976D2" }} />
-                  Candidates
-                </Box>
-              </Grid>
-
-              <Grid item xs={2} sm={4} md={4}>
-                <Box
-                  variant="outlined"
-                  sx={{
-                    px: 5,
-                    py: 2,
-                    boxShadow: 2,
-                    backgroundColor: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1,
-                    borderRadius: 2,
-                    "@media (min-width:600px)": { width: 200 },
-                  }}
-                >
-                  <WorkOutlineOutlinedIcon sx={{ color: "#1976D2" }} />
-                  New Jobs
-                </Box>
-              </Grid>
-            </Grid>
+          <Box sx={{ mt: 5 }}>
+            <BannerCards />
           </Box>
         </Container>
       </section>
@@ -157,10 +65,10 @@ const Home = () => {
       </section>
 
       <section>
-        <Box sx={{ backgroundColor: "#ECF5FF", py: 15 }}>
+        <Box sx={{ backgroundColor: "#f7f7f8", py: 15 }}>
           <Container>
             <Typography variant="h4" sx={{ textAlign: "center" }}>
-              How JOBPilot Work
+              How JobSpotlight Work
             </Typography>
             <Box sx={{ mt: 5 }}>
               <Work />
@@ -200,7 +108,7 @@ const Home = () => {
       </section>
 
       <section>
-        <Box sx={{ py: 15, backgroundColor: "#ECF5FF" }}>
+        <Box sx={{ py: 15, backgroundColor: "#f7f7f8" }}>
           <Container>
             <Box
               sx={{
@@ -241,7 +149,7 @@ const Home = () => {
       </section>
 
       <section>
-        <Box sx={{ py: 15, backgroundColor: "#ECF5FF" }}>
+        <Box sx={{ py: 15, backgroundColor: "#f7f7f8" }}>
           <Container>
             <Typography variant="h4" sx={{ textAlign: "center" }}>
               Clients Testimonial

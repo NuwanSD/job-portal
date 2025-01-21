@@ -13,7 +13,7 @@ import Image02 from "../../assets/banner-img.jpg";
 export default function BottomCard() {
   return (
     <Box sx={{ display: { xs: "row", md: "flex" }, gap: 2 }}>
-      <Card sx={{ display: "flex" }}>
+      <Card sx={{ display: "flex", mb: { xs: 4, md: 0 } }}>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
             <Typography component="div" variant="h5">

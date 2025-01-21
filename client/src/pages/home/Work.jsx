@@ -11,27 +11,31 @@ import VerifiedOutlinedIcon from "@mui/icons-material/VerifiedOutlined";
 const cards = [
   {
     id: 1,
-    icon: <PersonAddAltOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Plants",
-    description: "Plants are essential for all life.",
+    icon: (
+      <PersonAddAltOutlinedIcon sx={{ color: "#1976D2", scale: 1.5, mb: 1 }} />
+    ),
+    title: "Create account",
+    description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit",
   },
   {
     id: 2,
-    icon: <CloudUploadOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Animals",
-    description: "Animals are a part of nature.",
+    icon: (
+      <CloudUploadOutlinedIcon sx={{ color: "#1976D2", scale: 1.5, mb: 1 }} />
+    ),
+    title: "Upload CV/Resume",
+    description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit",
   },
   {
     id: 3,
-    icon: <ZoomInOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Humans",
-    description: "Humans depend on plants and animals for survival.",
+    icon: <ZoomInOutlinedIcon sx={{ color: "#1976D2", scale: 1.5, mb: 1 }} />,
+    title: "Find suitable job",
+    description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit",
   },
   {
     id: 4,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Humans",
-    description: "Humans depend on plants and animals for survival.",
+    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2", scale: 1.5, mb: 1 }} />,
+    title: "Apply job",
+    description: "Lorem, ipsum dolor sit amet consectetur adipisicing elit",
   },
 ];
 
@@ -52,7 +56,7 @@ function Work() {
             <Typography variant="h6" component="div">
               {card.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
               {card.description}
             </Typography>
           </CardContent>
