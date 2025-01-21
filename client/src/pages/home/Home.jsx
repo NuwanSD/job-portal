@@ -24,7 +24,7 @@ const Home = () => {
           <Box sx={{ display: { xs: "", md: "flex" }, gap: 5 }}>
             <Box sx={{ mb: 5 }}>
               <Box>
-                <Typography variant="h2" sx={{}}>
+                <Typography variant="h2" sx={{ fontWeight: "medium" }}>
                   Find A Job That Suits Your Interest & Skills.
                 </Typography>
               </Box>
@@ -160,7 +160,7 @@ const Home = () => {
         <Box sx={{ backgroundColor: "#ECF5FF", py: 15 }}>
           <Container>
             <Typography variant="h4" sx={{ textAlign: "center" }}>
-              How pilot Work
+              How JOBPilot Work
             </Typography>
             <Box sx={{ mt: 5 }}>
               <Work />
