@@ -1,18 +1,20 @@
-import { Box, Button, Container, Typography, Grid } from "@mui/material";
 import React from "react";
+import { Box, Button, Container, Typography, Grid } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import Banner from "../../assets/img-01.png";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import ApartmentOutlinedIcon from "@mui/icons-material/ApartmentOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
+
+import Banner from "../../assets/img-01.png";
 import SelectActionCard from "./Vacancies";
 import Work from "./Work";
 import Category from "./Category";
 import FeaturedJob from "./FeaturedJob";
 import Companies from "./Companies";
 import Testimonial from "./Testimonial";
+import BottomCard from "./BottomCard";
 
 const Home = () => {
   return (
@@ -247,6 +249,14 @@ const Home = () => {
             <Box sx={{ mt: 5 }}>
               <Testimonial />
             </Box>
+          </Container>
+        </Box>
+      </section>
+
+      <section>
+        <Box sx={{ py: 15 }}>
+          <Container>
+            <BottomCard />
           </Container>
         </Box>
       </section>
