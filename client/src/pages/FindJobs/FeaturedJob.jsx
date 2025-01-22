@@ -96,7 +96,7 @@ function FeaturedJob() {
     >
       {cards.map((card) => (
         <Card key={card.id} sx={{ width: "100%" }} variant="outlined">
-          <CardActionArea LinkComponent="a" href="/job">
+          <CardActionArea LinkComponent="a" href="/job/jobtitle">
             <CardContent sx={{ height: "100%" }}>
               <Box>
                 <Typography variant="h6" component="div">
@@ -137,7 +137,7 @@ function FeaturedJob() {
               justifyContent: "space-between",
             }}
           >
-            <Button size="small" color="primary" LinkComponent="a" href="/job">
+            <Button size="small" color="primary">
               LEARN MORE
             </Button>
             <Button LinkComponent="a" href="/job">

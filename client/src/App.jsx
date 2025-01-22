@@ -19,6 +19,11 @@ const router = createBrowserRouter([
     errorElement: <div>404 Not Found</div>,
   },
   {
+    path: "/job/jobtitle",
+    element: <Job />,
+    errorElement: <div>404 Not Found</div>,
+  },
+  {
     path: "/candidate",
     element: <Candidate />,
     errorElement: <div>404 Not Found</div>,
