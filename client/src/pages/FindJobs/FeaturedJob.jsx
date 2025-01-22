@@ -96,7 +96,7 @@ function FeaturedJob() {
     >
       {cards.map((card) => (
         <Card key={card.id} sx={{ width: "100%" }} variant="outlined">
-          <CardActionArea LinkComponent="a" href="/job/jobtitle">
+          <CardActionArea LinkComponent="a" href={`/job/${card.id}`}>
             <CardContent sx={{ height: "100%" }}>
               <Box>
                 <Typography variant="h6" component="div">
