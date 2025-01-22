@@ -12,6 +12,7 @@ import Companies from "./Companies";
 import Testimonial from "./Testimonial";
 import BottomCard from "./BottomCard";
 import BannerCards from "./BannerCards";
+import SearchField from "./SearchField";
 
 const Home = () => {
   return (
@@ -31,18 +32,8 @@ const Home = () => {
                   Inventore deleniti nam repellat adipisci alias totam.
                 </Typography>
               </Box>
-              <Box sx={{ display: "flex", position: "relative", mt: 2 }}>
-                <TextField
-                  fullWidth
-                  label="Job Title, Keyword"
-                  id="fullWidth"
-                />
-                <Button
-                  sx={{ position: "absolute", right: 6, my: 1, py: 1 }}
-                  variant="contained"
-                >
-                  Search
-                </Button>
+              <Box sx={{ display: "flex", mt: 2 }}>
+                <SearchField />
               </Box>
             </Box>
             <Box>
