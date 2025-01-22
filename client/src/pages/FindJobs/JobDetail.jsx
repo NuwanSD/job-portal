@@ -5,6 +5,8 @@ import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import Icon from "../../assets/facebook.svg";
+import JobDescription from "./JobDescription";
+import RelatedJob from "./RelatedJob";
 
 const JobDetail = () => {
   const params = useParams();
@@ -14,7 +16,7 @@ const JobDetail = () => {
   return (
     <div>
       <section>
-        <Container sx={{ py: 15 }}>
+        <Container sx={{ py: 10 }}>
           <Box
             sx={{
               display: "flex",
@@ -60,6 +62,19 @@ const JobDetail = () => {
               </Button>
             </Box>
           </Box>
+
+          <Box sx={{ mt: 5 }}>
+            <JobDescription />
+          </Box>
+        </Container>
+      </section>
+
+      <section>
+        <Container sx={{ py: 15 }}>
+          <Typography variant="h4" sx={{ mb: 5 }}>
+            Related Jobs
+          </Typography>
+          <RelatedJob />
         </Container>
       </section>
     </div>
