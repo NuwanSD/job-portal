@@ -5,14 +5,10 @@ import Logo from "../../assets/facebook.svg";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import Divider from "@mui/material/Divider";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import CalendarMonthOutlinedIcon from "@mui/icons-material/CalendarMonthOutlined";
 import TimerOutlinedIcon from "@mui/icons-material/TimerOutlined";
 import LayersOutlinedIcon from "@mui/icons-material/LayersOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
-import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
-import AttachFileOutlinedIcon from "@mui/icons-material/AttachFileOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";
 import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
@@ -68,7 +64,7 @@ const RecruiterProfile = () => {
             sx={{
               display: { xs: "row", md: "flex" },
               justifyContent: "space-between",
-              gap: 4,
+              gap: 5,
             }}
           >
             <Box sx={{ mb: { xs: 5 } }}>
