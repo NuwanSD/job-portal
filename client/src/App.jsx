@@ -11,6 +11,7 @@ import Recruiter from "./pages/recruiters/Recruiter";
 import Contact from "./pages/contact/Contact";
 import Job from "./pages/FindJobs/Job";
 import JobDetail from "./pages/FindJobs/JobDetail";
+import RecruiterProfile from "./pages/recruiters/RecruiterProfile";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home />, errorElement: <div>404 Not Found</div> },
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
   {
     path: "/recruiters",
     element: <Recruiter />,
+    errorElement: <div>404 Not Found</div>,
+  },
+  {
+    path: "/recruiters/:recruiterId",
+    element: <RecruiterProfile />,
     errorElement: <div>404 Not Found</div>,
   },
   {

@@ -95,7 +95,7 @@ function Companies() {
                 </Typography>
               </Box>
             </Box>
-            <Button variant="contained" sx={{ mt: 2, width: "100%" }}>
+            <Button variant="outlined" sx={{ mt: 2, width: "100%" }}>
               Open Position ({company.available})
             </Button>
           </CardContent>

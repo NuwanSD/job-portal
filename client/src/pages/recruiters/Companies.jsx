@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Button } from "@mui/material";
+import CardActionArea from "@mui/material/CardActionArea";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import Logo from "../../assets/facebook.svg";
 
@@ -99,27 +100,30 @@ function Companies() {
     >
       {companies.map((company) => (
         <Card key={company.id} variant="outlined" sx={{ borderRadius: 2 }}>
-          <CardContent sx={{ height: "100%" }}>
-            <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-              <img src={company.logo} alt="" width={82} />
-              <Box>
-                <Typography variant="h6" component="div" sx={{ ml: 0.5 }}>
-                  {company.name}
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{ display: "flex", alignItems: "center" }}
-                >
-                  <LocationOnOutlinedIcon />
-                  {company.location}
-                </Typography>
+          <CardActionArea LinkComponent="a" href={`/recruiters/${company.id}`}>
+            <CardContent sx={{ height: "100%" }}>
+              <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+                <img src={company.logo} alt="" width={82} />
+                <Box>
+                  <Typography variant="h6" component="div" sx={{ ml: 0.5 }}>
+                    {company.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    sx={{ display: "flex", alignItems: "center" }}
+                  >
+                    <LocationOnOutlinedIcon />
+                    {company.location}
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
-            <Button variant="outlined" sx={{ mt: 2, width: "100%" }}>
-              Open Position ({company.available})
-            </Button>
-          </CardContent>
+
+              <Button variant="outlined" sx={{ mt: 2, width: "100%" }}>
+                Open Position ({company.available})
+              </Button>
+            </CardContent>
+          </CardActionArea>
         </Card>
       ))}
     </Box>
