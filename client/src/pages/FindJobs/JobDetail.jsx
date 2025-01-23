@@ -1,5 +1,5 @@
 import { Box, Button, Container, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
@@ -8,7 +8,24 @@ import Icon from "../../assets/facebook.svg";
 import JobDescription from "./JobDescription";
 import RelatedJob from "./RelatedJob";
 
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 const JobDetail = () => {
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const params = useParams();
 
   console.log(params);
@@ -57,7 +74,11 @@ const JobDetail = () => {
                   borderRadius: 1,
                 }}
               />
-              <Button variant="contained" sx={{ display: "flex", gap: 1 }}>
+              <Button
+                variant="contained"
+                sx={{ display: "flex", gap: 1 }}
+                onClick={handleClickOpen}
+              >
                 Apply Now <ArrowForwardOutlinedIcon />
               </Button>
             </Box>
@@ -77,6 +98,57 @@ const JobDetail = () => {
           <RelatedJob />
         </Container>
       </section>
+
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperProps={{
+          component: "form",
+          onSubmit: (event) => {
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget);
+            const formJson = Object.fromEntries(formData.entries());
+            const email = formJson.email;
+            console.log(email);
+            handleClose();
+          },
+        }}
+      >
+        <DialogTitle>Apply Job: Senior Software Engineer</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            Repellendus animi perferendis laudantium fuga voluptate tempore nemo
+            quas omnis suscipit rem?
+          </DialogContentText>
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="name"
+            name="email"
+            label="Email Address"
+            type="email"
+            fullWidth
+          />
+          <TextField
+            id="outlined-multiline-static"
+            label="Message To Hiring Team"
+            multiline
+            fullWidth
+            margin="dense"
+            rows={4}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} variant="outlined">
+            Cancel
+          </Button>
+          <Button type="submit" variant="contained">
+            Submit
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

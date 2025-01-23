@@ -124,7 +124,9 @@ const JobDescription = () => {
           variant="outlined"
           sx={{ display: "flex", justifyContent: "center", width: "400px" }}
         >
-          <CardContent sx={{ alignContent: "center", textAlign: "center" }}>
+          <CardContent
+            sx={{ alignContent: "center", textAlign: "center", width: "200px" }}
+          >
             <Typography variant="h6">Salary (USD)</Typography>
             <Typography color="primary">$1000,000- $120,000</Typography>
             <Typography color="textSecondary">Yearly salary</Typography>
@@ -137,6 +139,7 @@ const JobDescription = () => {
               alignContent: "center",
               textAlign: "center",
               justifyItems: "center",
+              width: "200px",
             }}
           >
             <MapOutlinedIcon sx={{ color: "blue", display: "block" }} />
