@@ -82,16 +82,14 @@ const Home = () => {
                   Popular Category
                 </Typography>
               </Box>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Button
-                  LinkComponent="a"
-                  href="/job"
-                  sx={{ textTransform: "none", fontWeight: "bold", gap: 1 }}
-                >
-                  View All
-                  <ArrowForwardOutlinedIcon sx={{ color: "#1976D2" }} />
-                </Button>
-              </Box>
+              <Button
+                LinkComponent="a"
+                href="/job"
+                sx={{ textTransform: "none", fontWeight: "bold" }}
+                endIcon={<ArrowForwardOutlinedIcon sx={{ color: "#1976D2" }} />}
+              >
+                View All
+              </Button>
             </Box>
             <Box sx={{ mt: 5 }}>
               <Category />
@@ -114,16 +112,17 @@ const Home = () => {
                   Featured Job
                 </Typography>
               </Box>
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Button
-                  LinkComponent="a"
-                  href="/recruiters"
-                  sx={{ textTransform: "none", fontWeight: "bold", gap: 1 }}
-                >
-                  View All
-                  <ArrowForwardOutlinedIcon sx={{ color: "#1976D2" }} />
-                </Button>
-              </Box>
+              <Button
+                LinkComponent="a"
+                href="/job"
+                sx={{
+                  textTransform: "none",
+                  fontWeight: "bold",
+                }}
+                endIcon={<ArrowForwardOutlinedIcon sx={{ color: "#1976D2" }} />}
+              >
+                View All
+              </Button>
             </Box>
             <Box sx={{ mt: 5 }}>
               <FeaturedJob />

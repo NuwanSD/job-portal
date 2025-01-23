@@ -64,6 +64,27 @@ const companies = [
     available: 4,
     logo: Logo,
   },
+  {
+    id: 8,
+    name: "Facebook",
+    location: "Perth, Australia",
+    available: 4,
+    logo: Logo,
+  },
+  {
+    id: 8,
+    name: "Facebook",
+    location: "Perth, Australia",
+    available: 4,
+    logo: Logo,
+  },
+  {
+    id: 8,
+    name: "Facebook",
+    location: "Perth, Australia",
+    available: 4,
+    logo: Logo,
+  },
 ];
 
 function Companies() {
@@ -72,8 +93,8 @@ function Companies() {
       sx={{
         width: "100%",
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(min(200px, 100%), 1fr))",
-        gap: 5,
+        gridTemplateColumns: "repeat(auto-fill, minmax(min(250px, 100%), 1fr))",
+        gap: 3,
       }}
     >
       {companies.map((company) => (
@@ -95,7 +116,7 @@ function Companies() {
                 </Typography>
               </Box>
             </Box>
-            <Button variant="contained" sx={{ mt: 2, width: "100%" }}>
+            <Button variant="outlined" sx={{ mt: 2, width: "100%" }}>
               Open Position ({company.available})
             </Button>
           </CardContent>
