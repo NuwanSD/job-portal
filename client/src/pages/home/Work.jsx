@@ -50,7 +50,7 @@ function Work() {
       }}
     >
       {cards.map((card) => (
-        <Card>
+        <Card key={card.id}>
           <CardContent sx={{ height: "100%", textAlign: "center" }}>
             {card.icon}
             <Typography variant="h6" component="div">

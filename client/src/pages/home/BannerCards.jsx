@@ -45,7 +45,7 @@ function BannerCards() {
       }}
     >
       {cards.map((card) => (
-        <Card variant="outlined">
+        <Card key={card.id} variant="outlined">
           <CardContent sx={{ display: "flex", gap: 2, alignItems: "center" }}>
             <Box sx={{ bgcolor: "#f7f7f8", p: 2 }}>{card.icon}</Box>
             <Box>
