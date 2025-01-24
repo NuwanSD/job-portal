@@ -97,16 +97,19 @@ const Contact = () => {
         </Container>
       </section>
 
-      {/* <section>
-        <Box>
+      <section>
+        <Box sx={{ pt: 15 }}>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d31682.45805175636!2d79.9080448!3d6.9730304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1737655103553!5m2!1sen!2slk"
             width="100%"
-            height="250px"
-            border="none"
+            height="400"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            id="gmap_canvas"
+            src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=%20Gampaha+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
           ></iframe>
         </Box>
-      </section> */}
+      </section>
     </div>
   );
 };
