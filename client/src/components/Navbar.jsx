@@ -28,6 +28,7 @@ const Navbar = () => {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -59,7 +60,7 @@ const Navbar = () => {
             }}
           />
           <Typography
-            variant="h6"
+            variant="h5"
             noWrap
             component="a"
             href="/"
@@ -156,6 +157,7 @@ const Navbar = () => {
                   display: "block",
                   textTransform: "none",
                   fontWeight: "bold",
+                  fontSize: "16px",
                 }}
               >
                 {page.name}
@@ -165,8 +167,12 @@ const Navbar = () => {
           <Box
             sx={{ flexGrow: 0, display: "flex", alignItems: "center", gap: 2 }}
           >
-            <Button variant="outlined">Login</Button>
-            <Button variant="contained">Sign Up</Button>
+            <Button variant="outlined" LinkComponent="a" href="/login">
+              Login
+            </Button>
+            <Button variant="contained" LinkComponent="a" href="/signUp">
+              Sign Up
+            </Button>
           </Box>
         </Toolbar>
       </Container>
