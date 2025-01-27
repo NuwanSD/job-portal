@@ -1,96 +1,197 @@
 import React from "react";
-import {
-  Box,
-  TextField,
-  Typography,
-  Card,
-  CardContent,
-  Button,
-  Link,
-  Divider,
-} from "@mui/material";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { useForm, Controller } from "react-hook-form";
+import { Box, TextField, Button } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const JobSeeker = () => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <Box variant="outlined" sx={{ width: "400px", borderRadius: 2 }}>
-        <TextField
-          margin="dense"
-          id="username"
-          label="Username"
-          variant="outlined"
-          type="text"
-          sx={{ width: "100%" }}
+      <Box
+        component="form"
+        onSubmit={handleSubmit(onSubmit)}
+        sx={{ width: "400px", borderRadius: 2 }}
+      >
+        <Controller
+          name="username"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="Username"
+              variant="outlined"
+              type="text"
+              sx={{ width: "100%" }}
+              error={!!errors.username}
+              helperText={errors.username ? "Username is required" : ""}
+            />
+          )}
+          rules={{ required: true }}
         />
-        <TextField
-          margin="dense"
-          id="name"
-          label="Name"
-          variant="outlined"
-          type="text"
-          sx={{ width: "100%" }}
+        <Controller
+          name="name"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="Name"
+              variant="outlined"
+              type="text"
+              sx={{ width: "100%" }}
+              error={!!errors.name}
+              helperText={errors.name ? "Name is required" : ""}
+            />
+          )}
+          rules={{ required: true }}
         />
-        <TextField
-          margin="dense"
-          id="email"
-          label="Email"
-          variant="outlined"
-          type="email"
-          sx={{ width: "100%" }}
+        <Controller
+          name="email"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="Email"
+              variant="outlined"
+              type="email"
+              sx={{ width: "100%" }}
+              error={!!errors.email}
+              helperText={errors.email ? "Email is required" : ""}
+            />
+          )}
+          rules={{ required: true }}
         />
-        <TextField
-          margin="dense"
-          id="phone"
-          label="Phone"
-          type="text"
-          variant="outlined"
-          sx={{ width: "100%" }}
+        <Controller
+          name="phone"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="Phone"
+              variant="outlined"
+              type="text"
+              sx={{ width: "100%" }}
+              error={!!errors.phone}
+              helperText={errors.phone ? "Phone is required" : ""}
+            />
+          )}
+          rules={{ required: true }}
         />
-
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={[`DatePicker`]}>
-            <DatePicker label="Date of Birth" />
-          </DemoContainer>
+          <Controller
+            name="birth_date"
+            control={control}
+            defaultValue={null}
+            render={({ field }) => (
+              <DatePicker
+                {...field}
+                label="Date of Birth"
+                slotProps={{
+                  textField: {
+                    margin: "dense",
+                    sx: { width: "100%" },
+                    error: !!errors.birth_date,
+                    helperText: errors.birth_date
+                      ? "Date of Birth is required"
+                      : "",
+                  },
+                }}
+              />
+            )}
+            rules={{ required: true }}
+          />
         </LocalizationProvider>
-
-        <TextField
-          margin="dense"
-          id="city"
-          label="City"
-          type="text"
-          variant="outlined"
-          sx={{ width: "100%" }}
+        <Controller
+          name="city"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="City"
+              variant="outlined"
+              type="text"
+              sx={{ width: "100%" }}
+              error={!!errors.city}
+              helperText={errors.city ? "City is required" : ""}
+            />
+          )}
+          rules={{ required: true }}
         />
-
-        <TextField
-          margin="dense"
-          id="country"
-          label="Country"
-          type="text"
-          variant="outlined"
-          sx={{ width: "100%" }}
+        <Controller
+          name="country"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="Country"
+              variant="outlined"
+              type="text"
+              sx={{ width: "100%" }}
+              error={!!errors.country}
+              helperText={errors.country ? "Country is required" : ""}
+            />
+          )}
+          rules={{ required: true }}
         />
-
-        <TextField
-          margin="dense"
-          id="password"
-          label="Password"
-          type="password"
-          variant="outlined"
-          sx={{ width: "100%" }}
+        <Controller
+          name="password"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="Password"
+              variant="outlined"
+              type="password"
+              sx={{ width: "100%" }}
+              error={!!errors.password}
+              helperText={errors.password ? "Password is required" : ""}
+            />
+          )}
+          rules={{ required: true }}
         />
-
-        <TextField
-          margin="dense"
-          id="confirmPassword"
-          label="Confirm Password"
-          type="password"
-          variant="outlined"
-          sx={{ width: "100%" }}
+        <Controller
+          name="confirmPassword"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <TextField
+              {...field}
+              margin="dense"
+              label="Confirm Password"
+              variant="outlined"
+              type="password"
+              sx={{ width: "100%" }}
+              error={!!errors.confirmPassword}
+              helperText={
+                errors.confirmPassword ? "Confirm Password is required" : ""
+              }
+            />
+          )}
+          rules={{ required: true }}
         />
         <Button
           type="submit"
