@@ -9,11 +9,23 @@ import {
   Link,
   Divider,
 } from "@mui/material";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const JobSeeker = () => {
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Box variant="outlined" sx={{ width: "400px", borderRadius: 2 }}>
+        <TextField
+          margin="dense"
+          id="username"
+          label="Username"
+          variant="outlined"
+          type="text"
+          sx={{ width: "100%" }}
+        />
         <TextField
           margin="dense"
           id="name"
@@ -39,23 +51,11 @@ const JobSeeker = () => {
           sx={{ width: "100%" }}
         />
 
-        <TextField
-          margin="dense"
-          id="bday"
-          label="Birth Date"
-          type="date"
-          variant="outlined"
-          sx={{ width: "100%" }}
-        />
-
-        <TextField
-          margin="dense"
-          id="address"
-          label="Address"
-          type="text"
-          variant="outlined"
-          sx={{ width: "100%" }}
-        />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={[`DatePicker`]}>
+            <DatePicker label="Date of Birth" />
+          </DemoContainer>
+        </LocalizationProvider>
 
         <TextField
           margin="dense"
@@ -76,20 +76,18 @@ const JobSeeker = () => {
         />
 
         <TextField
-          multiline
           margin="dense"
-          id="bio"
-          label="Biography"
-          type="text"
+          id="password"
+          label="Password"
+          type="password"
           variant="outlined"
           sx={{ width: "100%" }}
-          rows={3}
         />
 
         <TextField
           margin="dense"
-          id="password"
-          label="Password"
+          id="confirmPassword"
+          label="Confirm Password"
           type="password"
           variant="outlined"
           sx={{ width: "100%" }}
