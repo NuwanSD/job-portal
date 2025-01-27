@@ -1,105 +1,127 @@
 import React from "react";
-import { useForm, Controller } from "react-hook-form";
 import { Box, TextField, Button } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-const JobSeeker = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import dayjs from "dayjs";
 
-  const onSubmit = (data) => {
-    console.log(data);
+const formSchema = z
+  .object({
+    username: z.string().min(1, "Username is required"),
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Invalid email address"),
+    phone: z.string().min(1, "Phone is required"),
+    birth_date: z.instanceof(Date),
+    city: z.string().min(1, "City is required"),
+    country: z.string().min(1, "Country is required"),
+    password: z.string().min(1, "Password must be at least 6 characters"),
+    confirmPassword: z
+      .string()
+      .min(1, "Confirm Password must be at least 6 characters"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"], // Path of error
+  });
+
+const JobSeeker = () => {
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      name: "",
+      email: "",
+      phone: "",
+      birth_date: null,
+      city: "",
+      country: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
+  const onSubmit = (values) => {
+    console.log(values);
+
+    form.reset();
   };
 
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <Box
         component="form"
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={form.handleSubmit(onSubmit)}
         sx={{ width: "400px", borderRadius: 2 }}
       >
         <Controller
           name="username"
-          control={control}
-          defaultValue=""
+          control={form.control}
           render={({ field }) => (
             <TextField
               {...field}
               margin="dense"
               label="Username"
               variant="outlined"
-              type="text"
+              error={!!form.formState.errors.username}
+              helperText={form.formState.errors.username?.message}
               sx={{ width: "100%" }}
-              error={!!errors.username}
-              helperText={errors.username ? "Username is required" : ""}
             />
           )}
-          rules={{ required: true }}
         />
         <Controller
           name="name"
-          control={control}
-          defaultValue=""
+          control={form.control}
           render={({ field }) => (
             <TextField
               {...field}
               margin="dense"
               label="Name"
               variant="outlined"
-              type="text"
+              error={!!form.formState.errors.name}
+              helperText={form.formState.errors.name?.message}
               sx={{ width: "100%" }}
-              error={!!errors.name}
-              helperText={errors.name ? "Name is required" : ""}
             />
           )}
-          rules={{ required: true }}
         />
         <Controller
           name="email"
-          control={control}
-          defaultValue=""
+          control={form.control}
           render={({ field }) => (
             <TextField
               {...field}
               margin="dense"
               label="Email"
               variant="outlined"
-              type="email"
+              error={!!form.formState.errors.email}
+              helperText={form.formState.errors.email?.message}
               sx={{ width: "100%" }}
-              error={!!errors.email}
-              helperText={errors.email ? "Email is required" : ""}
             />
           )}
-          rules={{ required: true }}
         />
         <Controller
           name="phone"
-          control={control}
-          defaultValue=""
+          control={form.control}
           render={({ field }) => (
             <TextField
               {...field}
               margin="dense"
               label="Phone"
               variant="outlined"
-              type="text"
+              error={!!form.formState.errors.phone}
+              helperText={form.formState.errors.phone?.message}
               sx={{ width: "100%" }}
-              error={!!errors.phone}
-              helperText={errors.phone ? "Phone is required" : ""}
             />
           )}
-          rules={{ required: true }}
         />
+
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Controller
             name="birth_date"
-            control={control}
-            defaultValue={null}
+            control={form.control}
             render={({ field }) => (
               <DatePicker
                 {...field}
@@ -108,57 +130,52 @@ const JobSeeker = () => {
                   textField: {
                     margin: "dense",
                     sx: { width: "100%" },
-                    error: !!errors.birth_date,
-                    helperText: errors.birth_date
-                      ? "Date of Birth is required"
-                      : "",
+                    error: !!form.formState.errors.birth_date,
+                    helperText: form.formState.errors.birth_date?.message,
                   },
                 }}
+                value={field.value ? dayjs(field.value) : null} // Ensure value is a Dayjs object
+                onChange={(date) => field.onChange(date?.toDate())} // Convert Dayjs to native Date
               />
             )}
-            rules={{ required: true }}
           />
         </LocalizationProvider>
+
         <Controller
           name="city"
-          control={control}
-          defaultValue=""
+          control={form.control}
           render={({ field }) => (
             <TextField
               {...field}
               margin="dense"
               label="City"
               variant="outlined"
-              type="text"
+              error={!!form.formState.errors.city}
+              helperText={form.formState.errors.city?.message}
               sx={{ width: "100%" }}
-              error={!!errors.city}
-              helperText={errors.city ? "City is required" : ""}
             />
           )}
-          rules={{ required: true }}
         />
+
         <Controller
           name="country"
-          control={control}
-          defaultValue=""
+          control={form.control}
           render={({ field }) => (
             <TextField
               {...field}
               margin="dense"
               label="Country"
               variant="outlined"
-              type="text"
+              error={!!form.formState.errors.country}
+              helperText={form.formState.errors.country?.message}
               sx={{ width: "100%" }}
-              error={!!errors.country}
-              helperText={errors.country ? "Country is required" : ""}
             />
           )}
-          rules={{ required: true }}
         />
+
         <Controller
           name="password"
-          control={control}
-          defaultValue=""
+          control={form.control}
           render={({ field }) => (
             <TextField
               {...field}
@@ -166,17 +183,15 @@ const JobSeeker = () => {
               label="Password"
               variant="outlined"
               type="password"
+              error={!!form.formState.errors.password}
+              helperText={form.formState.errors.password?.message}
               sx={{ width: "100%" }}
-              error={!!errors.password}
-              helperText={errors.password ? "Password is required" : ""}
             />
           )}
-          rules={{ required: true }}
         />
         <Controller
           name="confirmPassword"
-          control={control}
-          defaultValue=""
+          control={form.control}
           render={({ field }) => (
             <TextField
               {...field}
@@ -184,14 +199,11 @@ const JobSeeker = () => {
               label="Confirm Password"
               variant="outlined"
               type="password"
+              error={!!form.formState.errors.confirmPassword}
+              helperText={form.formState.errors.confirmPassword?.message}
               sx={{ width: "100%" }}
-              error={!!errors.confirmPassword}
-              helperText={
-                errors.confirmPassword ? "Confirm Password is required" : ""
-              }
             />
           )}
-          rules={{ required: true }}
         />
         <Button
           type="submit"
