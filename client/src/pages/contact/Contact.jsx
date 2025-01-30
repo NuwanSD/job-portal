@@ -98,17 +98,19 @@ const Contact = () => {
       </section>
 
       <section>
-        <Box sx={{ pt: 15 }}>
-          <iframe
-            width="100%"
-            height="400"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
-            id="gmap_canvas"
-            src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=%20Gampaha+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-          ></iframe>
-        </Box>
+        <Container>
+          <Box sx={{ py: 10 }}>
+            <iframe
+              width="100%"
+              height="400"
+              frameborder="0"
+              marginheight="0"
+              marginwidth="0"
+              id="gmap_canvas"
+              src="https://maps.google.com/maps?width=520&amp;height=400&amp;hl=en&amp;q=%20Gampaha+()&amp;t=&amp;z=12&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+            ></iframe>
+          </Box>
+        </Container>
       </section>
     </div>
   );
