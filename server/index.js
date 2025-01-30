@@ -1,6 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-require("dotenv").config();
+
+const dotenv = require("dotenv");
+dotenv.config({ path: "./.env" });
 
 const jobSeekerRoutes = require("./routes/jobSeekerRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
@@ -16,7 +18,7 @@ app.use(bodyParser.json());
 
 //Route
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("<h1>Job Portal</h1>");
 });
 
 app.use(jobSeekerRoutes);
@@ -27,6 +29,7 @@ app.use(appliedJobRoutes);
 
 //Start server
 const PORT = process.env.PORT || 3000;
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
