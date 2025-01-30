@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
 const formSchema = z.object({
-  email: z.string().email("Email is required"),
+  username: z.string().min(1, "Username is required"),
   password: z.string().min(1, "Password is required"),
 });
 
@@ -22,7 +22,7 @@ const Login = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      username: "",
       password: "",
     },
   });
@@ -46,17 +46,17 @@ const Login = () => {
             </Typography>
 
             <Controller
-              name="email"
+              name="username"
               control={form.control}
               render={({ field }) => (
                 <TextField
                   {...field}
                   margin="dense"
-                  id="email"
-                  label="Email"
+                  id="username"
+                  label="Username"
                   variant="outlined"
-                  error={!!form.formState.errors.email}
-                  helperText={form.formState.errors.email?.message}
+                  error={!!form.formState.errors.username}
+                  helperText={form.formState.errors.username?.message}
                   sx={{ width: "100%" }}
                 />
               )}
