@@ -1,8 +1,8 @@
-const AppliedJobService = require("../services/appliedJobService");
+const AppliedJobModel = require("../models/appliedJob");
 
 const AppliedJobController = {
   getAppliedJobs: (req, res) => {
-    AppliedJobService.getAllAppliedJobs((err, result) => {
+    AppliedJobModel.getAllAppliedJobs((err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
@@ -13,9 +13,12 @@ const AppliedJobController = {
   getAppliedJobById: (req, res) => {
     const posted_job_id = req.params.pid;
     const seeker_id = req.params.sid;
-    AppliedJobService.getAppliedJob(posted_job_id, seeker_id, (err, result) => {
+    AppliedJobModel.getAppliedJob(posted_job_id, seeker_id, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
+      }
+      if (result.length === 0) {
+        return res.status(404).send("Not Found");
       }
       return res.json(result);
     });
@@ -38,7 +41,7 @@ const AppliedJobController = {
       applied_date,
     };
 
-    AppliedJobService.saveAppliedJob(newAppliedJob, (err, result) => {
+    AppliedJobModel.saveAppliedJob(newAppliedJob, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
@@ -49,7 +52,7 @@ const AppliedJobController = {
   deleteAppliedJob: (req, res) => {
     const posted_job_id = req.params.pid;
     const seeeker_id = req.params.sid;
-    AppliedJobService.deleteAppliedJob(
+    AppliedJobModel.deleteAppliedJob(
       posted_job_id,
       seeeker_id,
       (err, result) => {
@@ -66,7 +69,7 @@ const AppliedJobController = {
     const seeeker_id = req.params.sid;
     const updatedData = req.body;
 
-    AppliedJobService.updateAppliedJob(
+    AppliedJobModel.updateAppliedJob(
       posted_job_id,
       seeeker_id,
       updatedData,
