@@ -1,79 +1,40 @@
 const db = require("../config/dbConfig");
 
 const JobSeekerModel = {
-  getAllSeekers: (callback) => {
+  getAll: (callback) => {
     const query = "SELECT * FROM job_seeker";
     db.query(query, callback);
   },
 
-  getSeeker: (seeker_id, callback) => {
-    const query = "SELECT * FROM job_seeker WHERE seeker_id = ?";
-    db.query(query, [seeker_id], callback);
+  getOne: (user_id, callback) => {
+    const query = "SELECT * FROM job_seeker WHERE user_id = ?";
+    db.query(query, [user_id], callback);
   },
 
-  saveSeeker: (seeker_data, callback) => {
+  saveRecord: (seeker_data, callback) => {
     const query =
-      "INSERT INTO job_seeker (seeker_id, name, email, phone, birth_date, city, country, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO job_seeker (user_id, age, description, looking_for, photo_url) VALUES (?, ?, ?, ?, ?)";
 
-    const {
-      seeker_id,
-      name,
-      email,
-      phone,
-      birth_date,
-      city,
-      country,
-      password,
-      username,
-    } = seeker_data;
+    const { user_id, age, description, looking_for, photo_url } = seeker_data;
     db.query(
       query,
-      [
-        seeker_id,
-        name,
-        email,
-        phone,
-        birth_date,
-        city,
-        country,
-        password,
-        username,
-      ],
+      [user_id, age, description, looking_for, photo_url],
       callback
     );
   },
 
-  deleteSeeker: (seeker_id, callback) => {
-    const query = "DELETE FROM job_seeker WHERE seeker_id = ?";
-    db.query(query, [seeker_id], callback);
+  deleteRecord: (user_id, callback) => {
+    const query = "DELETE FROM job_seeker WHERE user_id = ?";
+    db.query(query, [user_id], callback);
   },
 
-  updateSeeker: (seeker_id, new_data, callback) => {
+  updateRecord: (user_id, new_data, callback) => {
     const query =
-      "UPDATE job_seeker SET name = ?, email = ?, phone = ?, birth_date = ?, city = ?, country = ?, password = ?, username = ? WHERE seeker_id = ?";
-    const {
-      name,
-      email,
-      phone,
-      birth_date,
-      city,
-      country,
-      password,
-      username,
-    } = new_data;
+      "UPDATE job_seeker SET age = ?, description = ?, looking_for = ?, photo_url = ? WHERE user_id = ?";
+    const { age, description, looking_for, photo_url } = new_data;
     db.query(
       query,
-      [
-        name,
-        email,
-        phone,
-        birth_date,
-        city,
-        country,
-        password,
-        username,
-        seeker_id,
-      ],
+      [age, description, looking_for, photo_url, user_id],
       callback
     );
   },

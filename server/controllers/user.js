@@ -1,9 +1,9 @@
-const JobSeekerModel = require("../models/jobSeeker");
+const UserModel = require("../models/user");
 const bcrypt = require("bcryptjs");
 
-const JobSeekerController = {
-  getSeekers: (req, res) => {
-    JobSeekerModel.getAllSeekers((err, result) => {
+const UserController = {
+  getUsers: (req, res) => {
+    UserModel.getAllUsers((err, result) => {
       if (err) {
         return res.status(500).send("Database error");
       } else {
@@ -12,10 +12,10 @@ const JobSeekerController = {
     });
   },
 
-  getSeekerById: (req, res) => {
-    const seeker_id = req.params.id;
+  getUserById: (req, res) => {
+    const user_id = req.params.id;
 
-    JobSeekerModel.getSeeker(seeker_id, (err, result) => {
+    UserModel.getUser(user_id, (err, result) => {
       if (err) {
         return res.status(500).send("Error fetching job seeker");
       }
@@ -26,29 +26,29 @@ const JobSeekerController = {
     });
   },
 
-  saveJobSeeker: async (req, res) => {
+  saveUser: async (req, res) => {
     const {
-      seeker_id,
+      user_id,
+      username,
       name,
       email,
       phone,
-      birth_date,
       city,
       country,
       password,
-      username,
+      role,
     } = req.body;
 
     if (
-      seeker_id === undefined ||
+      user_id === undefined ||
+      username === undefined ||
       name === undefined ||
       email === undefined ||
       phone === undefined ||
-      birth_date === undefined ||
       city === undefined ||
       country === undefined ||
       password === undefined ||
-      username === undefined
+      role === undefined
     ) {
       return res.status(400).send("All field are required");
     }
@@ -58,24 +58,24 @@ const JobSeekerController = {
       const salt = await bcrypt.genSalt(10);
       const hashPassword = await bcrypt.hash(password, salt);
 
-      const newSeeker = {
-        seeker_id,
+      const newUser = {
+        user_id,
+        username,
         name,
         email,
         phone,
-        birth_date,
         city,
         country,
         password: hashPassword,
-        username,
+        role,
       };
 
-      JobSeekerModel.saveSeeker(newSeeker, (err, result) => {
+      UserModel.saveUser(newUser, (err, result) => {
         if (err) {
           return res.status(500).send("Error saving job seeker");
         }
         return res.status(201).json({
-          newSeeker,
+          newUser,
         });
       });
     } catch (err) {
@@ -83,9 +83,9 @@ const JobSeekerController = {
     }
   },
 
-  deleteJobSeeker: (req, res) => {
-    const seeer_id = req.params.id;
-    JobSeekerModel.deleteSeeker(seeer_id, (err, result) => {
+  deleteUser: (req, res) => {
+    const user_id = req.params.id;
+    UserModel.deleteUser(user_id, (err, result) => {
       if (err) {
         return res.status(500).send("Error deleting job seeker");
       }
@@ -93,10 +93,12 @@ const JobSeekerController = {
     });
   },
 
-  updateJobSeeker: (req, res) => {
-    const seeer_id = req.params.id;
+  updateUser: (req, res) => {
+    const user_id = req.params.id;
+
     const updatedData = req.body;
-    JobSeekerModel.updateSeeker(seeer_id, updatedData, (err, result) => {
+
+    UserModel.updateUser(user_id, updatedData, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
@@ -107,4 +109,4 @@ const JobSeekerController = {
   },
 };
 
-module.exports = JobSeekerController;
+module.exports = UserController;

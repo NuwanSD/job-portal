@@ -4,13 +4,12 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 
-const jobSeekerRoutes = require("./routes/jobSeekerRoutes");
-const jobSeekerDetailsRoutes = require("./routes/jobSeekerDetialsRoutes");
-const recruiterRoutes = require("./routes/recruiterRoutes");
-const recruiterDetailRoutes = require("./routes/recruiterDetailRoutes");
+const userRoutes = require("./routes/user");
+const appliedJobRoutes = require("./routes/appliedJob");
+const jobSeekerRoutes = require("./routes/jobSeeker");
+const postedJobRoutes = require("./routes/postedJob");
 const jobRoutes = require("./routes/jobRoutes");
-const postedJobRoutes = require("./routes/postedJobRoutes");
-const appliedJobRoutes = require("./routes/appliedJobRoutes");
+const recruiterRoutes = require("./routes/recruiter");
 
 const app = express();
 
@@ -23,13 +22,12 @@ app.get("/", (req, res) => {
   res.send("<h1>Job Portal</h1>");
 });
 
-app.use(jobSeekerRoutes);
-app.use(jobSeekerDetailsRoutes);
-app.use(recruiterRoutes);
-app.use(recruiterDetailRoutes);
-app.use(jobRoutes);
-app.use(postedJobRoutes);
+app.use(userRoutes);
 app.use(appliedJobRoutes);
+app.use(jobSeekerRoutes);
+app.use(postedJobRoutes);
+app.use(jobRoutes);
+app.use(recruiterRoutes);
 
 //Start server
 const PORT = process.env.PORT || 3000;

@@ -12,8 +12,8 @@ const AppliedJobController = {
 
   getAppliedJobById: (req, res) => {
     const posted_job_id = req.params.pid;
-    const seeker_id = req.params.sid;
-    AppliedJobModel.getAppliedJob(posted_job_id, seeker_id, (err, result) => {
+    const user_id = req.params.uid;
+    AppliedJobModel.getAppliedJob(posted_job_id, user_id, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
@@ -25,11 +25,11 @@ const AppliedJobController = {
   },
 
   saveAppliedJob: (req, res) => {
-    const { posted_job_id, seeker_id, applied_date } = req.body;
+    const { posted_job_id, user_id, applied_date } = req.body;
 
     if (
       posted_job_id === undefined ||
-      seeker_id === undefined ||
+      user_id === undefined ||
       applied_date === undefined
     ) {
       return res.status(400).send("All field are required");
@@ -37,7 +37,7 @@ const AppliedJobController = {
 
     const newAppliedJob = {
       posted_job_id,
-      seeker_id,
+      user_id,
       applied_date,
     };
 
@@ -51,27 +51,23 @@ const AppliedJobController = {
 
   deleteAppliedJob: (req, res) => {
     const posted_job_id = req.params.pid;
-    const seeeker_id = req.params.sid;
-    AppliedJobModel.deleteAppliedJob(
-      posted_job_id,
-      seeeker_id,
-      (err, result) => {
-        if (err) {
-          return res.status(500).send("Internal Server Error");
-        }
-        return res.status(204).send();
+    const user_id = req.params.uid;
+    AppliedJobModel.deleteAppliedJob(posted_job_id, user_id, (err, result) => {
+      if (err) {
+        return res.status(500).send("Internal Server Error");
       }
-    );
+      return res.status(204).send();
+    });
   },
 
   updateAppliedJob: (req, res) => {
     const posted_job_id = req.params.pid;
-    const seeeker_id = req.params.sid;
+    const user_id = req.params.uid;
     const updatedData = req.body;
 
     AppliedJobModel.updateAppliedJob(
       posted_job_id,
-      seeeker_id,
+      user_id,
       updatedData,
       (err, result) => {
         if (err) {

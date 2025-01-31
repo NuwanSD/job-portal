@@ -1,4 +1,4 @@
-const JobSeekerModel = require("../models/jobSeekerDetials");
+const JobSeekerModel = require("../models/jobSeeker");
 
 const JobSeekerController = {
   getAllRecord: (req, res) => {
@@ -12,9 +12,9 @@ const JobSeekerController = {
   },
 
   getRecordBySeekerId: (req, res) => {
-    const seeker_id = req.params.id;
+    const user_id = req.params.id;
 
-    JobSeekerModel.getOne(seeker_id, (err, result) => {
+    JobSeekerModel.getOne(user_id, (err, result) => {
       if (err) {
         return res.status(500).send("Error fetching job seeker");
       }
@@ -26,10 +26,10 @@ const JobSeekerController = {
   },
 
   saveRecord: (req, res) => {
-    const { seeker_id, age, description, looking_for, photo_url } = req.body;
+    const { user_id, age, description, looking_for, photo_url } = req.body;
 
     if (
-      seeker_id === undefined ||
+      user_id === undefined ||
       age === undefined ||
       description === undefined ||
       looking_for === undefined ||
@@ -39,7 +39,7 @@ const JobSeekerController = {
     }
 
     const newSeeker = {
-      seeker_id,
+      user_id,
       age,
       description,
       looking_for,
@@ -52,14 +52,14 @@ const JobSeekerController = {
       }
       return res.status(201).json({
         message: "Job seeker saved successfully",
-        seeker_id: result.seeker_id,
+        user_id: result.user_id,
       });
     });
   },
 
   deleteRecord: (req, res) => {
-    const seeer_id = req.params.id;
-    JobSeekerModel.deleteRecord(seeer_id, (err, result) => {
+    const user_id = req.params.id;
+    JobSeekerModel.deleteRecord(user_id, (err, result) => {
       if (err) {
         return res.status(500).send("Error deleting job seeker");
       }
@@ -68,9 +68,9 @@ const JobSeekerController = {
   },
 
   updateRecord: (req, res) => {
-    const seeer_id = req.params.id;
+    const user_id = req.params.id;
     const updatedData = req.body;
-    JobSeekerModel.updateRecord(seeer_id, updatedData, (err, result) => {
+    JobSeekerModel.updateRecord(user_id, updatedData, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }

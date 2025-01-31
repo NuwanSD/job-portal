@@ -1,51 +1,34 @@
 const db = require("../config/dbConfig");
 
 const Recruiter = {
-  getAllRecruiters: (callback) => {
+  getAll: (callback) => {
     const query = "SELECT * FROM recruiter";
     db.query(query, callback);
   },
 
-  getRecruiter: (recruiter_id, callback) => {
-    const query = "SELECT * FROM recruiter WHERE recruiter_id = ?";
-    db.query(query, [recruiter_id], callback);
+  getOne: (user_id, callback) => {
+    const query = "SELECT * FROM recruiter WHERE user_id = ?";
+    db.query(query, [user_id], callback);
   },
 
-  saveRecruiter: (recruiter_data, callback) => {
+  saveRecord: (recruiter_data, callback) => {
     const query =
-      "INSERT INTO recruiter (recruiter_id, name, email, phone, username, password, city, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-    const {
-      recruiter_id,
-      name,
-      email,
-      phone,
-      username,
-      password,
-      city,
-      country,
-    } = recruiter_data;
+      "INSERT INTO recruiter (user_id, description, looking_for, photo_url) VALUES (?, ?, ?, ?)";
+    const { user_id, description, looking_for, photo_url } = recruiter_data;
 
-    db.query(
-      query,
-      [recruiter_id, name, email, phone, username, password, city, country],
-      callback
-    );
+    db.query(query, [user_id, description, looking_for, photo_url], callback);
   },
 
-  deleteRecruiter: (recruiter_id, callback) => {
-    const query = "DELETE FROM recruiter WHERE recruiter_id = ?";
-    db.query(query, [recruiter_id], callback);
+  deleteRecord: (user_id, callback) => {
+    const query = "DELETE FROM recruiter WHERE user_id = ?";
+    db.query(query, [user_id], callback);
   },
 
-  updateRecruiter: (recruiter_id, new_data, callback) => {
+  updateRecord: (user_id, new_data, callback) => {
     const query =
-      "UPDATE recruiter SET name = ?, email = ?, phone = ?, username = ?, password = ?, city = ?, country = ? WHERE recruiter_id = ?";
-    const { name, email, phone, username, password, city, country } = new_data;
-    db.query(
-      query,
-      [name, email, phone, username, password, city, country, recruiter_id],
-      callback
-    );
+      "UPDATE recruiter SET description = ?, looking_for = ?, photo_url = ? WHERE user_id = ?";
+    const { description, looking_for, photo_url } = new_data;
+    db.query(query, [description, looking_for, photo_url, user_id], callback);
   },
 };
 
