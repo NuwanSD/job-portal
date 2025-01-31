@@ -1,8 +1,9 @@
 const JobSeekerService = require("../services/jobSeekerService");
+const JobSeekerModel = require("../models/jobSeeker");
 
 const JobSeekerController = {
   getSeekers: (req, res) => {
-    JobSeekerService.getAllJobSeekers((err, result) => {
+    JobSeekerModel.getAllSeekers((err, result) => {
       if (err) {
         return res.status(500).send("Database error");
       } else {
@@ -13,7 +14,8 @@ const JobSeekerController = {
 
   getSeekerById: (req, res) => {
     const seeker_id = req.params.id;
-    JobSeekerService.getJobSeekerById(seeker_id, (err, result) => {
+
+    JobSeekerModel.getSeeker(seeker_id, (err, result) => {
       if (err) {
         return res.status(500).send("Error fetching job seeker");
       }
@@ -31,10 +33,10 @@ const JobSeekerController = {
       email,
       phone,
       birth_date,
-      address,
       city,
       country,
-      bio,
+      password,
+      username,
     } = req.body;
 
     if (
@@ -43,10 +45,10 @@ const JobSeekerController = {
       email === undefined ||
       phone === undefined ||
       birth_date === undefined ||
-      address === undefined ||
       city === undefined ||
       country === undefined ||
-      bio === undefined
+      password === undefined ||
+      username === undefined
     ) {
       return res.status(400).send("All field are required");
     }
@@ -57,10 +59,10 @@ const JobSeekerController = {
       email,
       phone,
       birth_date,
-      address,
       city,
       country,
-      bio,
+      password,
+      username,
     };
 
     JobSeekerService.saveJobSeeker(newSeeker, (err, result) => {

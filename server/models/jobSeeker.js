@@ -13,21 +13,32 @@ const JobSeekerModel = {
 
   saveSeeker: (seeker_data, callback) => {
     const query =
-      "INSERT INTO job_seeker (seeker_id, name, email, phone, birth_date, address, city, country, bio) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      "INSERT INTO job_seeker (seeker_id, name, email, phone, birth_date, city, country, username, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
     const {
       seeker_id,
       name,
       email,
       phone,
       birth_date,
-      address,
       city,
       country,
-      bio,
+      password,
+      username,
     } = seeker_data;
     db.query(
       query,
-      [seeker_id, name, email, phone, birth_date, address, city, country, bio],
+      [
+        seeker_id,
+        name,
+        email,
+        phone,
+        birth_date,
+        city,
+        country,
+        password,
+        username,
+      ],
       callback
     );
   },
@@ -39,12 +50,30 @@ const JobSeekerModel = {
 
   updateSeeker: (seeker_id, new_data, callback) => {
     const query =
-      "UPDATE job_seeker SET name = ?, email = ?, phone = ?, birth_date = ?, address = ?, city = ?, country = ?, bio = ? WHERE seeker_id = ?";
-    const { name, email, phone, birth_date, address, city, country, bio } =
-      new_data;
+      "UPDATE job_seeker SET name = ?, email = ?, phone = ?, birth_date = ?, city = ?, country = ?, password = ?, username = ? WHERE seeker_id = ?";
+    const {
+      name,
+      email,
+      phone,
+      birth_date,
+      city,
+      country,
+      password,
+      username,
+    } = new_data;
     db.query(
       query,
-      [name, email, phone, birth_date, address, city, country, bio, seeker_id],
+      [
+        name,
+        email,
+        phone,
+        birth_date,
+        city,
+        country,
+        password,
+        username,
+        seeker_id,
+      ],
       callback
     );
   },
