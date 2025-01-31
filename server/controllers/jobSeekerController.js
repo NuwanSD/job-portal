@@ -1,4 +1,5 @@
 const JobSeekerModel = require("../models/jobSeeker");
+const bcrypt = require("bcryptjs");
 
 const JobSeekerController = {
   getSeekers: (req, res) => {
@@ -25,7 +26,7 @@ const JobSeekerController = {
     });
   },
 
-  saveJobSeeker: (req, res) => {
+  saveJobSeeker: async (req, res) => {
     const {
       seeker_id,
       name,
@@ -52,27 +53,34 @@ const JobSeekerController = {
       return res.status(400).send("All field are required");
     }
 
-    const newSeeker = {
-      seeker_id,
-      name,
-      email,
-      phone,
-      birth_date,
-      city,
-      country,
-      password,
-      username,
-    };
+    try {
+      //Hash passwords
+      const salt = await bcrypt.genSalt(10);
+      const hashPassword = await bcrypt.hash(password, salt);
 
-    JobSeekerModel.saveSeeker(newSeeker, (err, result) => {
-      if (err) {
-        return res.status(500).send("Error saving job seeker");
-      }
-      return res.status(201).json({
-        message: "Job seeker saved successfully",
-        seeker_id: result.seeker_id,
+      const newSeeker = {
+        seeker_id,
+        name,
+        email,
+        phone,
+        birth_date,
+        city,
+        country,
+        password: hashPassword,
+        username,
+      };
+
+      JobSeekerModel.saveSeeker(newSeeker, (err, result) => {
+        if (err) {
+          return res.status(500).send("Error saving job seeker");
+        }
+        return res.status(201).json({
+          newSeeker,
+        });
       });
-    });
+    } catch (err) {
+      return res.status(500).send("Error hashing password");
+    }
   },
 
   deleteJobSeeker: (req, res) => {

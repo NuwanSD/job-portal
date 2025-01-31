@@ -1,4 +1,5 @@
 const RecruiterModel = require("../models/recruiter");
+const bcrypt = require("bcryptjs");
 
 const RecruiterController = {
   getRecruiters: (req, res) => {
@@ -24,7 +25,7 @@ const RecruiterController = {
     });
   },
 
-  saveRecruiter: (req, res) => {
+  saveRecruiter: async (req, res) => {
     const {
       recruiter_id,
       name,
@@ -49,26 +50,35 @@ const RecruiterController = {
       return res.status(400).send("All field are required");
     }
 
-    const newRecruiter = {
-      recruiter_id,
-      name,
-      email,
-      phone,
-      username,
-      password,
-      city,
-      country,
-    };
+    try {
+      //Hash passwords
+      const salt = await bcrypt.genSalt(10);
+      const hashPassword = await bcrypt.hash(password, salt);
 
-    RecruiterModel.saveRecruiter(newRecruiter, (err, result) => {
-      if (err) {
-        return res.status(500).send("Error saving recruiter");
-      }
+      const newRecruiter = {
+        recruiter_id,
+        name,
+        email,
+        phone,
+        username,
+        password: hashPassword,
+        city,
+        country,
+      };
 
-      return res.status(201).json({
-        message: "Recruiter saved successfully",
+      RecruiterModel.saveRecruiter(newRecruiter, (err, result) => {
+        if (err) {
+          return res.status(500).send("Error saving recruiter");
+        }
+
+        return res.status(201).json({
+          newRecruiter,
+          message: "Recruiter saved successfully",
+        });
       });
-    });
+    } catch (err) {
+      return res.status(500).send("Error hashing password");
+    }
   },
 
   deleteRecruiter: (req, res) => {
