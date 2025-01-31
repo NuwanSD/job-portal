@@ -1,5 +1,6 @@
 const UserModel = require("../models/user");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const UserController = {
   getUsers: (req, res) => {
@@ -130,10 +131,13 @@ const UserController = {
           return res.status(401).send("Invalid credentials");
         }
 
-        //Successful login
-        return res
-          .status(200)
-          .json({ message: "Login successful", userId: user.user_id });
+        //Create and assign a token
+        const token = jwt.sign(
+          { userId: user.user_id },
+          process.env.ACCESS_TOKEN_SECRET
+        );
+
+        res.header("auth-token", token).send(token);
       });
     } catch (error) {
       return res.status(500).send("Internal Server Error");
