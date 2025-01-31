@@ -1,8 +1,9 @@
 const RecruiterService = require("../services/recruiterService");
+const RecruiterModel = require("../models/recruiter");
 
 const RecruiterController = {
   getRecruiters: (req, res) => {
-    RecruiterService.getAllRecruiters((err, result) => {
+    RecruiterModel.getAllRecruiters((err, result) => {
       if (err) {
         return res.status(500).send("Database error");
       }
@@ -13,7 +14,7 @@ const RecruiterController = {
 
   getRecruiterById: (req, res) => {
     const recruiter_id = req.params.id;
-    RecruiterService.getRecruiterById(recruiter_id, (err, result) => {
+    RecruiterModel.getRecruiter(recruiter_id, (err, result) => {
       if (err) {
         return res.status(500).send("Error fetching recruiter");
       }
@@ -25,15 +26,26 @@ const RecruiterController = {
   },
 
   saveRecruiter: (req, res) => {
-    const { recruiter_id, name, email, phone, address, description } = req.body;
+    const {
+      recruiter_id,
+      name,
+      email,
+      phone,
+      username,
+      password,
+      city,
+      country,
+    } = req.body;
 
     if (
-      !recruiter_id ||
-      !name ||
-      !email ||
-      !phone ||
-      !address ||
-      !description
+      recruiter_id === undefined ||
+      name === undefined ||
+      email === undefined ||
+      phone === undefined ||
+      username === undefined ||
+      password === undefined ||
+      city === undefined ||
+      country === undefined
     ) {
       return res.status(400).send("All field are required");
     }
@@ -43,11 +55,13 @@ const RecruiterController = {
       name,
       email,
       phone,
-      address,
-      description,
+      username,
+      password,
+      city,
+      country,
     };
 
-    RecruiterService.saveRecruiter(newRecruiter, (err, result) => {
+    RecruiterModel.saveRecruiter(newRecruiter, (err, result) => {
       if (err) {
         return res.status(500).send("Error saving recruiter");
       }
@@ -60,7 +74,7 @@ const RecruiterController = {
 
   deleteRecruiter: (req, res) => {
     const recruiter_id = req.params.id;
-    RecruiterService.deleteRecruiter(recruiter_id, (err, result) => {
+    RecruiterModel.deleteRecruiter(recruiter_id, (err, result) => {
       if (err) {
         return res.status(500).send("Error deleting recruiter");
       }
@@ -72,7 +86,7 @@ const RecruiterController = {
   updateRecruiter: (req, res) => {
     const recruiter_id = req.params.id;
     const updatedRecruiterData = req.body;
-    RecruiterService.updateRecruiter(
+    RecruiterModel.updateRecruiter(
       recruiter_id,
       updatedRecruiterData,
       (err, result) => {

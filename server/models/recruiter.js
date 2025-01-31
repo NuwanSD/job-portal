@@ -13,13 +13,21 @@ const Recruiter = {
 
   saveRecruiter: (recruiter_data, callback) => {
     const query =
-      "INSERT INTO recruiter (recruiter_id, name, email, phone, address, description) VALUES (?, ?, ?, ?, ?, ?)";
-    const { recruiter_id, name, email, phone, address, description } =
-      recruiter_data;
+      "INSERT INTO recruiter (recruiter_id, name, email, phone, username, password, city, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    const {
+      recruiter_id,
+      name,
+      email,
+      phone,
+      username,
+      password,
+      city,
+      country,
+    } = recruiter_data;
 
     db.query(
       query,
-      [recruiter_id, name, email, phone, address, description],
+      [recruiter_id, name, email, phone, username, password, city, country],
       callback
     );
   },
@@ -31,11 +39,11 @@ const Recruiter = {
 
   updateRecruiter: (recruiter_id, new_data, callback) => {
     const query =
-      "UPDATE recruiter SET name = ?, email = ?, phone = ?, address = ?, description = ? WHERE recruiter_id = ?";
-    const { name, email, phone, address, description } = new_data;
+      "UPDATE recruiter SET name = ?, email = ?, phone = ?, username = ?, password = ?, city = ?, country = ? WHERE recruiter_id = ?";
+    const { name, email, phone, username, password, city, country } = new_data;
     db.query(
       query,
-      [name, email, phone, address, description, recruiter_id],
+      [name, email, phone, username, password, city, country, recruiter_id],
       callback
     );
   },
