@@ -4,10 +4,13 @@ const JobSeekerDetailsController = require("../controllers/jobSeekerDetailsContr
 
 const router = express.Router();
 
-router.get("/details", JobSeekerDetailsController.getAllRecord);
-router.get("/details/:id", JobSeekerDetailsController.getRecordBySeekerId);
-router.post("/details", JobSeekerDetailsController.saveRecord);
-router.delete("/details/:id", JobSeekerDetailsController.deleteRecord);
-router.patch("/details/:id", JobSeekerDetailsController.updateRecord);
+router.get("/seeker-details", JobSeekerDetailsController.getAllRecord);
+router.get(
+  "/seeker-details/:id",
+  JobSeekerDetailsController.getRecordBySeekerId
+);
+router.post("/seeker-details", JobSeekerDetailsController.saveRecord);
+router.delete("/seeker-details/:id", JobSeekerDetailsController.deleteRecord);
+router.patch("/seeker-details/:id", JobSeekerDetailsController.updateRecord);
 
 module.exports = router;
