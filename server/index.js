@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 
+//Import all routes
 const userRoutes = require("./routes/user");
 const appliedJobRoutes = require("./routes/appliedJob");
 const jobSeekerRoutes = require("./routes/jobSeeker");
@@ -17,7 +18,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//Route
+//Usage of all routes
 app.get("/", (req, res) => {
   res.send("<h1>Job Portal</h1>");
 });

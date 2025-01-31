@@ -49,6 +49,11 @@ const JobSeekerModel = {
       callback
     );
   },
+
+  getUserByUsername: (username, callback) => {
+    const query = "SELECT * FROM user WHERE username = ?";
+    db.query(query, [username], callback);
+  },
 };
 
 module.exports = JobSeekerModel;

@@ -107,6 +107,38 @@ const UserController = {
         .json({ message: "Job Seeker updated successfully" });
     });
   },
+
+  userLogin: async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+      //Check if user exists
+      UserModel.getUserByUsername(username, async (err, result) => {
+        if (err) {
+          return res.status(500).send("Internal Server Error");
+        }
+
+        if (result.length === 0) {
+          return res.status(404).send("User not found");
+        }
+
+        //Password is correct
+        const user = result[0];
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (isPasswordValid) {
+          return res.status(401).send("Invalid credentials");
+        }
+
+        //Successful login
+        return res
+          .status(200)
+          .json({ message: "Login successful", userId: user.user_id });
+      });
+    } catch (error) {
+      return res.status(500).send("Internal Server Error");
+    }
+  },
 };
 
 module.exports = UserController;
