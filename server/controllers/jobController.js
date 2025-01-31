@@ -1,8 +1,8 @@
-const JobService = require("../services/jobService");
+const JobModel = require("../models/job");
 
 const JobController = {
   getJobs: (req, res) => {
-    JobService.getAllJobs((err, result) => {
+    JobModel.getAllJobs((err, result) => {
       if (err) {
         return res.status(500).send("Database error");
       }
@@ -13,11 +13,14 @@ const JobController = {
 
   getJobById: (req, res) => {
     const job_id = req.params.id;
-    JobService.getJobById(job_id, (err, result) => {
+    JobModel.getJob(job_id, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
 
+      if (result.length === 0) {
+        return res.status(404).send("Not Found");
+      }
       return res.json(result);
     });
   },
@@ -31,7 +34,7 @@ const JobController = {
 
     const newJob = { job_id, title, description };
 
-    JobService.saveJob(newJob, (err, result) => {
+    JobModel.saveJob(newJob, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
@@ -42,7 +45,7 @@ const JobController = {
 
   deleteJob: (req, res) => {
     const job_id = req.params.id;
-    JobService.deleteJobById(job_id, (err, result) => {
+    JobModel.deleteJob(job_id, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
@@ -55,7 +58,7 @@ const JobController = {
     const job_id = req.params.id;
     const updatedData = req.body;
 
-    JobService.updateJobData(job_id, updatedData, (err, result) => {
+    JobModel.updateJob(job_id, updatedData, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
