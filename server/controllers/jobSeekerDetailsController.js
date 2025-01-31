@@ -1,8 +1,8 @@
-const JobSeekerModel = require("../models/jobSeeker");
+const JobSeekerModel = require("../models/jobSeekerDetials");
 
 const JobSeekerController = {
-  getSeekers: (req, res) => {
-    JobSeekerModel.getAllSeekers((err, result) => {
+  getAllRecord: (req, res) => {
+    JobSeekerModel.getAll((err, result) => {
       if (err) {
         return res.status(500).send("Database error");
       } else {
@@ -11,10 +11,10 @@ const JobSeekerController = {
     });
   },
 
-  getSeekerById: (req, res) => {
+  getRecordBySeekerId: (req, res) => {
     const seeker_id = req.params.id;
 
-    JobSeekerModel.getSeeker(seeker_id, (err, result) => {
+    JobSeekerModel.getOne(seeker_id, (err, result) => {
       if (err) {
         return res.status(500).send("Error fetching job seeker");
       }
@@ -25,46 +25,28 @@ const JobSeekerController = {
     });
   },
 
-  saveJobSeeker: (req, res) => {
-    const {
-      seeker_id,
-      name,
-      email,
-      phone,
-      birth_date,
-      city,
-      country,
-      password,
-      username,
-    } = req.body;
+  saveRecord: (req, res) => {
+    const { seeker_id, age, description, looking_for, photo_url } = req.body;
 
     if (
       seeker_id === undefined ||
-      name === undefined ||
-      email === undefined ||
-      phone === undefined ||
-      birth_date === undefined ||
-      city === undefined ||
-      country === undefined ||
-      password === undefined ||
-      username === undefined
+      age === undefined ||
+      description === undefined ||
+      looking_for === undefined ||
+      photo_url === undefined
     ) {
       return res.status(400).send("All field are required");
     }
 
     const newSeeker = {
       seeker_id,
-      name,
-      email,
-      phone,
-      birth_date,
-      city,
-      country,
-      password,
-      username,
+      age,
+      description,
+      looking_for,
+      photo_url,
     };
 
-    JobSeekerModel.saveSeeker(newSeeker, (err, result) => {
+    JobSeekerModel.saveRecord(newSeeker, (err, result) => {
       if (err) {
         return res.status(500).send("Error saving job seeker");
       }
@@ -75,9 +57,9 @@ const JobSeekerController = {
     });
   },
 
-  deleteJobSeeker: (req, res) => {
+  deleteRecord: (req, res) => {
     const seeer_id = req.params.id;
-    JobSeekerModel.deleteSeeker(seeer_id, (err, result) => {
+    JobSeekerModel.deleteRecord(seeer_id, (err, result) => {
       if (err) {
         return res.status(500).send("Error deleting job seeker");
       }
@@ -85,10 +67,10 @@ const JobSeekerController = {
     });
   },
 
-  updateJobSeeker: (req, res) => {
+  updateRecord: (req, res) => {
     const seeer_id = req.params.id;
     const updatedData = req.body;
-    JobSeekerModel.updateSeeker(seeer_id, updatedData, (err, result) => {
+    JobSeekerModel.updateRecord(seeer_id, updatedData, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }

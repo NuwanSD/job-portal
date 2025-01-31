@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./.env" });
 
 const jobSeekerRoutes = require("./routes/jobSeekerRoutes");
+const jobSeekerDetailsRoutes = require("./routes/jobSeekerDetialsRoutes");
 const recruiterRoutes = require("./routes/recruiterRoutes");
 const jobRoutes = require("./routes/jobRoutes");
 const postedJobRoutes = require("./routes/postedJobRoutes");
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.use(jobSeekerRoutes);
+app.use(jobSeekerDetailsRoutes);
 app.use(recruiterRoutes);
 app.use(jobRoutes);
 app.use(postedJobRoutes);
