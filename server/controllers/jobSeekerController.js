@@ -1,4 +1,3 @@
-const JobSeekerService = require("../services/jobSeekerService");
 const JobSeekerModel = require("../models/jobSeeker");
 
 const JobSeekerController = {

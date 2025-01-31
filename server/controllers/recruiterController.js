@@ -1,4 +1,3 @@
-const RecruiterService = require("../services/recruiterService");
 const RecruiterModel = require("../models/recruiter");
 
 const RecruiterController = {
