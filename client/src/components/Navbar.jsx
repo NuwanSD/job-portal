@@ -19,6 +19,7 @@ const pages = [
   { name: "Recruiters", path: "/recruiters" },
   { name: "Candidates", path: "/candidate" },
   { name: "Contact Us", path: "/contact" },
+  { name: "Dashboard", path: "/dashboard/:id" },
 ];
 
 const Navbar = () => {
@@ -71,6 +72,7 @@ const Navbar = () => {
               fontWeight: 700,
               color: "#1976D2",
               textDecoration: "none",
+              textTransform: "uppercase",
             }}
           >
             JobSpotlight
@@ -112,6 +114,7 @@ const Navbar = () => {
                       textAlign: "center",
                       textDecoration: "none",
                       color: "inherit",
+                      textTransform: "uppercase",
                     }}
                   >
                     {page.name}
@@ -140,6 +143,7 @@ const Navbar = () => {
               fontWeight: 700,
               color: "#1976D2",
               textDecoration: "none",
+              textTransform: "uppercase",
             }}
           >
             JobSpotlight
@@ -155,9 +159,7 @@ const Navbar = () => {
                   my: 2,
                   color: "primary",
                   display: "block",
-                  textTransform: "none",
                   fontWeight: "bold",
-                  fontSize: "16px",
                 }}
               >
                 {page.name}
