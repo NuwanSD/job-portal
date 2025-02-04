@@ -1,220 +1,220 @@
-import React from "react";
-import { Box, TextField, Button } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// import React from "react";
+// import { Box, TextField, Button } from "@mui/material";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
-import { useForm, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import dayjs from "dayjs";
+// import { useForm, Controller } from "react-hook-form";
+// import { zodResolver } from "@hookform/resolvers/zod";
+// import { z } from "zod";
+// import dayjs from "dayjs";
 
-const formSchema = z
-  .object({
-    username: z.string().min(1, "Username is required"),
-    name: z.string().min(1, "Name is required"),
-    email: z.string().email("Invalid email address"),
-    phone: z.string().min(1, "Phone is required"),
-    birth_date: z.instanceof(Date),
-    city: z.string().min(1, "City is required"),
-    country: z.string().min(1, "Country is required"),
-    password: z.string().min(1, "Password must be at least 6 characters"),
-    confirmPassword: z
-      .string()
-      .min(1, "Confirm Password must be at least 6 characters"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"], // Path of error
-  });
+// const formSchema = z
+//   .object({
+//     username: z.string().min(1, "Username is required"),
+//     name: z.string().min(1, "Name is required"),
+//     email: z.string().email("Invalid email address"),
+//     phone: z.string().min(1, "Phone is required"),
+//     birth_date: z.instanceof(Date),
+//     city: z.string().min(1, "City is required"),
+//     country: z.string().min(1, "Country is required"),
+//     password: z.string().min(1, "Password must be at least 6 characters"),
+//     confirmPassword: z
+//       .string()
+//       .min(1, "Confirm Password must be at least 6 characters"),
+//   })
+//   .refine((data) => data.password === data.confirmPassword, {
+//     message: "Passwords don't match",
+//     path: ["confirmPassword"], // Path of error
+//   });
 
-const JobSeeker = () => {
-  const form = useForm({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-      name: "",
-      email: "",
-      phone: "",
-      birth_date: null,
-      city: "",
-      country: "",
-      password: "",
-      confirmPassword: "",
-    },
-  });
+// const JobSeeker = () => {
+//   const form = useForm({
+//     resolver: zodResolver(formSchema),
+//     defaultValues: {
+//       username: "",
+//       name: "",
+//       email: "",
+//       phone: "",
+//       birth_date: null,
+//       city: "",
+//       country: "",
+//       password: "",
+//       confirmPassword: "",
+//     },
+//   });
 
-  const onSubmit = (values) => {
-    console.log(values);
+//   const onSubmit = (values) => {
+//     console.log(values);
 
-    form.reset();
-  };
+//     form.reset();
+//   };
 
-  return (
-    <Box sx={{ display: "flex", justifyContent: "center" }}>
-      <Box
-        component="form"
-        onSubmit={form.handleSubmit(onSubmit)}
-        sx={{ width: "400px", borderRadius: 2 }}
-      >
-        <Controller
-          name="username"
-          control={form.control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              margin="dense"
-              label="Username"
-              variant="outlined"
-              error={!!form.formState.errors.username}
-              helperText={form.formState.errors.username?.message}
-              sx={{ width: "100%" }}
-            />
-          )}
-        />
-        <Controller
-          name="name"
-          control={form.control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              margin="dense"
-              label="Name"
-              variant="outlined"
-              error={!!form.formState.errors.name}
-              helperText={form.formState.errors.name?.message}
-              sx={{ width: "100%" }}
-            />
-          )}
-        />
-        <Controller
-          name="email"
-          control={form.control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              margin="dense"
-              label="Email"
-              variant="outlined"
-              error={!!form.formState.errors.email}
-              helperText={form.formState.errors.email?.message}
-              sx={{ width: "100%" }}
-            />
-          )}
-        />
-        <Controller
-          name="phone"
-          control={form.control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              margin="dense"
-              label="Phone"
-              variant="outlined"
-              error={!!form.formState.errors.phone}
-              helperText={form.formState.errors.phone?.message}
-              sx={{ width: "100%" }}
-            />
-          )}
-        />
+//   return (
+//     <Box sx={{ display: "flex", justifyContent: "center" }}>
+//       <Box
+//         component="form"
+//         onSubmit={form.handleSubmit(onSubmit)}
+//         sx={{ width: "400px", borderRadius: 2 }}
+//       >
+//         <Controller
+//           name="username"
+//           control={form.control}
+//           render={({ field }) => (
+//             <TextField
+//               {...field}
+//               margin="dense"
+//               label="Username"
+//               variant="outlined"
+//               error={!!form.formState.errors.username}
+//               helperText={form.formState.errors.username?.message}
+//               sx={{ width: "100%" }}
+//             />
+//           )}
+//         />
+//         <Controller
+//           name="name"
+//           control={form.control}
+//           render={({ field }) => (
+//             <TextField
+//               {...field}
+//               margin="dense"
+//               label="Name"
+//               variant="outlined"
+//               error={!!form.formState.errors.name}
+//               helperText={form.formState.errors.name?.message}
+//               sx={{ width: "100%" }}
+//             />
+//           )}
+//         />
+//         <Controller
+//           name="email"
+//           control={form.control}
+//           render={({ field }) => (
+//             <TextField
+//               {...field}
+//               margin="dense"
+//               label="Email"
+//               variant="outlined"
+//               error={!!form.formState.errors.email}
+//               helperText={form.formState.errors.email?.message}
+//               sx={{ width: "100%" }}
+//             />
+//           )}
+//         />
+//         <Controller
+//           name="phone"
+//           control={form.control}
+//           render={({ field }) => (
+//             <TextField
+//               {...field}
+//               margin="dense"
+//               label="Phone"
+//               variant="outlined"
+//               error={!!form.formState.errors.phone}
+//               helperText={form.formState.errors.phone?.message}
+//               sx={{ width: "100%" }}
+//             />
+//           )}
+//         />
 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Controller
-            name="birth_date"
-            control={form.control}
-            render={({ field }) => (
-              <DatePicker
-                {...field}
-                label="Date of Birth"
-                slotProps={{
-                  textField: {
-                    margin: "dense",
-                    sx: { width: "100%" },
-                    error: !!form.formState.errors.birth_date,
-                    helperText: form.formState.errors.birth_date?.message,
-                  },
-                }}
-                value={field.value ? dayjs(field.value) : null} // Ensure value is a Dayjs object
-                onChange={(date) => field.onChange(date?.toDate())} // Convert Dayjs to native Date
-              />
-            )}
-          />
-        </LocalizationProvider>
+//         <LocalizationProvider dateAdapter={AdapterDayjs}>
+//           <Controller
+//             name="birth_date"
+//             control={form.control}
+//             render={({ field }) => (
+//               <DatePicker
+//                 {...field}
+//                 label="Date of Birth"
+//                 slotProps={{
+//                   textField: {
+//                     margin: "dense",
+//                     sx: { width: "100%" },
+//                     error: !!form.formState.errors.birth_date,
+//                     helperText: form.formState.errors.birth_date?.message,
+//                   },
+//                 }}
+//                 value={field.value ? dayjs(field.value) : null} // Ensure value is a Dayjs object
+//                 onChange={(date) => field.onChange(date?.toDate())} // Convert Dayjs to native Date
+//               />
+//             )}
+//           />
+//         </LocalizationProvider>
 
-        <Controller
-          name="city"
-          control={form.control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              margin="dense"
-              label="City"
-              variant="outlined"
-              error={!!form.formState.errors.city}
-              helperText={form.formState.errors.city?.message}
-              sx={{ width: "100%" }}
-            />
-          )}
-        />
+//         <Controller
+//           name="city"
+//           control={form.control}
+//           render={({ field }) => (
+//             <TextField
+//               {...field}
+//               margin="dense"
+//               label="City"
+//               variant="outlined"
+//               error={!!form.formState.errors.city}
+//               helperText={form.formState.errors.city?.message}
+//               sx={{ width: "100%" }}
+//             />
+//           )}
+//         />
 
-        <Controller
-          name="country"
-          control={form.control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              margin="dense"
-              label="Country"
-              variant="outlined"
-              error={!!form.formState.errors.country}
-              helperText={form.formState.errors.country?.message}
-              sx={{ width: "100%" }}
-            />
-          )}
-        />
+//         <Controller
+//           name="country"
+//           control={form.control}
+//           render={({ field }) => (
+//             <TextField
+//               {...field}
+//               margin="dense"
+//               label="Country"
+//               variant="outlined"
+//               error={!!form.formState.errors.country}
+//               helperText={form.formState.errors.country?.message}
+//               sx={{ width: "100%" }}
+//             />
+//           )}
+//         />
 
-        <Controller
-          name="password"
-          control={form.control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              margin="dense"
-              label="Password"
-              variant="outlined"
-              type="password"
-              error={!!form.formState.errors.password}
-              helperText={form.formState.errors.password?.message}
-              sx={{ width: "100%" }}
-            />
-          )}
-        />
-        <Controller
-          name="confirmPassword"
-          control={form.control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              margin="dense"
-              label="Confirm Password"
-              variant="outlined"
-              type="password"
-              error={!!form.formState.errors.confirmPassword}
-              helperText={form.formState.errors.confirmPassword?.message}
-              sx={{ width: "100%" }}
-            />
-          )}
-        />
-        <Button
-          type="submit"
-          variant="contained"
-          sx={{ mt: 1, width: "100%", textTransform: "none" }}
-        >
-          Sign Up
-        </Button>
-      </Box>
-    </Box>
-  );
-};
+//         <Controller
+//           name="password"
+//           control={form.control}
+//           render={({ field }) => (
+//             <TextField
+//               {...field}
+//               margin="dense"
+//               label="Password"
+//               variant="outlined"
+//               type="password"
+//               error={!!form.formState.errors.password}
+//               helperText={form.formState.errors.password?.message}
+//               sx={{ width: "100%" }}
+//             />
+//           )}
+//         />
+//         <Controller
+//           name="confirmPassword"
+//           control={form.control}
+//           render={({ field }) => (
+//             <TextField
+//               {...field}
+//               margin="dense"
+//               label="Confirm Password"
+//               variant="outlined"
+//               type="password"
+//               error={!!form.formState.errors.confirmPassword}
+//               helperText={form.formState.errors.confirmPassword?.message}
+//               sx={{ width: "100%" }}
+//             />
+//           )}
+//         />
+//         <Button
+//           type="submit"
+//           variant="contained"
+//           sx={{ mt: 1, width: "100%", textTransform: "none" }}
+//         >
+//           Sign Up
+//         </Button>
+//       </Box>
+//     </Box>
+//   );
+// };
 
-export default JobSeeker;
+// export default JobSeeker;

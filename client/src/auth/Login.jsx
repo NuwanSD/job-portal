@@ -35,10 +35,16 @@ const Login = () => {
 
   return (
     <div>
-      <Box sx={{ py: 10, display: "flex", justifyContent: "center" }}>
+      <Box
+        sx={{
+          py: 10,
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <Card variant="outlined" sx={{ width: "400px", borderRadius: 2 }}>
           <CardContent component="form" onSubmit={form.handleSubmit(onSubmit)}>
-            <Typography variant="h5" gutterBottom>
+            <Typography variant="h5" gutterBottom sx={{ textAlign: "center" }}>
               Login
             </Typography>
             <Typography gutterBottom variant="body2" color="textSecondary">
@@ -90,9 +96,8 @@ const Login = () => {
             <Divider sx={{ my: 2 }} />
 
             <Typography gutterBottom variant="body2" color="textSecondary">
-              Don't have an account? , please register here
+              Don't have an account? <Link href="/signup">Sign up</Link>
             </Typography>
-            <Link href="/signUp">Sign Up</Link>
           </CardContent>
         </Card>
       </Box>

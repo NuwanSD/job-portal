@@ -170,7 +170,7 @@ const Navbar = () => {
             <Button variant="outlined" LinkComponent="a" href="/login">
               Login
             </Button>
-            <Button variant="contained" LinkComponent="a" href="/signUp">
+            <Button variant="contained" LinkComponent="a" href="/signup">
               Sign Up
             </Button>
           </Box>
