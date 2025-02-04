@@ -21,15 +21,18 @@ import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import NotFound from "./components/NotFound";
 import Register from "./auth/Register";
+import Dashboard from "./pages/Dashboard/Dashboard";
 
 const AppContent = () => {
   const location = useLocation();
-  const noNavbarFooterPaths = ["/login", "/signup", "/register"];
+  const noNavbarFooterPaths = ["/login", "/signup", "/register", "*"];
+
+  const isNoNavbarFooter = noNavbarFooterPaths.includes(location.pathname);
 
   return (
     <div id="root">
       <div className="main">
-        {!noNavbarFooterPaths.includes(location.pathname) && <Navbar />}
+        {!isNoNavbarFooter && <Navbar />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/job" element={<Job />} />
@@ -45,10 +48,11 @@ const AppContent = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/dashboard/:id" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-      {!noNavbarFooterPaths.includes(location.pathname) && <Footer />}
+      {!isNoNavbarFooter && <Footer />}
     </div>
   );
 };
