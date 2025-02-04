@@ -17,13 +17,14 @@ import Job from "./pages/FindJobs/Job";
 import JobDetail from "./pages/FindJobs/JobDetail";
 import RecruiterProfile from "./pages/recruiters/RecruiterProfile";
 import CandidateProfile from "./pages/candidates/CandidateProfile";
-import Login from "./auth/login";
+import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import NotFound from "./components/NotFound";
+import Register from "./auth/Register";
 
 const AppContent = () => {
   const location = useLocation();
-  const noNavbarFooterPaths = ["/login", "/signUp"];
+  const noNavbarFooterPaths = ["/login", "/signup", "/register"];
 
   return (
     <div id="root">
@@ -42,7 +43,8 @@ const AppContent = () => {
           />
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/register" element={<Register />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
