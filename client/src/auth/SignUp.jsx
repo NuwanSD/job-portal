@@ -35,6 +35,7 @@ const SignUp = () => {
         flexDirection: "column",
         justifyContent: "center",
         height: "100vh",
+        background: "#EFF3FD",
       }}
     >
       <Typography variant="h4">Join as a job seeker or recruiter</Typography>
@@ -45,6 +46,7 @@ const SignUp = () => {
           sx={{
             display: "flex",
             mb: { xs: 2, md: 0 },
+            boxShadow: 2,
             "&:hover": { border: "2px solid black" },
             border: selectedRole === "recruiter" ? "2px solid black" : "",
           }}
@@ -75,6 +77,7 @@ const SignUp = () => {
           variant="outlined"
           sx={{
             display: "flex",
+            boxShadow: 2,
             "&:hover": { border: "2px solid black" },
             border: selectedRole === "candidate" ? "2px solid black" : "",
           }}

@@ -8,6 +8,7 @@ import {
   Button,
   Link,
   Divider,
+  Checkbox,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -40,63 +41,93 @@ const Login = () => {
           py: 10,
           display: "flex",
           justifyContent: "center",
+          background: "#EFF3FD",
         }}
       >
-        <Card variant="outlined" sx={{ width: "400px", borderRadius: 2 }}>
-          <CardContent component="form" onSubmit={form.handleSubmit(onSubmit)}>
-            <Typography variant="h5" gutterBottom sx={{ textAlign: "center" }}>
-              Login
+        <Card
+          variant="outlined"
+          sx={{
+            width: "450px",
+            borderRadius: 2,
+            textAlign: "center",
+            boxShadow: 2,
+          }}
+        >
+          <CardContent
+            component="form"
+            onSubmit={form.handleSubmit(onSubmit)}
+            sx={{ py: 5, px: 4 }}
+          >
+            <Typography variant="h5" sx={{ fontWeight: "medium" }} gutterBottom>
+              JOBSPOTLIGHT
             </Typography>
+
             <Typography gutterBottom variant="body2" color="textSecondary">
-              Enter your email and password below to login to your account
+              Fueling Ambitions, Shaping Futures
             </Typography>
 
-            <Controller
-              name="username"
-              control={form.control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  margin="dense"
-                  id="username"
-                  label="Username"
-                  variant="outlined"
-                  error={!!form.formState.errors.username}
-                  helperText={form.formState.errors.username?.message}
-                  sx={{ width: "100%" }}
-                />
-              )}
-            />
+            <Box sx={{ py: 2 }}>
+              <Controller
+                name="username"
+                control={form.control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    margin="dense"
+                    id="username"
+                    label="Username"
+                    variant="outlined"
+                    error={!!form.formState.errors.username}
+                    helperText={form.formState.errors.username?.message}
+                    sx={{ width: "100%" }}
+                  />
+                )}
+              />
 
-            <Controller
-              name="password"
-              control={form.control}
-              render={({ field }) => (
-                <TextField
-                  {...field}
-                  margin="dense"
-                  id="password"
-                  label="Password"
-                  variant="outlined"
-                  error={!!form.formState.errors.password}
-                  helperText={form.formState.errors.password?.message}
-                  sx={{ width: "100%" }}
-                />
-              )}
-            />
+              <Controller
+                name="password"
+                control={form.control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    margin="dense"
+                    id="password"
+                    label="Password"
+                    variant="outlined"
+                    error={!!form.formState.errors.password}
+                    helperText={form.formState.errors.password?.message}
+                    sx={{ width: "100%" }}
+                  />
+                )}
+              />
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
+            >
+              <Box>
+                <Checkbox sx={{ pl: 0 }} />
+                Remember this Device
+              </Box>
+              <Button sx={{ textTransform: "none" }}>Frogot Password?</Button>
+            </Box>
 
             <Button
               type="submit"
               variant="contained"
+              size="large"
               sx={{ mt: 1, width: "100%", textTransform: "none" }}
             >
-              Login
+              Sign In
             </Button>
 
-            <Divider sx={{ my: 2 }} />
+            <Divider sx={{ my: 3 }} />
 
             <Typography gutterBottom variant="body2" color="textSecondary">
-              Don't have an account? <Link href="/signup">Sign up</Link>
+              New to JOBSPOTLIGHT? <Link href="/signup">Sign up</Link>
             </Typography>
           </CardContent>
         </Card>
