@@ -1,11 +1,15 @@
 import React from "react";
 import {
+  Avatar,
   Box,
+  Button,
   Card,
   CardActionArea,
   CardContent,
   Typography,
 } from "@mui/material";
+import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
+import RecentlyAppliedJobs from "./RecentlyAppliedJobs";
 
 const Overview = () => {
   return (
@@ -14,6 +18,7 @@ const Overview = () => {
       <Typography color="textSecondary">
         Hello is your daily activities and job alerts
       </Typography>
+
       <Box
         sx={{
           py: 4,
@@ -63,10 +68,57 @@ const Overview = () => {
           </CardActionArea>
         </Card>
       </Box>
-      <Box>
-        <Card variant="outlined">
-          <CardContent>Profile</CardContent>
+
+      <Box sx={{ py: 2 }}>
+        <Card variant="outlined" sx={{ background: "#E05151", color: "white" }}>
+          <CardContent
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+              <Avatar
+                alt="Travis Howard"
+                src="/static/images/avatar/2.jpg"
+                sx={{ width: 56, height: 56 }}
+              />
+              <Box>
+                <Typography>Your profile editing is not completed</Typography>
+                <Typography variant="caption" color="#D9DFC6">
+                  Complete your profile editing & build your custom Resume
+                </Typography>
+              </Box>
+            </Box>
+            <Box>
+              <Button
+                variant="contained"
+                endIcon={<ArrowForwardOutlinedIcon />}
+                sx={{ background: "white", color: "#E05151" }}
+              >
+                Edit Profile
+              </Button>
+            </Box>
+          </CardContent>
         </Card>
+      </Box>
+
+      <Box sx={{ py: 2 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
+          <Typography variant="h6">Recently Applied</Typography>
+          <Button endIcon={<ArrowForwardOutlinedIcon />}>View all</Button>
+        </Box>
+      </Box>
+
+      <Box sx={{ py: 2 }}>
+        <RecentlyAppliedJobs />
       </Box>
     </Box>
   );
