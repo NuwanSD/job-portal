@@ -22,6 +22,7 @@ import SignUp from "./auth/SignUp";
 import NotFound from "./components/NotFound";
 import Register from "./auth/Register";
 import Dashboard from "./pages/Dashboard/Dashboard";
+import Profile from "./pages/editProfile/Profile";
 
 const AppContent = () => {
   const location = useLocation();
@@ -49,6 +50,7 @@ const AppContent = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard/:id" element={<Dashboard />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
