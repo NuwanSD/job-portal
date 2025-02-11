@@ -34,7 +34,7 @@ const Dashboard = () => {
       <Box>
         <Sidebar setSelectedTab={setSelectedTab} />
       </Box>
-
+      <Divider orientation="vertical" flexItem />
       <Box sx={{ flexGrow: 1 }}>{renderContent()}</Box>
     </Container>
   );
