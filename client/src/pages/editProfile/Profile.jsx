@@ -61,11 +61,11 @@ const Profile = () => {
   const renderContent = () => {
     switch (value) {
       case 0:
-        return <Personal />;
+        return <Personal key="personal" />;
       case 1:
-        return <FileUpload />;
+        return <FileUpload key="fileUpload" />;
       default:
-        return <Personal />;
+        return <Personal key="default" />;
     }
   };
 

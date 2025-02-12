@@ -15,17 +15,17 @@ const Dashboard = () => {
   const renderContent = () => {
     switch (selectedTab) {
       case "Overview":
-        return <Overview />;
+        return <Overview key="overview" />;
       case "Applied Jobs":
-        return <AppliedJob />;
+        return <AppliedJob key="appliedJob" />;
       case "Favorite Jobs":
-        return <FavoriteJobs />;
+        return <FavoriteJobs key="favoriteJob" />;
       case "Job Alert":
-        return <JobAlert />;
+        return <JobAlert key="jobAlert" />;
       case "Settings":
-        return <Setting />;
+        return <Setting key="settings" />;
       default:
-        return <Overview />;
+        return <Overview key="default" />;
     }
   };
 
