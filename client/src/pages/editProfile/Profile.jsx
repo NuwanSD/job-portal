@@ -18,7 +18,7 @@ import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Personal from "./Personal";
-import Photo from "./Photo";
+import FileUpload from "./FileUpload";
 
 const formSchema = z.object({});
 
@@ -63,7 +63,7 @@ const Profile = () => {
       case 0:
         return <Personal />;
       case 1:
-        return <Photo />;
+        return <FileUpload />;
       default:
         return <Personal />;
     }
