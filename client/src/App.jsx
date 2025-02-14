@@ -21,7 +21,12 @@ import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 import NotFound from "./components/NotFound";
 import Register from "./auth/Register";
-import Dashboard from "./pages/Dashboard/Dashboard";
+
+//Dashboard users
+import Dashboard from "./pages/dashboard/Dashboard";
+import EmployeeDashboard from "./pages/empDashboard/Dashboard";
+
+//Profile users
 import Profile from "./pages/editProfile/Profile";
 
 const AppContent = () => {
@@ -49,7 +54,8 @@ const AppContent = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard/:id" element={<Dashboard />} />
+          {/* <Route path="/dashboard/:id" element={<Dashboard />} /> */}
+          <Route path="/dashboard/:id" element={<EmployeeDashboard />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
