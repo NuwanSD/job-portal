@@ -41,7 +41,6 @@ export default function FileUpload() {
 
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
-    setUploadFile(URL.createObjectURL(file));
     const formData = new FormData();
     formData.append("file", file);
 
@@ -82,6 +81,7 @@ export default function FileUpload() {
             </Button>
           </Box>
         </Box>
+
         <Box sx={{ display: { xs: "row", md: "flex" }, gap: 5 }}>
           <Box>
             <Typography variant="h6" gutterBottom>
@@ -104,6 +104,7 @@ export default function FileUpload() {
               />
             </Button>
           </Box>
+
           <Box sx={{ mt: { xs: 4, sm: 2, md: 0, width: "100%" } }}>
             <Typography variant="h6" gutterBottom>
               Upload Queue

@@ -19,6 +19,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Personal from "./Personal";
 import FileUpload from "./FileUpload";
+import Settings from "./Settings";
 
 const formSchema = z.object({});
 
@@ -64,6 +65,8 @@ const Profile = () => {
         return <Personal key="personal" />;
       case 1:
         return <FileUpload key="fileUpload" />;
+      case 2:
+        return <Settings key="setting" />;
       default:
         return <Personal key="default" />;
     }
@@ -243,7 +246,7 @@ const Profile = () => {
                 {renderContent()}
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
-                <p>Other</p>
+                {renderContent()}
               </CustomTabPanel>
             </Box>
           </Box>
