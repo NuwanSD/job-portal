@@ -9,13 +9,14 @@ import {
   Typography,
 } from "@mui/material";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
+import RecentlyPostedJobs from "./RecentlyPostedJobs";
 
 const Overview = () => {
   return (
     <Box sx={{ py: 8 }}>
-      <Typography variant="h6">Hello, Esther Howard</Typography>
+      <Typography variant="h6">Hello, Future Lab</Typography>
       <Typography color="textSecondary">
-        Hello is your daily activities and job alerts
+        Hello is your daily activities and applications
       </Typography>
 
       <Box
@@ -33,7 +34,7 @@ const Overview = () => {
             <CardContent>
               <Typography>589</Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                Applied Jobs
+                Open Jobs
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -45,23 +46,9 @@ const Overview = () => {
         >
           <CardActionArea>
             <CardContent>
-              <Typography>238</Typography>
+              <Typography>2,517</Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                Favorite Jobs
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-
-        <Card
-          variant="outlined"
-          sx={{ backgroundColor: "#D1F8EF", width: "100%" }}
-        >
-          <CardActionArea>
-            <CardContent>
-              <Typography>589</Typography>
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                Job Alerts
+                Saved Candidates
               </Typography>
             </CardContent>
           </CardActionArea>
@@ -111,9 +98,13 @@ const Overview = () => {
             justifyContent: "space-between",
           }}
         >
-          <Typography variant="h6">Recently Applied</Typography>
+          <Typography variant="h6">Recently Posted Jobs</Typography>
           <Button endIcon={<ArrowForwardOutlinedIcon />}>View all</Button>
         </Box>
+      </Box>
+
+      <Box sx={{ py: 2 }}>
+        <RecentlyPostedJobs />
       </Box>
     </Box>
   );
