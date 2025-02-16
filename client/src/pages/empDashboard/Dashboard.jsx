@@ -9,6 +9,7 @@ import SavedCandidates from "./components/SavedCandidates";
 import Setting from "./components/Settings";
 
 import Sidebar from "./components/Sidebar";
+import Application from "./components/Application";
 
 const Dashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Overview");
@@ -23,6 +24,8 @@ const Dashboard = () => {
         return <MyJobs key="MyJobs" />;
       case "Saved Candidates":
         return <SavedCandidates key="SavedCandidates" />;
+      case "Job Application":
+        return <Application key="JobApplications" />;
       case "Settings":
         return <Setting key="settings" />;
       default:

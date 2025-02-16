@@ -56,6 +56,15 @@ const Sidebar = ({ setSelectedTab }) => {
       <ListItem>
         <ListItemButton
           sx={{ gap: 1 }}
+          onClick={(event) => handleListItemClick(event, "Job Application")}
+        >
+          <BookmarksOutlinedIcon />
+          <ListItemText primary="Job Application" />
+        </ListItemButton>
+      </ListItem>
+      <ListItem>
+        <ListItemButton
+          sx={{ gap: 1 }}
           onClick={(event) => handleListItemClick(event, "Settings")}
         >
           <SettingsOutlinedIcon />
