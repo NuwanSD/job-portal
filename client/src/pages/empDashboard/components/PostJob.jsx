@@ -337,6 +337,88 @@ const PostJob = () => {
           </FormControl>
         </Box>
 
+        <Box sx={{ py: 2 }}>
+          <Typography variant="h6" gutterBottom>
+            Job Requirements
+          </Typography>
+          <Box>
+            <Controller
+              name="job_requirement_1"
+              control={form.control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  sx={{ width: "100%" }}
+                  label="Add requirement breifly"
+                  variant="outlined"
+                  margin="dense"
+                  error={!!form.formState.errors.job_requirement_1}
+                  helperText={form.formState.errors.job_requirement_1?.message}
+                />
+              )}
+            />
+            <Controller
+              name="job_requirement_2"
+              control={form.control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  sx={{ width: "100%" }}
+                  label="Add requirement breifly"
+                  variant="outlined"
+                  margin="dense"
+                  error={!!form.formState.errors.job_requirement_2}
+                  helperText={form.formState.errors.job_location_2?.message}
+                />
+              )}
+            />
+          </Box>
+        </Box>
+
+        <Box sx={{ py: 2 }}>
+          <Typography variant="h6" gutterBottom>
+            Job Benefits
+          </Typography>
+          <Box>
+            <Controller
+              name="job_benefits_1"
+              control={form.control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  sx={{ width: "100%" }}
+                  label="Add benefits breifly"
+                  variant="outlined"
+                  margin="dense"
+                  error={!!form.formState.errors.job_benefits_1}
+                  helperText={form.formState.errors.job_benefits_1?.message}
+                />
+              )}
+            />
+            <Controller
+              name="job_beneits_2"
+              control={form.control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  sx={{ width: "100%" }}
+                  label="Add benefits breifly"
+                  variant="outlined"
+                  margin="dense"
+                  error={!!form.formState.errors.job_beneits_2}
+                  helperText={form.formState.errors.job_beneits_2?.message}
+                />
+              )}
+            />
+          </Box>
+        </Box>
+
+        <Box sx={{ py: 2 }}>
+          <Typography variant="h6" gutterBottom>
+            Job Tags
+          </Typography>
+        </Box>
+
         <Button
           type="submit"
           variant="contained"
