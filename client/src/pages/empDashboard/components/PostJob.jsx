@@ -9,6 +9,8 @@ import {
   FormControlLabel,
   Radio,
   FormLabel,
+  Autocomplete,
+  Chip,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +26,7 @@ import dayjs from "dayjs";
 import { z } from "zod";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import { top100Films } from "./Data";
 
 const postedJobSchema = z.object({
   posted_job_id: z.string().max(),
@@ -417,6 +420,30 @@ const PostJob = () => {
           <Typography variant="h6" gutterBottom>
             Job Tags
           </Typography>
+
+          <Autocomplete
+            multiple
+            id="tags-filled"
+            options={top100Films.map((option) => option.title)}
+            defaultValue={[top100Films[13].title]}
+            freeSolo
+            renderTags={(value, getTagProps) =>
+              value.map((option, index) => {
+                const { key, ...tagProps } = getTagProps({ index });
+                return (
+                  <Chip
+                    variant="outlined"
+                    label={option}
+                    key={key}
+                    {...tagProps}
+                  />
+                );
+              })
+            }
+            renderInput={(params) => (
+              <TextField {...params} label="tags" placeholder="Favorites" />
+            )}
+          />
         </Box>
 
         <Button
