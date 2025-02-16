@@ -31,7 +31,7 @@ const Dashboard = () => {
   };
 
   return (
-    <Container sx={{ display: "flex", gap: 5 }}>
+    <Container sx={{ display: "flex", gap: 2 }}>
       <Box>
         <Sidebar setSelectedTab={setSelectedTab} />
       </Box>
