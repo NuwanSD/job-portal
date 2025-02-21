@@ -16,6 +16,7 @@ const Founding = () => {
         "Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta acconsectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel",
       vision:
         "Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta acconsectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel",
+      website: "www.dddddc.com",
       founded: "1924.05.06",
       organization_type: "Private",
       industry_type: "Information Technology",
@@ -95,6 +96,26 @@ const Founding = () => {
       />
 
       <Box sx={{ my: 4 }}>
+        <Box sx={{ width: "100%" }}>
+          <Typography variant="h6" gutterBottom>
+            Website
+          </Typography>
+          <Controller
+            name="website"
+            control={form.control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                margin="dense"
+                label="Website"
+                size="small"
+                error={!!form.formState.errors.website}
+                helperText={form.formState.errors.website?.message}
+                sx={{ width: "100%" }}
+              />
+            )}
+          />
+        </Box>
         <Box sx={{ display: "flex", gap: 2 }}>
           <Box sx={{ width: "100%" }}>
             <Typography variant="h6" gutterBottom>
