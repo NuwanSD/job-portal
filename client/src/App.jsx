@@ -28,6 +28,7 @@ import EmployeeDashboard from "./pages/empDashboard/Dashboard";
 
 //Profile users
 import Profile from "./pages/editProfile/Profile";
+import EmployeeProfile from "./pages/empProfile/Profile";
 
 const AppContent = () => {
   const location = useLocation();
@@ -56,7 +57,8 @@ const AppContent = () => {
           <Route path="/register" element={<Register />} />
           {/* <Route path="/dashboard/:id" element={<Dashboard />} /> */}
           <Route path="/dashboard/:id" element={<EmployeeDashboard />} />
-          <Route path="/profile/:id" element={<Profile />} />
+          {/* <Route path="/profile/:id" element={<Profile />} /> */}
+          <Route path="/profile/:id" element={<EmployeeProfile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
