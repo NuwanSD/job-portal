@@ -13,12 +13,36 @@ const JobSeekerModel = {
 
   saveRecord: (seeker_data, callback) => {
     const query =
-      "INSERT INTO job_seeker (user_id, age, description, looking_for, photo_url) VALUES (?, ?, ?, ?, ?)";
+      "INSERT INTO job_seeker (user_id, description, looking_for, birthday, website, gender, education, experience, status, nationality, photo_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    const { user_id, age, description, looking_for, photo_url } = seeker_data;
+    const {
+      user_id,
+      description,
+      looking_for,
+      birthday,
+      website,
+      gender,
+      education,
+      experience,
+      status,
+      nationality,
+      photo_url,
+    } = seeker_data;
     db.query(
       query,
-      [user_id, age, description, looking_for, photo_url],
+      [
+        user_id,
+        description,
+        looking_for,
+        birthday,
+        website,
+        gender,
+        education,
+        experience,
+        status,
+        nationality,
+        photo_url,
+      ],
       callback
     );
   },
@@ -30,11 +54,34 @@ const JobSeekerModel = {
 
   updateRecord: (user_id, new_data, callback) => {
     const query =
-      "UPDATE job_seeker SET age = ?, description = ?, looking_for = ?, photo_url = ? WHERE user_id = ?";
-    const { age, description, looking_for, photo_url } = new_data;
+      "UPDATE job_seeker SET description = ?, looking_for = ?, birthday = ?, website = ?, gender = ?, education = ?, experience = ?, status = ?, nationality = ?, photo_url = ? WHERE user_id = ?";
+    const {
+      description,
+      looking_for,
+      birthday,
+      website,
+      gender,
+      education,
+      experience,
+      status,
+      nationality,
+      photo_url,
+    } = new_data;
     db.query(
       query,
-      [age, description, looking_for, photo_url, user_id],
+      [
+        description,
+        looking_for,
+        birthday,
+        website,
+        gender,
+        education,
+        experience,
+        status,
+        nationality,
+        photo_url,
+        user_id,
+      ],
       callback
     );
   },

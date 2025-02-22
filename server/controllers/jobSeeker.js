@@ -26,13 +26,31 @@ const JobSeekerController = {
   },
 
   saveRecord: (req, res) => {
-    const { user_id, age, description, looking_for, photo_url } = req.body;
+    const {
+      user_id,
+      description,
+      looking_for,
+      birthday,
+      website,
+      gender,
+      education,
+      experience,
+      status,
+      nationality,
+      photo_url,
+    } = req.body;
 
     if (
       user_id === undefined ||
-      age === undefined ||
       description === undefined ||
       looking_for === undefined ||
+      birthday === undefined ||
+      website === undefined ||
+      gender === undefined ||
+      education === undefined ||
+      experience === undefined ||
+      status === undefined ||
+      nationality === undefined ||
       photo_url === undefined
     ) {
       return res.status(400).send("All field are required");
@@ -40,9 +58,15 @@ const JobSeekerController = {
 
     const newSeeker = {
       user_id,
-      age,
       description,
       looking_for,
+      birthday,
+      website,
+      gender,
+      education,
+      experience,
+      status,
+      nationality,
       photo_url,
     };
 
