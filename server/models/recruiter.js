@@ -13,10 +13,44 @@ const Recruiter = {
 
   saveRecord: (recruiter_data, callback) => {
     const query =
-      "INSERT INTO recruiter (user_id, description, looking_for, photo_url) VALUES (?, ?, ?, ?)";
-    const { user_id, description, looking_for, photo_url } = recruiter_data;
+      "INSERT INTO recruiter (user_id, description, vision, website, founded, organization_type, industry_type, team_size, logo_url, cover_photo, facebook_url, x_url, instagram_url, linkedin_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    const {
+      user_id,
+      description,
+      vision,
+      website,
+      founded,
+      organization_type,
+      industry_type,
+      team_size,
+      logo_url,
+      cover_photo,
+      facebook_url,
+      x_url,
+      instagram_url,
+      linkedin_url,
+    } = recruiter_data;
 
-    db.query(query, [user_id, description, looking_for, photo_url], callback);
+    db.query(
+      query,
+      [
+        user_id,
+        description,
+        vision,
+        website,
+        founded,
+        organization_type,
+        industry_type,
+        team_size,
+        logo_url,
+        cover_photo,
+        facebook_url,
+        x_url,
+        instagram_url,
+        linkedin_url,
+      ],
+      callback
+    );
   },
 
   deleteRecord: (user_id, callback) => {
@@ -26,9 +60,43 @@ const Recruiter = {
 
   updateRecord: (user_id, new_data, callback) => {
     const query =
-      "UPDATE recruiter SET description = ?, looking_for = ?, photo_url = ? WHERE user_id = ?";
-    const { description, looking_for, photo_url } = new_data;
-    db.query(query, [description, looking_for, photo_url, user_id], callback);
+      "UPDATE recruiter SET description = ?, vision = ?, website = ?, founded = ?, organization_type = ?, industry_type = ?, team_size = ?, logo_url = ?, cover_photo = ?, facebook_url = ?, x_url = ?, instagram_url = ?, linkedin_url = ? WHERE user_id = ?";
+    const {
+      description,
+      vision,
+      website,
+      founded,
+      organization_type,
+      industry_type,
+      team_size,
+      logo_url,
+      cover_photo,
+      facebook_url,
+      x_url,
+      instagram_url,
+      linkedin_url,
+    } = new_data;
+
+    db.query(
+      query,
+      [
+        description,
+        vision,
+        website,
+        founded,
+        organization_type,
+        industry_type,
+        team_size,
+        logo_url,
+        cover_photo,
+        facebook_url,
+        x_url,
+        instagram_url,
+        linkedin_url,
+        user_id,
+      ],
+      callback
+    );
   },
 };
 

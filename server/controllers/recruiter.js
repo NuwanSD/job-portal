@@ -28,13 +28,38 @@ const RecruiterController = {
   },
 
   saveRecord: (req, res) => {
-    const { user_id, description, looking_for, photo_url } = req.body;
+    const {
+      user_id,
+      description,
+      vision,
+      website,
+      founded,
+      organization_type,
+      industry_type,
+      team_size,
+      logo_url,
+      cover_photo,
+      facebook_url,
+      x_url,
+      instagram_url,
+      linkedin_url,
+    } = req.body;
 
     if (
       user_id === undefined ||
       description === undefined ||
-      looking_for === undefined ||
-      photo_url === undefined
+      vision === undefined ||
+      website === undefined ||
+      founded === undefined ||
+      organization_type === undefined ||
+      industry_type === undefined ||
+      team_size === undefined ||
+      logo_url === undefined ||
+      cover_photo === undefined ||
+      facebook_url === undefined ||
+      x_url === undefined ||
+      instagram_url === undefined ||
+      linkedin_url === undefined
     ) {
       return res.status(400).send("All field are required");
     }
@@ -42,8 +67,18 @@ const RecruiterController = {
     const newRecruiter = {
       user_id,
       description,
-      looking_for,
-      photo_url,
+      vision,
+      website,
+      founded,
+      organization_type,
+      industry_type,
+      team_size,
+      logo_url,
+      cover_photo,
+      facebook_url,
+      x_url,
+      instagram_url,
+      linkedin_url,
     };
 
     RecruiterModel.saveRecord(newRecruiter, (err, result) => {
