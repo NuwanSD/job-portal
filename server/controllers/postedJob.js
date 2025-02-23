@@ -11,10 +11,9 @@ const PostedJobController = {
   },
 
   getPostedJobById: (req, res) => {
-    const user_id = req.params.uid;
-    const job_id = req.params.jid;
+    const posted_job_id = req.params.pid;
 
-    PostedJobModel.getPostedJob(user_id, job_id, (err, result) => {
+    PostedJobModel.getPostedJob(posted_job_id, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
@@ -26,13 +25,33 @@ const PostedJobController = {
   },
 
   savePostedJob: (req, res) => {
-    const { posted_job_id, user_id, job_id, posted_date, status } = req.body;
+    const {
+      posted_job_id,
+      user_id,
+      job_id,
+      salary,
+      posted_date,
+      expire_date,
+      job_type,
+      job_location,
+      description,
+      job_level,
+      experience,
+      status,
+    } = req.body;
 
     if (
       posted_job_id === undefined ||
       user_id === undefined ||
       job_id === undefined ||
+      salary === undefined ||
       posted_date === undefined ||
+      expire_date === undefined ||
+      job_type === undefined ||
+      job_location === undefined ||
+      description === undefined ||
+      job_level === undefined ||
+      experience === undefined ||
       status === undefined
     ) {
       return res.status(400).send("All field are required");
@@ -42,12 +61,20 @@ const PostedJobController = {
       posted_job_id,
       user_id,
       job_id,
+      salary,
       posted_date,
+      expire_date,
+      job_type,
+      job_location,
+      description,
+      job_level,
+      experience,
       status,
     };
 
     PostedJobModel.savePostedJob(newPostedJob, (err, result) => {
       if (err) {
+        console.error(err);
         return res.status(500).send("Internal Server Error");
       }
       return res.status(201).send();
@@ -55,12 +82,11 @@ const PostedJobController = {
   },
 
   deletePostedJob: (req, res) => {
-    const user_id = req.params.uid;
+    const posted_job_id = req.params.pid;
 
-    const job_id = req.params.jid;
-
-    PostedJobModel.deletePostedJob(user_id, job_id, (err, result) => {
+    PostedJobModel.deletePostedJob(posted_job_id, (err, result) => {
       if (err) {
+        console.error(err);
         return res.status(500).send("Internal Server Error");
       }
       return res.status(204).send();
@@ -68,15 +94,12 @@ const PostedJobController = {
   },
 
   updatePostedJob: (req, res) => {
-    const user_id = req.params.uid;
-
-    const job_id = req.params.jid;
+    const posted_job_id = req.params.pid;
 
     const updatedJobData = req.body;
 
     PostedJobModel.updatePostedJob(
-      user_id,
-      job_id,
+      posted_job_id,
       updatedJobData,
       (err, result) => {
         if (err) {
