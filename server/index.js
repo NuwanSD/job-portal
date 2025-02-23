@@ -13,6 +13,7 @@ const jobRoutes = require("./routes/jobRoutes");
 const recruiterRoutes = require("./routes/recruiter");
 const jobBenefitRoutes = require("./routes/jobBenefit");
 const companyBenefitRoutes = require("./routes/companyBenefit");
+const requirementRotues = require("./routes/jobRequirement");
 
 const app = express();
 
@@ -33,6 +34,7 @@ app.use(jobRoutes);
 app.use(recruiterRoutes);
 app.use(jobBenefitRoutes);
 app.use(companyBenefitRoutes);
+app.use(requirementRotues);
 
 //Start server
 const PORT = process.env.PORT || 3000;
