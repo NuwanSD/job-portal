@@ -1,6 +1,6 @@
 db = require("../config/dbConfig");
 
-const JobRequirement = {
+const JobTag = {
   getAll: (callback) => {
     const query = "SELECT * FROM job_tag";
     db.query(query, callback);
@@ -32,4 +32,4 @@ const JobRequirement = {
   },
 };
 
-module.exports = JobRequirement;
+module.exports = JobTag;

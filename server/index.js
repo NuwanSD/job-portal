@@ -15,6 +15,7 @@ const jobBenefitRoutes = require("./routes/jobBenefit");
 const companyBenefitRoutes = require("./routes/companyBenefit");
 const requirementRotues = require("./routes/jobRequirement");
 const jobTagRoutes = require("./routes/jobTag");
+const tagAllocateRoutes = require("./routes/tagAllocate");
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use(jobBenefitRoutes);
 app.use(companyBenefitRoutes);
 app.use(requirementRotues);
 app.use(jobTagRoutes);
+app.use(tagAllocateRoutes);
 
 //Start server
 const PORT = process.env.PORT || 3000;
