@@ -6,7 +6,7 @@ const UserController = {
   getUsers: (req, res) => {
     UserModel.getAllUsers((err, result) => {
       if (err) {
-        return res.status(500).send("Database error");
+        return res.status(500).send("Internal Server Error");
       } else {
         return res.json(result);
       }

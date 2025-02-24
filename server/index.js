@@ -1,7 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cors = require("cors");
 
 const dotenv = require("dotenv");
+
 dotenv.config({ path: "./.env" });
 
 //Import all routes
@@ -20,8 +22,10 @@ const tagAllocateRoutes = require("./routes/tagAllocate");
 const app = express();
 
 //Middleware
+app.use(cors());
+// app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
 
 //Usage of all routes
 app.get("/", (req, res) => {

@@ -13,6 +13,8 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 
 const formSchema = z
   .object({
@@ -52,11 +54,22 @@ const Register = () => {
     },
   });
 
-  const onSubmit = (values) => {
-    const formatedValues = { ...values, role: role };
-    console.log(formatedValues);
-    form.reset();
-  };
+  async function onSubmit(values) {
+    try {
+      const user_id = uuidv4();
+
+      const formatedValues = { ...values, user_id, role: role };
+
+      await axios.post("http://localhost:3000/user/register", formatedValues);
+
+      console.log(formatedValues);
+
+      form.reset();
+    } catch (error) {
+      console.log(error?.message);
+    } finally {
+    }
+  }
 
   return (
     <Box

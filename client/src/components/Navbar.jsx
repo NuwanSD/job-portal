@@ -31,7 +31,7 @@ const settings = [
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [isLoginIn, setIsLoginIn] = useState(true);
+  const [isLoginIn, setIsLoginIn] = useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
