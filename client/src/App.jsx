@@ -17,9 +17,11 @@ import Job from "./pages/FindJobs/Job";
 import JobDetail from "./pages/FindJobs/JobDetail";
 import RecruiterProfile from "./pages/recruiters/RecruiterProfile";
 import CandidateProfile from "./pages/candidates/CandidateProfile";
+import NotFound from "./components/NotFound";
+
+//AuthProviders
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
-import NotFound from "./components/NotFound";
 import Register from "./auth/Register";
 
 //Dashboard users
