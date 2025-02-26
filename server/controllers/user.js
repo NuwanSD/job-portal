@@ -16,12 +16,26 @@ const UserController = {
   getUserById: (req, res) => {
     const user_id = req.params.id;
 
-    UserModel.getUser(user_id, (err, result) => {
+    UserModel.getUserById(user_id, (err, result) => {
       if (err) {
         return res.status(500).send("Error fetching job seeker");
       }
       if (result.length === 0) {
         return res.status(404).send("Not Found");
+      }
+      return res.json(result);
+    });
+  },
+
+  getUserByUsername: (req, res) => {
+    const username = req.params.username;
+
+    UserModel.getUserByUsername(username, (err, result) => {
+      if (err) {
+        return res.status(500).send("Internal Server Error");
+      }
+      if (result.length === 0) {
+        return res.status(404).send("User wat not found");
       }
       return res.json(result);
     });
@@ -127,7 +141,7 @@ const UserController = {
         const user = result[0];
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
-        if (isPasswordValid) {
+        if (!isPasswordValid) {
           return res.status(401).send("Invalid credentials");
         }
 
@@ -137,9 +151,71 @@ const UserController = {
           process.env.ACCESS_TOKEN_SECRET
         );
 
-        res.header("auth-token", token).send(token);
+        res.cookie("jwt", token, {
+          httpOnly: true,
+          maxAge: 24 * 60 * 60 * 1000, //1 day
+        });
+
+        res.send({
+          message: "success",
+        });
+
+        //res.header("auth-token", token).send(token);
       });
     } catch (error) {
+      return res.status(500).send("Internal Server Error");
+    }
+  },
+
+  userCookie: async (req, res) => {
+    try {
+      const cookie = req.cookies["jwt"];
+      //console.log("Receivd JWT: ", cookie);
+
+      if (!cookie) {
+        //console.log("No token found in cookies");
+        return res.status(401).json({ error: "Unauthenticated" });
+      }
+
+      const claims = jwt.verify(cookie, process.env.ACCESS_TOKEN_SECRET);
+      //console.log("Decoded Token Claims:", claims);
+
+      const user_id = claims.userId || claims.user_id;
+      //console.log("Extracted user_id:", user_id);
+
+      UserModel.getUserById(user_id, (err, result) => {
+        if (err) {
+          return res.status(500).json({ error: "Error fetching user" });
+        }
+
+        if (!result || result.length === 0) {
+          //console.log("User not found for ID:", user_id);
+          return res.status(404).json({ error: "User not found" });
+        }
+
+        const user = result[0];
+        const { password, ...data } = user;
+
+        res.json(data);
+      });
+    } catch (error) {
+      //console.log("Error in userCookie:", error);
+      return res.status(500).json({ error: "Invalid Token" });
+    }
+  },
+
+  userLogout: async (req, res) => {
+    try {
+      // Clear the JWT cookie
+      res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
+
+      //console.log("User logged out, JWT cookie cleared");
+
+      res.json({
+        message: "Logout successful",
+      });
+    } catch (error) {
+      //console.error("Error during logout:", error);
       return res.status(500).send("Internal Server Error");
     }
   },

@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 
 const dotenv = require("dotenv");
 
@@ -22,8 +23,15 @@ const tagAllocateRoutes = require("./routes/tagAllocate");
 const app = express();
 
 //Middleware
-app.use(cors());
-// app.use(cors({ origin: 'http://localhost:5173' }));
+//app.use(cors());
+app.use(cookieParser());
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:5173"],
+  })
+);
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 

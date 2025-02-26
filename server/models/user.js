@@ -6,9 +6,14 @@ const JobSeekerModel = {
     db.query(query, callback);
   },
 
-  getUser: (user_id, callback) => {
+  getUserById: (user_id, callback) => {
     const query = "SELECT * FROM user WHERE user_id = ?";
     db.query(query, [user_id], callback);
+  },
+
+  getUserByUsername: (username, callback) => {
+    const query = "SELECT * FROM user WHERE username = ?";
+    db.query(query, [username], callback);
   },
 
   saveUser: (user_data, callback) => {
@@ -48,11 +53,6 @@ const JobSeekerModel = {
       [username, name, email, phone, city, country, password, role, user_id],
       callback
     );
-  },
-
-  getUserByUsername: (username, callback) => {
-    const query = "SELECT * FROM user WHERE username = ?";
-    db.query(query, [username], callback);
   },
 };
 
