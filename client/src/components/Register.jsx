@@ -12,7 +12,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useLocation } from "react-router-dom";
+import { replace, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
@@ -37,6 +37,8 @@ const formSchema = z
 const Register = () => {
   //include user_id --> this would be primary key in DB
   const location = useLocation();
+
+  const navigate = useNavigate();
 
   const role = location.state?.role || "";
 
@@ -64,11 +66,12 @@ const Register = () => {
 
       console.log(formatedValues);
 
-      form.reset();
+      navigate("/login", { replace: true });
     } catch (error) {
       console.log(error?.message);
     } finally {
     }
+    form.reset();
   }
 
   return (

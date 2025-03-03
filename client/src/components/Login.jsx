@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   TextField,
@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../provider/AuthProvider";
 
 const formSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -22,7 +23,9 @@ const formSchema = z.object({
 });
 
 const Login = () => {
+  const { setAuthData } = useAuth();
   const navigate = useNavigate();
+  const [error, setError] = useState(null);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -32,6 +35,21 @@ const Login = () => {
     },
   });
 
+  const parseErrorMessage = (error) => {
+    if (error.response) {
+      // Server responded with a status other than 200 range
+      return (
+        error.response.data.message || "An error occurred. Please try again."
+      );
+    } else if (error.request) {
+      // Request was made but no response was received
+      return "No response received from server. Please check your network connection.";
+    } else {
+      // Something happened in setting up the request
+      return "An error occurred. Please try again.";
+    }
+  };
+
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(
@@ -39,9 +57,16 @@ const Login = () => {
         values
       );
 
+      const { token, user } = response.data;
+
+      setAuthData(token, user);
+
+      navigate(`/`, { replace: true });
+
       console.log(response);
     } catch (error) {
       console.log(error);
+      setError(parseErrorMessage(error));
     }
 
     form.reset();
@@ -107,6 +132,7 @@ const Login = () => {
                     id="password"
                     label="Password"
                     variant="outlined"
+                    type="password"
                     error={!!form.formState.errors.password}
                     helperText={form.formState.errors.password?.message}
                     sx={{ width: "100%" }}
@@ -114,6 +140,12 @@ const Login = () => {
                 )}
               />
             </Box>
+
+            {error && (
+              <Box sx={{ py: 2 }}>
+                <Typography color="error">{error}</Typography>
+              </Box>
+            )}
 
             <Box
               sx={{

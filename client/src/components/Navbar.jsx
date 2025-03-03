@@ -13,6 +13,8 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
+import { useAuth } from "../provider/AuthProvider";
+
 const pages = [
   { name: "Home", path: "/" },
   { name: "Find Job", path: "/job" }, //unplan
@@ -22,16 +24,16 @@ const pages = [
   { name: "Dashboard", path: "/dashboard/:id" },
 ];
 
-const settings = [
-  { name: "Profile", path: "/profile/:id" },
-  { name: "Dashboard", path: "/dashboard/:id" },
-  { name: "Logout", path: "" },
-];
-
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const [isLoginIn, setIsLoginIn] = useState(false);
+
+  const { token, clearAuthData } = useAuth();
+
+  const handleLogout = () => {
+    clearAuthData();
+    handleCloseUserMenu();
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -173,7 +175,7 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
-          {!isLoginIn ? (
+          {!token ? (
             <Box
               sx={{
                 flexGrow: 0,
@@ -196,8 +198,9 @@ const Navbar = () => {
                   <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
+
               <Menu
-                sx={{ mt: "45px" }}
+                sx={{ mt: "50px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
@@ -212,21 +215,25 @@ const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography
-                      component="a"
-                      href={setting.path}
-                      sx={{
-                        textAlign: "center",
-                        textDecoration: "none",
-                        color: "inherit",
-                      }}
-                    >
-                      {setting.name}
-                    </Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography
+                    component="a"
+                    href="/profile/:id"
+                    sx={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    Profile
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography
+                    component="a"
+                    href="/dashboard/:id"
+                    sx={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    Dashboard
+                  </Typography>
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </Box>
           )}
