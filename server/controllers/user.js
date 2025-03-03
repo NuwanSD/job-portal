@@ -147,75 +147,17 @@ const UserController = {
 
         //Create and assign a token
         const token = jwt.sign(
-          { userId: user.user_id },
-          process.env.ACCESS_TOKEN_SECRET
+          { user: user },
+          process.env.ACCESS_TOKEN_SECRET,
+          { expiresIn: "15m" }
         );
 
-        res.cookie("jwt", token, {
-          httpOnly: true,
-          maxAge: 24 * 60 * 60 * 1000, //1 day
+        res.status(200).json({
+          token,
+          user,
         });
-
-        res.send({
-          message: "success",
-        });
-
-        //res.header("auth-token", token).send(token);
       });
     } catch (error) {
-      return res.status(500).send("Internal Server Error");
-    }
-  },
-
-  userCookie: async (req, res) => {
-    try {
-      const cookie = req.cookies["jwt"];
-      //console.log("Receivd JWT: ", cookie);
-
-      if (!cookie) {
-        //console.log("No token found in cookies");
-        return res.status(401).json({ error: "Unauthenticated" });
-      }
-
-      const claims = jwt.verify(cookie, process.env.ACCESS_TOKEN_SECRET);
-      //console.log("Decoded Token Claims:", claims);
-
-      const user_id = claims.userId || claims.user_id;
-      //console.log("Extracted user_id:", user_id);
-
-      UserModel.getUserById(user_id, (err, result) => {
-        if (err) {
-          return res.status(500).json({ error: "Error fetching user" });
-        }
-
-        if (!result || result.length === 0) {
-          //console.log("User not found for ID:", user_id);
-          return res.status(404).json({ error: "User not found" });
-        }
-
-        const user = result[0];
-        const { password, ...data } = user;
-
-        res.json(data);
-      });
-    } catch (error) {
-      //console.log("Error in userCookie:", error);
-      return res.status(500).json({ error: "Invalid Token" });
-    }
-  },
-
-  userLogout: async (req, res) => {
-    try {
-      // Clear the JWT cookie
-      res.cookie("jwt", "", { httpOnly: true, expires: new Date(0) });
-
-      //console.log("User logged out, JWT cookie cleared");
-
-      res.json({
-        message: "Logout successful",
-      });
-    } catch (error) {
-      //console.error("Error during logout:", error);
       return res.status(500).send("Internal Server Error");
     }
   },

@@ -13,7 +13,8 @@ router.patch("/user/:id", UserController.updateUser);
 
 //Athuentication
 router.post("/auth/login", UserController.userLogin);
-router.post("/auth/cookie", UserController.userCookie);
-router.post("/auth/logout", UserController.userLogout);
+
+// router.post("/auth/cookie", UserController.userCookie);
+// router.post("/auth/logout", UserController.userLogout);
 
 module.exports = router;
