@@ -1,10 +1,4 @@
-import {
-  RouterProvider,
-  createBrowserRouter,
-  useLocation,
-} from "react-router-dom";
-import { useAuth } from "../provider/AuthProvider";
-import { ProtectedRoute } from "./ProtectedRoute";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Home from "../pages/home/Home";
 import Candidate from "../pages/candidates/Candidate";
@@ -29,10 +23,17 @@ import EmployeeDashboard from "../pages/empDashboard/Dashboard";
 import Profile from "../pages/editProfile/Profile";
 import EmployeeProfile from "../pages/empProfile/Profile";
 
-const Routes = () => {
-  const { token, currentUser } = useAuth();
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
-  const routesForPublic = [
+//Middleware
+import { AuthorizeUser, ProtectRoute } from "../middleware/auth";
+import { useAuthStore } from "../store/authStore";
+
+const AppRoutes = () => {
+  const { auth } = useAuthStore();
+
+  const routes = [
     { path: "/", element: <Home /> },
     { path: "/job", element: <Job /> },
     { path: "/job/:jobId", element: <JobDetail /> },
@@ -42,48 +43,55 @@ const Routes = () => {
     { path: "/recruiters/:recruiterId", element: <RecruiterProfile /> },
     { path: "/contact", element: <Contact /> },
     { path: "*", element: <NotFound /> },
-  ];
-
-  const routesForAuthenticatedOnly = [
     {
-      path: "/",
-      element: <ProtectedRoute />,
-      children: [
-        {
-          path: "/dashboard/:id",
-          element:
-            currentUser && currentUser.role === "candidate" ? (
-              <Dashboard />
-            ) : (
-              <EmployeeDashboard />
-            ),
-        },
-        {
-          path: "/profile/:id",
-          element:
-            currentUser && currentUser.role === "candidate" ? (
-              <Profile />
-            ) : (
-              <EmployeeProfile />
-            ),
-        },
-      ],
+      path: "/dashboard/:id",
+      element:
+        auth.role === "candidate" ? (
+          <AuthorizeUser>
+            <Dashboard />
+          </AuthorizeUser>
+        ) : (
+          <AuthorizeUser>
+            <EmployeeDashboard />
+          </AuthorizeUser>
+        ),
     },
-  ];
-
-  const routesForNotAuthenticatedOnly = [
+    {
+      path: "/profile/:id",
+      element:
+        auth.role === "candidate" ? (
+          <AuthorizeUser>
+            <Profile />
+          </AuthorizeUser>
+        ) : (
+          <AuthorizeUser>
+            <EmployeeProfile />
+          </AuthorizeUser>
+        ),
+    },
     { path: "/login", element: <Login /> },
     { path: "/signup", element: <SignUp /> },
     { path: "/register", element: <Register /> },
   ];
 
-  const router = createBrowserRouter([
-    ...routesForPublic,
-    ...(!token ? routesForNotAuthenticatedOnly : []),
-    ...routesForAuthenticatedOnly,
-  ]);
+  const location = useLocation();
+  const noNavbarFooterPaths = ["/login", "/signup", "/register"];
 
-  return <RouterProvider router={router} />;
+  const isNoNavbarFooter = noNavbarFooterPaths.includes(location.pathname);
+
+  return (
+    <div id="root">
+      <div className="main">
+        {!isNoNavbarFooter && <Navbar />}
+        <Routes>
+          {routes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
+        </Routes>
+      </div>
+      {!isNoNavbarFooter && <Footer />}
+    </div>
+  );
 };
 
-export default Routes;
+export default AppRoutes;
