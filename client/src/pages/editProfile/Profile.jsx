@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -20,8 +20,18 @@ import Tab from "@mui/material/Tab";
 import Personal from "./Personal";
 import FileUpload from "./FileUpload";
 import Settings from "./Settings";
+import { updateUser } from "../../helper/helper";
+import useFetch from "../../hook/fetch.hook";
 
-const formSchema = z.object({});
+const formSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email("Invalid email address"),
+  phone: z
+    .string()
+    .min(1, "Phone number should be at least 10 characters long"),
+  city: z.string().min(1, "City is required"),
+  country: z.string().min(1, "Country is required"),
+});
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -53,7 +63,9 @@ function a11yProps(index) {
 }
 
 const Profile = () => {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+
+  const [{ isLoading, apiData, serverError }] = useFetch();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -74,21 +86,34 @@ const Profile = () => {
 
   const params = useParams();
 
-  console.log(params);
+  //console.log(params);
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "Bob",
-      email: "bob@example.com",
-      phone: "123-456-7890",
-      city: "Springfield",
-      country: "USA",
+      name: "",
+      email: "",
+      phone: "",
+      city: "",
+      country: "",
     },
   });
 
+  useEffect(() => {
+    if (apiData) {
+      form.reset({
+        name: apiData.name,
+        email: apiData.email,
+        phone: apiData.phone,
+        city: apiData.city,
+        country: apiData.country,
+      });
+    }
+  }, [apiData]);
+
   const onSubmit = (values) => {
-    console.log(values);
+    const response = updateUser(values);
+    console.log(response);
   };
 
   return (

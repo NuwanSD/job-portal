@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -12,8 +12,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-
-import { useAuth } from "../provider/AuthProvider";
+import { useNavigate } from "react-router-dom";
+import useLoginStore from "../store/loginStore";
 
 const pages = [
   { name: "Home", path: "/" },
@@ -28,10 +28,14 @@ const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
-  const { token, clearAuthData } = useAuth();
+  const navigate = useNavigate();
+
+  const { isLogin, logout } = useLoginStore();
 
   const handleLogout = () => {
-    clearAuthData();
+    logout();
+
+    navigate("/", { replace: true });
     handleCloseUserMenu();
   };
 
@@ -175,7 +179,7 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
-          {!token ? (
+          {!isLogin ? (
             <Box
               sx={{
                 flexGrow: 0,

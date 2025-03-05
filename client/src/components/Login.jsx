@@ -15,7 +15,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../provider/AuthProvider";
+
+import { useAuthStore } from "../store/authStore";
+import useLoginStore from "../store/loginStore";
 
 const formSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -23,9 +25,11 @@ const formSchema = z.object({
 });
 
 const Login = () => {
-  const { setAuthData } = useAuth();
   const navigate = useNavigate();
+
   const [error, setError] = useState(null);
+
+  const { setUser } = useAuthStore();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -57,13 +61,15 @@ const Login = () => {
         values
       );
 
-      const { token, user } = response.data;
+      const { token, user_id, role } = response.data;
 
-      setAuthData(token, user);
+      localStorage.setItem("token", token);
 
-      navigate(`/`, { replace: true });
+      setUser(user_id, role);
 
-      console.log(response);
+      useLoginStore.getState().login(token);
+
+      navigate(`/profile/${user_id}`, { replace: true });
     } catch (error) {
       console.log(error);
       setError(parseErrorMessage(error));
