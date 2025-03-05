@@ -8,6 +8,6 @@ router.get("/posted_job", PostedJobController.getPostedJobs);
 router.get("/posted_job/:pid", PostedJobController.getPostedJobById);
 router.post("/posted_job", PostedJobController.savePostedJob);
 router.delete("/posted_job/:pid", PostedJobController.deletePostedJob);
-router.patch("/posted_job/:pid", PostedJobController.updatePostedJob);
+router.put("/posted_job/:pid", PostedJobController.updatePostedJob);
 
 module.exports = router;
