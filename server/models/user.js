@@ -43,16 +43,31 @@ const JobSeekerModel = {
     db.query(query, [user_id], callback);
   },
 
+  // updateUser: (user_id, new_data, callback) => {
+  //   const query =
+  //     "UPDATE user SET username = ? , name = ?, email = ?, phone = ?, city = ?, country = ?, password = ?, role = ? WHERE user_id = ?";
+  //   const { username, name, email, phone, city, country, password, role } =
+  //     new_data;
+  //   db.query(
+  //     query,
+  //     [username, name, email, phone, city, country, password, role, user_id],
+  //     callback
+  //   );
+  // },
+
   updateUser: (user_id, new_data, callback) => {
-    const query =
-      "UPDATE user SET username = ? , name = ?, email = ?, phone = ?, city = ?, country = ?, password = ?, role = ? WHERE user_id = ?";
-    const { username, name, email, phone, city, country, password, role } =
-      new_data;
-    db.query(
-      query,
-      [username, name, email, phone, city, country, password, role, user_id],
-      callback
-    );
+    const keys = Object.keys(new_data); // Get keys of the provided fields
+    const values = Object.values(new_data); // Get values of the provided fields
+
+    if (keys.length === 0) {
+      return callback(new Error("No fields to update"), null); // Handle empty update scenario
+    }
+
+    // Dynamically build the query
+    const setClause = keys.map((key) => `${key} = ?`).join(", ");
+    const query = `UPDATE user SET ${setClause} WHERE user_id = ?`;
+
+    db.query(query, [...values, user_id], callback);
   },
 };
 

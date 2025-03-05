@@ -90,6 +90,7 @@ const UserController = {
           return res.status(500).send("Error saving job seeker");
         }
         return res.status(201).json({
+          message: "User registered successfully",
           newUser,
         });
       });
@@ -109,13 +110,13 @@ const UserController = {
   },
 
   updateUser: (req, res) => {
-    const user_id = req.params.id;
+    const { user_id } = req.user;
 
     const updatedData = req.body;
 
     UserModel.updateUser(user_id, updatedData, (err, result) => {
       if (err) {
-        return res.status(500).send("Internal Server Error");
+        return res.status(500).send({ err });
       }
       return res
         .status(200)
@@ -147,18 +148,44 @@ const UserController = {
 
         //Create and assign a token
         const token = jwt.sign(
-          { user: user },
+          { user_id: user.user_id, role: user.role },
           process.env.ACCESS_TOKEN_SECRET,
-          { expiresIn: "15m" }
+          { expiresIn: "24h" }
         );
 
         res.status(200).json({
+          message: "Login Successful...!",
+          user_id: user.user_id,
+          role: user.role,
           token,
-          user,
         });
       });
     } catch (error) {
       return res.status(500).send("Internal Server Error");
+    }
+  },
+
+  //middleware to use verify User
+  verifyUser: async (req, res, next) => {
+    try {
+      const { username } = req.body;
+
+      //check the user existance
+      UserModel.getUserByUsername(username, async (err, result) => {
+        if (err) {
+          console.log(err);
+        }
+
+        if (result.length === 0) {
+          return res.status(404).send("User not found");
+        }
+      });
+
+      next();
+
+      return res.send("User indentified");
+    } catch (error) {
+      return res.status(404).send(error.message);
     }
   },
 };
