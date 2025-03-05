@@ -1,14 +1,14 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 //get username from the token
-export async function getUsername() {
+export async function getUserId() {
   const token = localStorage.getItem("token");
   if (!token) return Promise.reject("Cannot fnid Token");
 
-  let decode = jwt_decode(token);
+  let decoded = jwtDecode(token);
 
-  console.log(decode);
+  return decoded;
 }
 
 export async function authenticate(username) {
