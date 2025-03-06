@@ -11,7 +11,8 @@ import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import AttachFileOutlinedIcon from "@mui/icons-material/AttachFileOutlined";
 
-const JobDescription = () => {
+const JobDescription = ({ postedJob }) => {
+  console.log(postedJob);
   return (
     <Box
       sx={{

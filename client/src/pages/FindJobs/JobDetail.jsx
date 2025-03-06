@@ -1,6 +1,8 @@
-import { Box, Button, Container, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
+import { Box, Button, Container, Typography } from "@mui/material";
+
 import WorkOutlineOutlinedIcon from "@mui/icons-material/WorkOutlineOutlined";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
@@ -15,8 +17,52 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
+import { getAllPostedJob } from "../../helper/postedJob";
+import { getAllUsers } from "../../helper/helper";
+import { getAllJobs } from "../../helper/job";
+
 const JobDetail = () => {
   const [open, setOpen] = useState(false);
+
+  const [postedJob, setPostedJob] = useState([]);
+
+  const { jobId } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const postedJobs = await getAllPostedJob();
+        const users = await getAllUsers();
+        const jobs = await getAllJobs();
+
+        const targetJob = postedJobs.data.find(
+          (job) => job.posted_job_id === jobId
+        );
+
+        if (targetJob) {
+          const userMatch = users.data.find(
+            (u) => u.user_id === targetJob.user_id
+          );
+
+          const jobMatch = jobs.data.find((j) => j.job_id === targetJob.job_id);
+
+          const modifiedJob = {
+            ...targetJob,
+            company_name: userMatch ? userMatch.name : "Unknown",
+            job_title: jobMatch ? jobMatch.title : "Unknown",
+          };
+
+          setPostedJob(modifiedJob);
+        } else {
+          console.error("Job not found");
+        }
+      } catch (error) {
+        console.log(response);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -25,10 +71,6 @@ const JobDetail = () => {
   const handleClose = () => {
     setOpen(false);
   };
-
-  const params = useParams();
-
-  console.log(params);
 
   return (
     <div>
@@ -43,24 +85,30 @@ const JobDetail = () => {
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <img src={Icon} alt="facebook" width={74} />
               <Box>
-                <Typography variant="h5">Senior Software Engineer</Typography>
+                <Typography variant="h5">{postedJob.job_title}</Typography>
                 <Typography
                   sx={{ display: "flex", gap: 1 }}
                   color="text.secondary"
                 >
-                  at Facebook
+                  at {postedJob.company_name}
                   <Box
                     sx={{
                       bgcolor: "#1976D2",
-                      color: "white",
-                      fontSize: "10px",
-                      fontWeight: "bold",
                       alignContent: "center",
                       px: 1,
                       borderRadius: 1,
                     }}
                   >
-                    FULL-TIME
+                    <Typography
+                      sx={{
+                        color: "white",
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {postedJob.job_type}
+                    </Typography>
                   </Box>
                 </Typography>
               </Box>
@@ -85,7 +133,7 @@ const JobDetail = () => {
           </Box>
 
           <Box sx={{ mt: 5 }}>
-            <JobDescription />
+            <JobDescription postedJob={postedJob} />
           </Box>
         </Container>
       </section>
