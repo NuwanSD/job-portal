@@ -68,15 +68,21 @@ function FeaturedJob() {
                   <Box
                     sx={{
                       bgcolor: "#1976D2",
-                      color: "white",
-                      fontSize: "10px",
-                      fontWeight: "bold",
                       alignContent: "center",
                       px: 1,
                       borderRadius: 1,
                     }}
                   >
-                    {job.job_type}
+                    <Typography
+                      sx={{
+                        color: "white",
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {job.job_type}
+                    </Typography>
                   </Box>
                   <Typography variant="body2" color="text.secondary">
                     {job.salary}
