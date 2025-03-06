@@ -7,6 +7,6 @@ router.get("/job_benefit", JobBenefitController.getAll);
 router.get("/job_benefit/:bid", JobBenefitController.getOne);
 router.post("/job_benefit", JobBenefitController.saveRecord);
 router.delete("/job_benefit/:bid", JobBenefitController.deleteRecord);
-router.patch("/job_benefit/:bid", JobBenefitController.updateRecord);
+router.put("/job_benefit/:bid", JobBenefitController.updateRecord);
 
 module.exports = router;
