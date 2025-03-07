@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import { Box, Button, Card } from "@mui/material";
 import { CardContent } from "@mui/material";
 import CardActions from "@mui/material/CardActions";
@@ -8,93 +9,42 @@ import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlined";
 
-const candidates = [
-  {
-    id: 1,
-    imageURL: "",
-    name: "Cody Fisher",
-    status: "Software Engineer",
-    location: "New York",
-  },
-  {
-    id: 2,
-    imageURL: "",
-    name: "Alex Johnson",
-    status: "Data Scientist",
-    location: "San Francisco",
-  },
-  {
-    id: 3,
-    imageURL: "",
-    name: "Morgan Smith",
-    status: "Product Manager",
-    location: "Austin",
-  },
-  {
-    id: 4,
-    imageURL: "",
-    name: "Jordan Taylor",
-    status: "UX Designer",
-    location: "Chicago",
-  },
-  {
-    id: 5,
-    imageURL: "",
-    name: "Riley Martinez",
-    status: "DevOps Engineer",
-    location: "Boston",
-  },
-  {
-    id: 6,
-    imageURL: "",
-    name: "Casey Brown",
-    status: "QA Engineer",
-    location: "Denver",
-  },
-  {
-    id: 7,
-    imageURL: "",
-    name: "Jessie Lee",
-    status: "Business Analyst",
-    location: "Seattle",
-  },
-  {
-    id: 8,
-    imageURL: "",
-    name: "Jamie Walker",
-    status: "Security Specialist",
-    location: "Miami",
-  },
-  {
-    id: 9,
-    imageURL: "",
-    name: "Parker Davis",
-    status: "Technical Writer",
-    location: "Los Angeles",
-  },
-  {
-    id: 10,
-    imageURL: "",
-    name: "Charlie Evans",
-    status: "Database Administrator",
-    location: "Atlanta",
-  },
-  {
-    id: 11,
-    imageURL: "",
-    name: "Taylor Reed",
-    status: "AI Researcher",
-    location: "New York",
-  },
-];
+import { getAllJobSeekers } from "../../helper/jobSeeker";
+import { getAllUsers } from "../../helper/helper";
 
 const CandidateList = () => {
+  const [candidate, setCandiate] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const users = await getAllUsers();
+      const jobSeekers = await getAllJobSeekers();
+
+      const filteredData = users.data.filter((u) =>
+        jobSeekers.data.some((jobSeeker) => jobSeeker.user_id === u.user_id)
+      );
+
+      const modifiedData = filteredData.map((u) => {
+        const userMatch = jobSeekers.data.find((j) => j.user_id === u.user_id);
+        return {
+          ...u,
+          photo_url: userMatch ? userMatch.photo_url : null,
+          status: userMatch ? userMatch.description : null,
+        };
+      });
+
+      setCandiate(modifiedData);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
       <Box>
-        {candidates.map((candidate) => (
+        {candidate.map((c) => (
           <Card
-            key={candidate.id}
+            key={c.user_id}
             variant="outlined"
             sx={{ mt: 2, display: "flex", justifyContent: "space-between" }}
           >
@@ -102,20 +52,18 @@ const CandidateList = () => {
               <Avatar
                 alt="Cody Fisher"
                 variant="square"
-                src={candidate.imageURL}
+                src={c.photo_url}
                 sx={{ width: 82, height: 82, borderRadius: 1 }}
               />
               <Box>
-                <Typography variant="h6">{candidate.name}</Typography>
-                <Typography color="textSecondary">
-                  {candidate.status}
-                </Typography>
+                <Typography variant="h6">{c.name}</Typography>
+                <Typography color="textSecondary">{c.status}</Typography>
                 <Box
                   sx={{ display: "flex", alignItems: "center", gap: 1, mt: 1 }}
                 >
                   <FmdGoodOutlinedIcon color="" />
                   <Typography color="textSecondary">
-                    {candidate.location}
+                    {c.city}, {c.country}
                   </Typography>
                 </Box>
               </Box>
@@ -124,7 +72,7 @@ const CandidateList = () => {
               <BookmarkBorderOutlinedIcon />
               <Button
                 LinkComponent="a"
-                href={`/candidate/${candidate.id}`}
+                href={`/candidate/${c.user_id}`}
                 variant="outlined"
                 endIcon={<ArrowForwardIcon />}
               >

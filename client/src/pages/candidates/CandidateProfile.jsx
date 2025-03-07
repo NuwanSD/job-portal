@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   Avatar,
@@ -6,6 +6,7 @@ import {
   Button,
   Container,
   Divider,
+  Link,
   Typography,
 } from "@mui/material";
 import Card from "@mui/material/Card";
@@ -23,10 +24,48 @@ import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import FmdGoodOutlinedIcon from "@mui/icons-material/FmdGoodOutlined";
 
-const CandidateProfile = () => {
-  const params = useParams();
+import { FaFacebookSquare } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagramSquare } from "react-icons/fa";
 
-  console.log(params);
+import { getAllJobSeekers, getJobSeekerById } from "../../helper/jobSeeker";
+import { getUserById } from "../../helper/helper";
+
+const CandidateProfile = () => {
+  const { id } = useParams();
+
+  const [candidate, setCandidate] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const jobSeekers = await getAllJobSeekers();
+
+        const filteredData = jobSeekers.data.find((j) => j.user_id === id);
+
+        const user_id = id;
+        const jobSeekerBasic = await getUserById({ user_id });
+
+        const response = jobSeekerBasic.data[0];
+
+        const modifiedData = {
+          ...filteredData,
+          name: response.name,
+          phone: response.phone,
+          email: response.email,
+          city: response.city,
+          country: response.country,
+        };
+
+        setCandidate(modifiedData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   return (
     <div>
@@ -46,9 +85,9 @@ const CandidateProfile = () => {
                   sx={{ width: 82, height: 82 }}
                 />
                 <Box>
-                  <Typography variant="h6">John Doe</Typography>
+                  <Typography variant="h6">{candidate.name}</Typography>
                   <Typography color="textSecondary">
-                    Software Engineer
+                    {candidate.description}
                   </Typography>
                 </Box>
               </Box>
@@ -81,13 +120,7 @@ const CandidateProfile = () => {
             <Typography sx={{ fontWeight: "bold" }} gutterBottom>
               BIOGRAPHY
             </Typography>
-            <Typography gutterBottom>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-              ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-              magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
-              vel augue laoreet rutrum faucibus dolor auctor.
-            </Typography>
+            <Typography gutterBottom>{candidate.looking_for}</Typography>
 
             <Typography sx={{ fontWeight: "bold", mt: 4 }} gutterBottom>
               COVER LETTER
@@ -114,7 +147,20 @@ const CandidateProfile = () => {
 
             <Box sx={{ my: 5 }}>
               <Typography variant="h6">Follow me Social Media:</Typography>
-              <Box sx={{ mt: 2 }}>Social Media Links with icons</Box>
+              <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
+                <Link href={""} sx={{ color: "inherit" }}>
+                  <FaLinkedin size={28} />
+                </Link>
+                <Link href={""} sx={{ color: "inherit" }}>
+                  <FaFacebookSquare size={28} />
+                </Link>
+                <Link href={""} sx={{ color: "inherit" }}>
+                  <FaXTwitter size={28} />
+                </Link>
+                <Link href={""} sx={{ color: "inherit" }}>
+                  <FaInstagramSquare size={28} />
+                </Link>
+              </Box>
             </Box>
           </Box>
 
@@ -129,7 +175,7 @@ const CandidateProfile = () => {
                         DATE OF BIRTH
                       </Typography>
                       <Typography sx={{ fontWeight: "bold" }}>
-                        14 Jun, 2025
+                        {candidate.birthday}
                       </Typography>
                     </Box>
 
@@ -137,7 +183,7 @@ const CandidateProfile = () => {
                       <OutlinedFlagOutlinedIcon color="primary" />
                       <Typography color="textSecondary">NATIONALITY</Typography>
                       <Typography sx={{ fontWeight: "bold" }}>
-                        Sinhalese
+                        {candidate.nationality}
                       </Typography>
                     </Box>
                   </Box>
@@ -156,7 +202,9 @@ const CandidateProfile = () => {
                     <Box sx={{ width: "200px" }}>
                       <AccountCircleOutlinedIcon color="primary" />
                       <Typography color="textSecondary">GENDER</Typography>
-                      <Typography sx={{ fontWeight: "bold" }}>Male</Typography>
+                      <Typography sx={{ fontWeight: "bold" }}>
+                        {candidate.gender}
+                      </Typography>
                     </Box>
                   </Box>
 
@@ -165,7 +213,7 @@ const CandidateProfile = () => {
                       <LayersOutlinedIcon color="primary" />
                       <Typography color="textSecondary">EXPERIENCE</Typography>
                       <Typography sx={{ fontWeight: "bold" }}>
-                        5 Years
+                        {candidate.experience}
                       </Typography>
                     </Box>
 
@@ -173,7 +221,7 @@ const CandidateProfile = () => {
                       <SchoolOutlinedIcon color="primary" />
                       <Typography color="textSecondary">EDUCATIONS</Typography>
                       <Typography sx={{ fontWeight: "bold" }}>
-                        Master Degree
+                        {candidate.education}
                       </Typography>
                     </Box>
                   </Box>
@@ -203,22 +251,24 @@ const CandidateProfile = () => {
                 <Typography variant="h6">Contact Information</Typography>
                 <Box sx={{ display: "flex", gap: 1, py: 2 }}>
                   <LanguageOutlinedIcon color="primary" />
-                  <Typography>www.facebook.com</Typography>
+                  <Typography>{candidate.website}</Typography>
                 </Box>
                 <Divider />
                 <Box sx={{ display: "flex", gap: 1, py: 2 }}>
                   <PhoneInTalkOutlinedIcon color="primary" />
-                  <Typography>+1-202-555-0141</Typography>
+                  <Typography>{candidate.phone}</Typography>
                 </Box>
                 <Divider />
                 <Box sx={{ display: "flex", gap: 1, py: 2 }}>
                   <MailOutlineOutlinedIcon color="primary" />
-                  <Typography>company@email.com</Typography>
+                  <Typography>{candidate.email}</Typography>
                 </Box>
                 <Divider />
                 <Box sx={{ display: "flex", gap: 1, py: 2 }}>
                   <FmdGoodOutlinedIcon color="primary" />
-                  <Typography>Location here</Typography>
+                  <Typography>
+                    {candidate.city}, {candidate.country}
+                  </Typography>
                 </Box>
               </CardContent>
             </Card>
