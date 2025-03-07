@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+
 import { Box, Button, Container, Typography } from "@mui/material";
 import Logo from "../../assets/facebook.svg";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -14,10 +16,52 @@ import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";
 import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import OpenPosition from "./OpenPosition";
 
-const RecruiterProfile = () => {
-  const params = useParams();
+import { getAllUsers, getUserById } from "../../helper/helper";
+import { getAllRecruiters } from "../../helper/recruiter";
+import { getAllCompanyBenefit } from "../../helper/companyBenefit";
 
-  console.log(params);
+const RecruiterProfile = () => {
+  const { recruiterId } = useParams();
+
+  const [recruiter, setRecruiter] = useState([]);
+
+  const [user, setUser] = useState([]);
+
+  const [benefit, setBenefit] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const recruiterDetails = await getAllRecruiters();
+
+        const targetRecruiter = recruiterDetails.data.find(
+          (r) => r.user_id === recruiterId
+        );
+
+        setRecruiter(targetRecruiter);
+
+        const user_id = recruiterId;
+
+        const recruiterBasic = await getUserById({ user_id });
+
+        setUser(recruiterBasic.data[0]);
+
+        const company_benefits = await getAllCompanyBenefit();
+
+        const filteredBenfit = company_benefits.data.filter(
+          (b) => b.user_id === recruiterId
+        );
+
+        setBenefit(filteredBenfit);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [recruiterId]);
+
+  console.log(recruiter);
 
   return (
     <div>
@@ -36,10 +80,10 @@ const RecruiterProfile = () => {
                   <img src={Logo} alt="Logo" width={82} />
                   <Box>
                     <Typography sx={{ fontWeight: "bold" }} variant="h5">
-                      Facebook
+                      {user.name}
                     </Typography>
                     <Typography color="textSecondary">
-                      Information Technology (IT)
+                      {recruiter.industry_type}
                     </Typography>
                   </Box>
                 </Box>
@@ -72,18 +116,7 @@ const RecruiterProfile = () => {
                 Description
               </Typography>
 
-              <Typography sx={{ mt: 2 }}>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat
-                magni sunt cum tempore ex, magnam vel, necessitatibus officia
-                facilis amet eos similique aut nisi, vitae tempora labore error?
-                Eaque tempore vero doloremque impedit maxime aperiam quaerat
-                cupiditate voluptatum obcaecati voluptatibus perferendis totam,
-                aliquam dolores ut eius odio suscipit, enim deleniti, eum
-                numquam ducimus! Quasi velit inventore culpa necessitatibus
-                dicta. Optio ad laboriosam voluptatum incidunt. Adipisci natus
-                quaerat aliquid laboriosam voluptatum molestias quos corporis,
-                architecto beatae officia quam soluta quasi. Quos?
-              </Typography>
+              <Typography sx={{ mt: 2 }}>{recruiter.description}</Typography>
 
               <Typography variant="h6" sx={{ mt: 2, mb: 2 }}>
                 Company Benefits
@@ -93,26 +126,9 @@ const RecruiterProfile = () => {
                 Repudiandae commodi cumque unde vitae quam eveniet!
               </Typography>
               <ul>
-                <li>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Corrupti, non?
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Corrupti, non?
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Corrupti, non?
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Corrupti, non?
-                </li>
-                <li>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Corrupti, non?
-                </li>
+                {benefit.map((b) => (
+                  <li key={b.benefit_id}>{b.description}</li>
+                ))}
               </ul>
               <Typography variant="h6" sx={{ mt: 2, mb: 2 }}>
                 Company Vision
@@ -136,7 +152,7 @@ const RecruiterProfile = () => {
                           FOUNDED IN
                         </Typography>
                         <Typography sx={{ fontWeight: "bold" }}>
-                          14 Jun, 2025
+                          {recruiter.founded}
                         </Typography>
                       </Box>
 
@@ -146,7 +162,7 @@ const RecruiterProfile = () => {
                           ORGANIZATION TYPE
                         </Typography>
                         <Typography sx={{ fontWeight: "bold" }}>
-                          Private Company
+                          {recruiter.organization_type}
                         </Typography>
                       </Box>
                     </Box>
@@ -156,7 +172,7 @@ const RecruiterProfile = () => {
                         <LayersOutlinedIcon color="primary" />
                         <Typography color="textSecondary">TEAM SIZE</Typography>
                         <Typography sx={{ fontWeight: "bold" }}>
-                          120-300 Candidates
+                          {recruiter.team_size} Candidates
                         </Typography>
                       </Box>
 
@@ -166,7 +182,7 @@ const RecruiterProfile = () => {
                           INDUSTRY TYPE
                         </Typography>
                         <Typography sx={{ fontWeight: "bold" }}>
-                          Technology
+                          {recruiter.industry_type}
                         </Typography>
                       </Box>
                     </Box>
@@ -179,7 +195,7 @@ const RecruiterProfile = () => {
                   <Typography variant="h6">Contact Information</Typography>
                   <Box sx={{ display: "flex", gap: 1, py: 2 }}>
                     <LanguageOutlinedIcon color="primary" />
-                    <Typography>www.facebook.com</Typography>
+                    <Typography>{recruiter.website}</Typography>
                   </Box>
                   <Box sx={{ display: "flex", gap: 1, py: 2 }}>
                     <PhoneInTalkOutlinedIcon color="primary" />
@@ -187,7 +203,7 @@ const RecruiterProfile = () => {
                   </Box>
                   <Box sx={{ display: "flex", gap: 1, py: 2 }}>
                     <MailOutlineOutlinedIcon color="primary" />
-                    <Typography>company@email.com</Typography>
+                    <Typography>{user.email}</Typography>
                   </Box>
                 </CardContent>
               </Card>
