@@ -14,17 +14,20 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import useLoginStore from "../store/loginStore";
-
-const pages = [
-  { name: "Home", path: "/" },
-  { name: "Find Job", path: "/job" }, //unplan
-  { name: "Recruiters", path: "/recruiters" },
-  { name: "Candidates", path: "/candidate" },
-  { name: "Contact Us", path: "/contact" },
-  { name: "Dashboard", path: "/dashboard/:id" },
-];
+import { useAuthStore } from "../store/authStore";
 
 const Navbar = () => {
+  const { auth } = useAuthStore();
+
+  const pages = [
+    { name: "Home", path: "/" },
+    { name: "Find Job", path: "/job" }, //unplan
+    { name: "Recruiters", path: "/recruiters" },
+    { name: "Candidates", path: "/candidate" },
+    { name: "Contact Us", path: "/contact" },
+    { name: "Dashboard", path: `/dashboard/${auth.userId}` },
+  ];
+
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -231,7 +234,7 @@ const Navbar = () => {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
                     component="a"
-                    href="/dashboard/:id"
+                    href={`/dashboard/${auth.userId}`}
                     sx={{ textDecoration: "none", color: "inherit" }}
                   >
                     Dashboard
