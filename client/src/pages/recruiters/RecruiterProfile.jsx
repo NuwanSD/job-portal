@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Container, Link, Typography } from "@mui/material";
 import Logo from "../../assets/facebook.svg";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
@@ -14,11 +14,17 @@ import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import PhoneInTalkOutlinedIcon from "@mui/icons-material/PhoneInTalkOutlined";
 import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
-import OpenPosition from "./OpenPosition";
+
+import { FaFacebookSquare } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaInstagramSquare } from "react-icons/fa";
 
 import { getAllUsers, getUserById } from "../../helper/helper";
 import { getAllRecruiters } from "../../helper/recruiter";
 import { getAllCompanyBenefit } from "../../helper/companyBenefit";
+
+import OpenPosition from "./OpenPosition";
 
 const RecruiterProfile = () => {
   const { recruiterId } = useParams();
@@ -38,13 +44,19 @@ const RecruiterProfile = () => {
           (r) => r.user_id === recruiterId
         );
 
-        setRecruiter(targetRecruiter);
-
         const user_id = recruiterId;
 
         const recruiterBasic = await getUserById({ user_id });
 
-        setUser(recruiterBasic.data[0]);
+        const response = recruiterBasic.data[0];
+        setUser(response);
+
+        const modifiedData = {
+          ...targetRecruiter,
+          name: response.name,
+        };
+
+        setRecruiter(modifiedData);
 
         const company_benefits = await getAllCompanyBenefit();
 
@@ -60,8 +72,6 @@ const RecruiterProfile = () => {
 
     fetchData();
   }, [recruiterId]);
-
-  console.log(recruiter);
 
   return (
     <div>
@@ -80,7 +90,7 @@ const RecruiterProfile = () => {
                   <img src={Logo} alt="Logo" width={82} />
                   <Box>
                     <Typography sx={{ fontWeight: "bold" }} variant="h5">
-                      {user.name}
+                      {recruiter.name}
                     </Typography>
                     <Typography color="textSecondary">
                       {recruiter.industry_type}
@@ -211,7 +221,29 @@ const RecruiterProfile = () => {
               <Card variant="outlined" sx={{ mt: 2, width: "400px" }}>
                 <CardContent>
                   <Typography variant="h6">Follow us on:</Typography>
-                  <Box sx={{ mt: 2 }}>Social Media Links</Box>
+                  <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
+                    <Link
+                      href={recruiter.linkedin_url}
+                      sx={{ color: "inherit" }}
+                    >
+                      <FaLinkedin size={28} />
+                    </Link>
+                    <Link
+                      href={recruiter.facebook_url}
+                      sx={{ color: "inherit" }}
+                    >
+                      <FaFacebookSquare size={28} />
+                    </Link>
+                    <Link href={recruiter.x_url} sx={{ color: "inherit" }}>
+                      <FaXTwitter size={28} />
+                    </Link>
+                    <Link
+                      href={recruiter.instagram_url}
+                      sx={{ color: "inherit" }}
+                    >
+                      <FaInstagramSquare size={28} />
+                    </Link>
+                  </Box>
                 </CardContent>
               </Card>
             </Box>
@@ -223,7 +255,7 @@ const RecruiterProfile = () => {
         <Container sx={{ py: 10 }}>
           <Typography variant="h4">Open Position (05)</Typography>
           <Box sx={{ mt: 10 }}>
-            <OpenPosition />
+            <OpenPosition recruiter={recruiter} />
           </Box>
         </Container>
       </section>

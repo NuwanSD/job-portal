@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -8,59 +8,43 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 import { Button } from "@mui/material";
+import { getAllPostedJob } from "../../helper/postedJob";
+import { getAllJobs } from "../../helper/job";
 
-const cards = [
-  {
-    id: 1,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Software Engineer",
-    type: "FULL-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Google",
-  },
-  {
-    id: 2,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Data Analyst",
-    type: "PART-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Facebook",
-  },
-  {
-    id: 3,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Product Manager",
-    type: "FULL-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Amazon",
-  },
-  {
-    id: 4,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "UX Designer",
-    type: "PART-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Apple",
-  },
-  {
-    id: 5,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "DevOps Engineer",
-    type: "PART-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Microsoft",
-  },
-  {
-    id: 6,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Marketing Specialist",
-    type: "INTERNSHIP",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Netflix",
-  },
-];
+function OpenPosition({ recruiter }) {
+  const [openJob, setOpenJob] = useState([]);
 
-function OpenPosition() {
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!recruiter?.user_id) return;
+
+      try {
+        const postedJobs = await getAllPostedJob();
+        const jobs = await getAllJobs();
+
+        const filteredData = postedJobs.data.filter(
+          (job) => job.user_id === recruiter.user_id
+        );
+
+        const modifiedData = filteredData.map((d) => {
+          const jobMatch = jobs.data.find((j) => j.job_id === d.job_id);
+
+          return {
+            ...d,
+            company_name: recruiter?.name || "Unknown",
+            job_title: jobMatch ? jobMatch.title : "Unknown",
+          };
+        });
+
+        setOpenJob(modifiedData);
+      } catch (error) {
+        console.log(response);
+      }
+    };
+
+    fetchData();
+  }, [recruiter]);
+
   return (
     <Box
       sx={{
@@ -70,38 +54,44 @@ function OpenPosition() {
         gap: 2,
       }}
     >
-      {cards.map((card) => (
-        <Card key={card.id} sx={{ width: "100%" }} variant="outlined">
-          <CardActionArea LinkComponent="a" href={`/job/${card.id}`}>
+      {openJob.map((j) => (
+        <Card key={j.posted_job_id} sx={{ width: "100%" }} variant="outlined">
+          <CardActionArea LinkComponent="a" href={`/job/${j.posted_job_id}`}>
             <CardContent sx={{ height: "100%" }}>
               <Box>
                 <Typography variant="h6" component="div">
-                  {card.title}
+                  {j.job_title}
                 </Typography>
                 <Box sx={{ display: "flex", gap: 1 }}>
                   <Box
                     sx={{
                       bgcolor: "#1976D2",
-                      color: "white",
-                      fontSize: "10px",
-                      fontWeight: "bold",
                       alignContent: "center",
                       px: 1,
                       borderRadius: 1,
                     }}
                   >
-                    {card.type}
+                    <Typography
+                      sx={{
+                        color: "white",
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {j.job_type}
+                    </Typography>
                   </Box>
                   <Typography variant="body2" color="text.secondary">
-                    {card.salary}
+                    $ {j.salary}
                   </Typography>
                 </Box>
               </Box>
               <Box
                 sx={{ mt: 4, display: "flex", alignContent: "center", gap: 2 }}
               >
-                {card.icon}
-                <Typography>Google Inc</Typography>
+                <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />
+                <Typography>{j.company_name}</Typography>
               </Box>
             </CardContent>
           </CardActionArea>
