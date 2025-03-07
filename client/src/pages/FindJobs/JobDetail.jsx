@@ -35,6 +35,7 @@ const JobDetail = () => {
         const users = await getAllUsers();
         const jobs = await getAllJobs();
 
+        //there is issue with find therefore convert it to the filter
         const targetJob = postedJobs.data.find(
           (job) => job.posted_job_id === jobId
         );

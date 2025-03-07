@@ -1,5 +1,5 @@
 import { Box, Typography, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
@@ -11,8 +11,57 @@ import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 import AttachFileOutlinedIcon from "@mui/icons-material/AttachFileOutlined";
 
+import { getAllJobRequirement } from "../../helper/jobRequirement";
+import { getAllJobBenefit } from "../../helper/jobBenefit";
+import { getAllJobTag } from "../../helper/jobTag";
+import { getAllAllocatedTag } from "../../helper/tagAllocate";
+
 const JobDescription = ({ postedJob }) => {
-  console.log(postedJob);
+  const [requirement, setRequirement] = useState([]);
+  const [benefit, setBenefit] = useState([]);
+  const [jobTag, setJobTag] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!postedJob?.posted_job_id) return;
+
+      try {
+        const requirements = await getAllJobRequirement();
+
+        const benefits = await getAllJobBenefit();
+
+        const jobRequirements = requirements.data.filter(
+          (req) => req.posted_job_id === postedJob.posted_job_id
+        );
+
+        const jobBenefit = benefits.data.filter(
+          (b) => b.posted_job_id === postedJob.posted_job_id
+        );
+
+        setRequirement(jobRequirements);
+        setBenefit(jobBenefit);
+
+        const job_tag = await getAllJobTag();
+
+        const tag_allocate = await getAllAllocatedTag();
+
+        const targetIds = tag_allocate.data.filter(
+          (t) => t.posted_job_id === postedJob.posted_job_id
+        );
+
+        const jobTags = job_tag.data.filter((a) =>
+          targetIds.some((t) => t.tag_id === a.tag_id)
+        );
+
+        setJobTag(jobTags);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [postedJob]);
+
   return (
     <Box
       sx={{
@@ -25,101 +74,29 @@ const JobDescription = ({ postedJob }) => {
         <Typography variant="h6" sx={{ textAlign: "left" }}>
           Job Description
         </Typography>
-        <Typography sx={{ mt: 2 }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, illum!
+
+        <Typography sx={{ mt: 2 }}>{postedJob.description}</Typography>
+
+        <Typography sx={{ mt: 2, mb: 2, fontWeight: "medium" }}>
+          Requirements
         </Typography>
-        <Typography sx={{ mt: 2 }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, eos
-          eveniet minus sit fuga nam, aliquid ducimus natus voluptatibus
-          architecto quia repellat dolor commodi esse saepe incidunt ut cum
-          obcaecati. Libero aliquam illum iure laudantium. Laboriosam ad iusto
-          qui amet dolore voluptatum, non cupiditate, exercitationem saepe magni
-          in itaque porro?
+        {requirement.map((req) => (
+          <ul key={req.requirement_id}>
+            <li>{req.description}</li>
+          </ul>
+        ))}
+
+        <Typography sx={{ mt: 2, mb: 2, fontWeight: "medium" }}>
+          Benefits
         </Typography>
-        <Typography sx={{ mt: 2 }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat magni
-          sunt cum tempore ex, magnam vel, necessitatibus officia facilis amet
-          eos similique aut nisi, vitae tempora labore error? Eaque tempore vero
-          doloremque impedit maxime aperiam quaerat cupiditate voluptatum
-          obcaecati voluptatibus perferendis totam, aliquam dolores ut eius odio
-          suscipit, enim deleniti, eum numquam ducimus! Quasi velit inventore
-          culpa necessitatibus dicta. Optio ad laboriosam voluptatum incidunt.
-          Adipisci natus quaerat aliquid laboriosam voluptatum molestias quos
-          corporis, architecto beatae officia quam soluta quasi. Quos?
-        </Typography>
-        <Typography sx={{ mt: 2 }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo, illum!
-        </Typography>
-        <Typography sx={{ mt: 2, mb: 2 }}>Requirements</Typography>
-        <ul>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-        </ul>
-        <Typography sx={{ mt: 2, mb: 2 }}>Desirable:</Typography>
-        <ul>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-        </ul>
-        <Typography sx={{ mt: 2, mb: 2 }}>Benefits</Typography>
-        <ul>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-          <li>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti,
-            non?
-          </li>
-        </ul>
+
+        {benefit.map((b) => (
+          <ul key={b.benefit_id}>
+            <li>{b.description}</li>
+          </ul>
+        ))}
       </Box>
+
       <Box>
         <Card
           variant="outlined"
@@ -129,7 +106,7 @@ const JobDescription = ({ postedJob }) => {
             sx={{ alignContent: "center", textAlign: "center", width: "200px" }}
           >
             <Typography variant="h6">Salary (USD)</Typography>
-            <Typography color="primary">$1000,000- $120,000</Typography>
+            <Typography color="primary">${postedJob.salary}</Typography>
             <Typography color="textSecondary">Yearly salary</Typography>
           </CardContent>
 
@@ -145,7 +122,9 @@ const JobDescription = ({ postedJob }) => {
           >
             <MapOutlinedIcon sx={{ color: "blue", display: "block" }} />
             <Typography variant="h6">Job Location</Typography>
-            <Typography color="textSecondary">Perth, Australia</Typography>
+            <Typography color="textSecondary">
+              {postedJob.job_location}
+            </Typography>
           </CardContent>
         </Card>
 
@@ -161,11 +140,17 @@ const JobDescription = ({ postedJob }) => {
                 gap: 1,
               }}
             >
-              <Typography>Lorem ipsum</Typography>
-              <Typography>Lorem ipsum</Typography>
-              <Typography>Lorem ipsum</Typography>
-              <Typography>Lorem ipsum</Typography>
-              <Typography>Lorem ipsum</Typography>
+              {benefit.map((b) => (
+                <div key={b.benefit_id}>
+                  <Typography
+                    sx={{
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {b.benefit_tag}
+                  </Typography>
+                </div>
+              ))}
             </Box>
           </CardContent>
         </Card>
@@ -186,32 +171,36 @@ const JobDescription = ({ postedJob }) => {
                 <CalendarMonthOutlinedIcon />
                 <Typography color="textSecondary">JOB POSTED</Typography>
                 <Typography sx={{ fontWeight: "bold" }}>
-                  14 Jun, 2025
+                  {postedJob.posted_date}
                 </Typography>
               </Box>
               <Typography>
                 <TimerOutlinedIcon />
                 <Typography color="textSecondary">JOB EXPIRE IN:</Typography>
                 <Typography sx={{ fontWeight: "bold" }}>
-                  14 Jun, 2025
+                  {postedJob.expire_date}
                 </Typography>
               </Typography>
               <Typography>
                 <LayersOutlinedIcon />
                 <Typography color="textSecondary">JOB LEVEL:</Typography>
-                <Typography sx={{ fontWeight: "bold" }}>Entry Level</Typography>
+                <Typography sx={{ fontWeight: "bold" }}>
+                  {postedJob.job_level}
+                </Typography>
               </Typography>
               <Typography>
                 <AttachMoneyOutlinedIcon />
                 <Typography color="textSecondary">SALARY</Typography>
                 <Typography sx={{ fontWeight: "bold" }}>
-                  $50K-80K/Mon
+                  ${postedJob.salary}
                 </Typography>
               </Typography>
               <Typography>
                 <SchoolOutlinedIcon />
                 <Typography color="textSecondary">EXPERIENCE:</Typography>
-                <Typography sx={{ fontWeight: "bold" }}>Graduation</Typography>
+                <Typography sx={{ fontWeight: "bold" }}>
+                  {postedJob.experience}
+                </Typography>
               </Typography>
             </Box>
           </CardContent>
@@ -238,28 +227,20 @@ const JobDescription = ({ postedJob }) => {
                 gap: 1,
               }}
             >
-              <Typography
-                sx={{
-                  bgcolor: "#e6f0ff",
-                  display: "inline",
-                  textAlign: "center",
-                  border: 1,
-                  borderRadius: 1,
-                }}
-              >
-                PHP
-              </Typography>
-              <Typography
-                sx={{
-                  bgcolor: "#e6f0ff",
-                  display: "inline",
-                  textAlign: "center",
-                  border: 1,
-                  borderRadius: 1,
-                }}
-              >
-                React
-              </Typography>
+              {jobTag.map((data) => (
+                <Typography
+                  key={data.tag_id}
+                  sx={{
+                    bgcolor: "#e6f0ff",
+                    display: "inline",
+                    textAlign: "center",
+                    border: 1,
+                    borderRadius: 1,
+                  }}
+                >
+                  {data.tag}
+                </Typography>
+              ))}
             </Box>
           </CardContent>
         </Card>

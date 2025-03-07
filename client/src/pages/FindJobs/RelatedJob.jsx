@@ -84,7 +84,7 @@ function RelatedJob() {
                     </Typography>
                   </Box>
                   <Typography variant="body2" color="text.secondary">
-                    {job.salary}
+                    ${job.salary}
                   </Typography>
                 </Box>
               </Box>
