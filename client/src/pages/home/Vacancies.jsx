@@ -1,27 +1,31 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
+
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 
-const jobs = [
-  { id: 1, title: "Software Engineer", description: "41,523 open positions" },
-  { id: 2, title: "Data Scientist", description: "30,789 open positions" },
-  { id: 3, title: "Product Manager", description: "12,345 open positions" },
-  { id: 4, title: "UX Designer", description: "9,876 open positions" },
-  { id: 5, title: "DevOps Engineer", description: "5,432 open positions" },
-  { id: 6, title: "Marketing Manager", description: "7,890 open positions" },
-  { id: 7, title: "Sales Executive", description: "6,789 open positions" },
-  {
-    id: 8,
-    title: "Customer Support ",
-    description: "10,123 open positions",
-  },
-];
+import { getAllJobs } from "../../helper/job";
 
 function SelectActionCard() {
-  const [selectedCard, setSelectedCard] = React.useState(0);
+  const [selectedCard, setSelectedCard] = useState(0);
+
+  const [jobs, setAllJobs] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const jobs = await getAllJobs();
+
+        setAllJobs(jobs.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -32,7 +36,7 @@ function SelectActionCard() {
       }}
     >
       {jobs.map((job, index) => (
-        <Card key={job.id}>
+        <Card key={job.job_id}>
           <CardActionArea
             onClick={() => setSelectedCard(index)}
             data-active={selectedCard === index ? "" : undefined}
