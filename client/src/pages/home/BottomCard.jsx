@@ -30,6 +30,7 @@ export default function BottomCard() {
             <Button
               variant="contained"
               sx={{ mt: 2, textTransform: "none", gap: 1 }}
+              href="/signup"
             >
               Register Now <ArrowForwardOutlinedIcon />
             </Button>
@@ -57,6 +58,7 @@ export default function BottomCard() {
               fuga.
             </Typography>
             <Button
+              href="/signup"
               variant="contained"
               sx={{ mt: 2, textTransform: "none", gap: 1 }}
             >
