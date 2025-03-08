@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -8,6 +8,10 @@ import BookmarkBorderOutlinedIcon from "@mui/icons-material/BookmarkBorderOutlin
 import CardActionArea from "@mui/material/CardActionArea";
 import CardActions from "@mui/material/CardActions";
 import { Button } from "@mui/material";
+
+import { getAllPostedJob } from "../../helper/postedJob";
+import { getAllUsers } from "../../helper/helper";
+import { getAllJobs } from "../../helper/job";
 
 const cards = [
   {
@@ -85,6 +89,38 @@ const cards = [
 ];
 
 function FeaturedJob() {
+  const [postedJob, setPostedJobs] = useState([]);
+  const [user, setUsers] = useState([]);
+  const [job, setJobs] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const postedJobs = await getAllPostedJob();
+        const users = await getAllUsers();
+        const jobs = await getAllJobs();
+
+        const modifiedJobs = postedJobs.data.map((job) => {
+          const userMatch = users.data.find((u) => u.user_id === job.user_id);
+          const jobMatch = jobs.data.find((j) => j.job_id === job.job_id);
+          return {
+            ...job,
+            company_name: userMatch ? userMatch.name : "Unknown",
+            job_title: jobMatch ? jobMatch.title : "Unknown",
+          };
+        });
+
+        setPostedJobs(modifiedJobs);
+        setUsers(users.data);
+        setJobs(jobs);
+      } catch (error) {
+        console.log(response);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <Box
       sx={{
@@ -94,37 +130,44 @@ function FeaturedJob() {
         gap: 2,
       }}
     >
-      {cards.map((card) => (
-        <Card key={card.id} sx={{ width: "100%" }} variant="outlined">
+      {postedJob.map((job) => (
+        <Card key={job.job_id} sx={{ width: "100%" }} variant="outlined">
           <CardActionArea LinkComponent="a" href="/job">
             <CardContent sx={{ height: "100%" }}>
               <Box>
                 <Typography variant="h6" component="div">
-                  {card.title}
+                  {job.job_title}
                 </Typography>
                 <Box sx={{ display: "flex", gap: 1 }}>
                   <Box
                     sx={{
                       bgcolor: "#1976D2",
-                      color: "white",
-                      fontSize: "10px",
-                      fontWeight: "bold",
                       alignContent: "center",
                       px: 1,
                       borderRadius: 1,
                     }}
                   >
-                    {card.type}
+                    <Typography
+                      sx={{
+                        color: "white",
+                        fontSize: "10px",
+                        fontWeight: "bold",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {job.job_type}
+                    </Typography>
                   </Box>
                   <Typography variant="body2" color="text.secondary">
-                    {card.salary}
+                    {job.salary}
                   </Typography>
                 </Box>
               </Box>
               <Box
                 sx={{ mt: 4, display: "flex", alignContent: "center", gap: 2 }}
               >
-                {card.icon}
+                <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />
+                <Typography>{job.company_name}</Typography>
                 <Typography>Google Inc</Typography>
               </Box>
             </CardContent>
