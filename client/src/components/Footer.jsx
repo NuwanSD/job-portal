@@ -1,5 +1,12 @@
 import React from "react";
-import { Box, Button, Container, Link, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
 import Divider from "@mui/material/Divider";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/SubscriptionsOutlined";
@@ -22,14 +29,21 @@ const Footer = () => {
                 display: "flex",
                 gap: 1,
                 alignItems: "center",
+                mb: 1,
               }}
             >
               <WorkOutlineIcon />
-              <Typography variant="h5">JobSpotlight</Typography>
+              <Typography variant="h5">JOBSPOTLIGHT</Typography>
             </Box>
             <Box>
-              <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
-                <input type="text" style={{ borderRadius: 5 }} />
+              <Box sx={{ display: "flex", gap: 1, mb: 1 }}>
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  color="primary"
+                  focused
+                  sx={{ backgroundColor: "white", borderRadius: 1 }}
+                />
                 <Button variant="contained" sx={{ textTransform: "none" }}>
                   Subscribe
                 </Button>
