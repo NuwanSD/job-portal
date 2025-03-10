@@ -62,8 +62,6 @@ const Navbar = () => {
     <AppBar
       position="sticky"
       sx={{
-        backgroundColor: "rgba(255, 255, 255, 0.6)",
-        backdropFilter: "blur(8px)",
         p: 1.5,
       }}
     >
@@ -73,9 +71,10 @@ const Navbar = () => {
             sx={{
               display: { xs: "none", md: "flex" },
               mr: 1,
-              color: "#1976D2",
+              color: "#FFFFFF",
             }}
           />
+
           <Typography
             variant="h5"
             noWrap
@@ -84,9 +83,8 @@ const Navbar = () => {
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
               fontWeight: 700,
-              color: "#1976D2",
+              color: "#FFFFFF",
               textDecoration: "none",
               textTransform: "uppercase",
             }}
@@ -101,10 +99,11 @@ const Navbar = () => {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              color="primary"
+              color="inherit"
             >
               <MenuIcon />
             </IconButton>
+
             <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
@@ -130,7 +129,6 @@ const Navbar = () => {
                       textAlign: "center",
                       textDecoration: "none",
                       color: "inherit",
-                      textTransform: "uppercase",
                     }}
                   >
                     {page.name}
@@ -139,13 +137,15 @@ const Navbar = () => {
               ))}
             </Menu>
           </Box>
+
           <AdbIcon
             sx={{
               display: { xs: "flex", md: "none" },
               mr: 1,
-              color: "#1976D2",
+              color: "#FFFFFF",
             }}
           />
+
           <Typography
             variant="h5"
             noWrap
@@ -155,15 +155,15 @@ const Navbar = () => {
               mr: 2,
               display: { xs: "flex", md: "none" },
               flexGrow: 1,
-              fontFamily: "monospace",
               fontWeight: 700,
-              color: "#1976D2",
+              color: "#FFFFFF",
               textDecoration: "none",
               textTransform: "uppercase",
             }}
           >
             JobSpotlight
           </Typography>
+
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -173,7 +173,7 @@ const Navbar = () => {
                 href={page.path}
                 sx={{
                   my: 2,
-                  color: "primary",
+                  color: "inherit",
                   display: "block",
                   fontWeight: "bold",
                 }}
@@ -182,6 +182,7 @@ const Navbar = () => {
               </Button>
             ))}
           </Box>
+
           {!isLogin ? (
             <Box
               sx={{
@@ -191,10 +192,21 @@ const Navbar = () => {
                 gap: 2,
               }}
             >
-              <Button variant="outlined" LinkComponent="a" href="/login">
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{ color: "inherit" }}
+                LinkComponent="a"
+                href="/login"
+              >
                 Login
               </Button>
-              <Button variant="contained" LinkComponent="a" href="/signup">
+              <Button
+                variant="contained"
+                sx={{ backgroundColor: "white", color: "#000" }}
+                LinkComponent="a"
+                href="/signup"
+              >
                 Sign Up
               </Button>
             </Box>
