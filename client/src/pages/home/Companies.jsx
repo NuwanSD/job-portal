@@ -42,13 +42,13 @@ function Companies() {
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
               <img src={Logo} alt="" width={82} />
               <Box>
-                <Typography variant="h6" component="div" sx={{ ml: 0.5 }}>
+                <Typography variant="h5" sx={{ ml: 0.5, fontWeight: "medium" }}>
                   {company.name}
                 </Typography>
                 <Typography
                   variant="body2"
                   color="text.secondary"
-                  sx={{ display: "flex", alignItems: "center" }}
+                  sx={{ display: "flex", alignItems: "center", mt: 0.5 }}
                 >
                   <LocationOnOutlinedIcon />
                   {company.city}, {company.country}

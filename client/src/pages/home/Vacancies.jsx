@@ -31,12 +31,12 @@ function SelectActionCard() {
       sx={{
         width: "100%",
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(min(200px, 100%), 1fr))",
-        gap: 5,
+        gridTemplateColumns: "repeat(auto-fill, minmax(min(250px, 100%), 1fr))",
+        gap: 4,
       }}
     >
       {jobs.map((job, index) => (
-        <Card key={job.job_id}>
+        <Card key={job.job_id} variant="outlined" sx={{ boxShadow: 1 }}>
           <CardActionArea
             onClick={() => setSelectedCard(index)}
             data-active={selectedCard === index ? "" : undefined}

@@ -3,7 +3,7 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 
-import Banner from "../../assets/img-01.png";
+import Banner from "../../assets/img-04.jpg";
 import SelectActionCard from "./Vacancies";
 import Work from "./Work";
 import Category from "./Category";
@@ -28,8 +28,8 @@ const Home = () => {
               </Box>
               <Box sx={{ mt: 2 }}>
                 <Typography>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Inventore deleniti nam repellat adipisci alias totam.
+                  Find your dream job or hire the best talent with our smart
+                  matching system. Start your career journey today!
                 </Typography>
               </Box>
               <Box sx={{ display: "flex", mt: 2 }}>
@@ -37,10 +37,15 @@ const Home = () => {
               </Box>
             </Box>
             <Box>
-              <img src={Banner} width="500px" alt="image" />
+              <img
+                src={Banner}
+                width="500px"
+                alt="image"
+                style={{ borderRadius: "12px" }}
+              />
             </Box>
           </Box>
-          <Box sx={{ mt: 5 }}>
+          <Box sx={{ mt: 10 }}>
             <BannerCards />
           </Box>
         </Container>
@@ -48,20 +53,25 @@ const Home = () => {
 
       <section>
         <Container sx={{ py: 15 }}>
-          <Typography variant="h4">Most Popular Vacancies</Typography>
-          <Box sx={{ mt: 5 }}>
+          <Typography variant="h4" sx={{ fontWeight: "medium" }}>
+            Most Popular Vacancies
+          </Typography>
+          <Box sx={{ mt: 8 }}>
             <SelectActionCard />
           </Box>
         </Container>
       </section>
 
       <section>
-        <Box sx={{ backgroundColor: "#f7f7f8", py: 15 }}>
+        <Box sx={{ backgroundColor: "#15181b", py: 15 }}>
           <Container>
-            <Typography variant="h4" sx={{ textAlign: "center" }}>
-              How JobSpotlight Work
+            <Typography
+              variant="h4"
+              sx={{ textAlign: "center", fontWeight: "medium", color: "#fff" }}
+            >
+              How Do We Work
             </Typography>
-            <Box sx={{ mt: 5 }}>
+            <Box sx={{ mt: 8 }}>
               <Work />
             </Box>
           </Container>
@@ -78,7 +88,7 @@ const Home = () => {
               }}
             >
               <Box>
-                <Typography variant="h4" sx={{}}>
+                <Typography variant="h4" sx={{ fontWeight: "medium" }}>
                   Popular Category
                 </Typography>
               </Box>
@@ -91,7 +101,7 @@ const Home = () => {
                 View All
               </Button>
             </Box>
-            <Box sx={{ mt: 5 }}>
+            <Box sx={{ mt: 8 }}>
               <Category />
             </Box>
           </Container>
@@ -108,7 +118,7 @@ const Home = () => {
               }}
             >
               <Box>
-                <Typography variant="h4" sx={{}}>
+                <Typography variant="h4" sx={{ fontWeight: "medium" }}>
                   Featured Job
                 </Typography>
               </Box>
@@ -124,7 +134,7 @@ const Home = () => {
                 View All
               </Button>
             </Box>
-            <Box sx={{ mt: 5 }}>
+            <Box sx={{ mt: 8 }}>
               <FeaturedJob />
             </Box>
           </Container>
@@ -134,8 +144,10 @@ const Home = () => {
       <section>
         <Box sx={{ py: 15 }}>
           <Container>
-            <Typography variant="h4">Top Companies</Typography>
-            <Box sx={{ mt: 5 }}>
+            <Typography variant="h4" sx={{ fontWeight: "medium" }}>
+              Top Companies
+            </Typography>
+            <Box sx={{ mt: 8 }}>
               <Companies />
             </Box>
           </Container>
@@ -145,10 +157,13 @@ const Home = () => {
       <section>
         <Box sx={{ py: 15, backgroundColor: "#f7f7f8" }}>
           <Container>
-            <Typography variant="h4" sx={{ textAlign: "center" }}>
+            <Typography
+              variant="h4"
+              sx={{ textAlign: "center", fontWeight: "medium" }}
+            >
               Clients Testimonial
             </Typography>
-            <Box sx={{ mt: 5 }}>
+            <Box sx={{ mt: 8 }}>
               <Testimonial />
             </Box>
           </Container>
@@ -158,7 +173,12 @@ const Home = () => {
       <section>
         <Box sx={{ py: 15 }}>
           <Container>
-            <BottomCard />
+            <Typography variant="h4" sx={{ fontWeight: "medium" }}>
+              Join to the Community
+            </Typography>
+            <Box sx={{ mt: 8 }}>
+              <BottomCard />
+            </Box>
           </Container>
         </Box>
       </section>

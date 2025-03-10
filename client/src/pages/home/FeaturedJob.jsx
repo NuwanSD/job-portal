@@ -13,81 +13,6 @@ import { getAllPostedJob } from "../../helper/postedJob";
 import { getAllUsers } from "../../helper/helper";
 import { getAllJobs } from "../../helper/job";
 
-const cards = [
-  {
-    id: 1,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Software Engineer",
-    type: "FULL-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Google",
-  },
-  {
-    id: 2,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Data Analyst",
-    type: "PART-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Facebook",
-  },
-  {
-    id: 3,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Product Manager",
-    type: "FULL-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Amazon",
-  },
-  {
-    id: 4,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "UX Designer",
-    type: "PART-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Apple",
-  },
-  {
-    id: 5,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "DevOps Engineer",
-    type: "PART-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Microsoft",
-  },
-  {
-    id: 6,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Marketing Specialist",
-    type: "INTERNSHIP",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Netflix",
-  },
-  {
-    id: 7,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Cybersecurity Analyst",
-    type: "PART-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "IBM",
-  },
-  {
-    id: 8,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Customer Manager",
-    type: "PART-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Salesforce",
-  },
-  {
-    id: 9,
-    icon: <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />,
-    title: "Customer Manager",
-    type: "PART-TIME",
-    salary: "Salary: $20,000 - $25,000",
-    company: "Salesforce",
-  },
-];
-
 function FeaturedJob() {
   const [postedJob, setPostedJobs] = useState([]);
   const [user, setUsers] = useState([]);
@@ -131,11 +56,15 @@ function FeaturedJob() {
       }}
     >
       {postedJob.map((job) => (
-        <Card key={job.job_id} sx={{ width: "100%" }} variant="outlined">
+        <Card
+          key={job.job_id}
+          sx={{ width: "100%", borderColor: "#1976D2" }}
+          variant="outlined"
+        >
           <CardActionArea LinkComponent="a" href="/job">
             <CardContent sx={{ height: "100%" }}>
               <Box>
-                <Typography variant="h6" component="div">
+                <Typography variant="h5" sx={{ fontWeight: "medium", mb: 1 }}>
                   {job.job_title}
                 </Typography>
                 <Box sx={{ display: "flex", gap: 1 }}>
@@ -159,16 +88,15 @@ function FeaturedJob() {
                     </Typography>
                   </Box>
                   <Typography variant="body2" color="text.secondary">
-                    {job.salary}
+                    ${job.salary}
                   </Typography>
                 </Box>
               </Box>
               <Box
-                sx={{ mt: 4, display: "flex", alignContent: "center", gap: 2 }}
+                sx={{ mt: 3, display: "flex", alignContent: "center", gap: 1 }}
               >
                 <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />
                 <Typography>{job.company_name}</Typography>
-                <Typography>Google Inc</Typography>
               </Box>
             </CardContent>
           </CardActionArea>

@@ -7,22 +7,24 @@ import Typography from "@mui/material/Typography";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import Button from "@mui/material/Button";
 
-import Image01 from "../../assets/img-02.jpg";
-import Image02 from "../../assets/banner-img.jpg";
+import Image01 from "../../assets/img-04.jpg";
+import Image02 from "../../assets/img-03.jpg";
 
 export default function BottomCard() {
   return (
     <Box sx={{ display: { xs: "row", md: "flex" }, gap: 2 }}>
-      <Card sx={{ display: "flex", mb: { xs: 4, md: 0 } }}>
+      <Card
+        sx={{ display: "flex", mb: { xs: 4, md: 0 }, background: "#15181b" }}
+      >
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography component="div" variant="h5">
+          <CardContent sx={{ flex: "1 0 auto", color: "#fff" }}>
+            <Typography component="div" variant="h5" sx={{ mb: 2 }}>
               Become a Candidate
             </Typography>
             <Typography
               variant="subtitle1"
               component="div"
-              sx={{ color: "text.secondary" }}
+              //sx={{ color: "text.secondary" }}
             >
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur,
               fuga.
@@ -43,17 +45,14 @@ export default function BottomCard() {
           alt="Live from space album cover"
         />
       </Card>
-      <Card sx={{ display: "flex" }}>
+
+      <Card sx={{ display: "flex", background: "#15181b", color: "#fff" }}>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
           <CardContent sx={{ flex: "1 0 auto" }}>
-            <Typography component="div" variant="h5">
+            <Typography component="div" variant="h5" sx={{ mb: 2 }}>
               Become a Employers
             </Typography>
-            <Typography
-              variant="subtitle1"
-              component="div"
-              sx={{ color: "text.secondary" }}
-            >
+            <Typography variant="subtitle1" component="div">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur,
               fuga.
             </Typography>

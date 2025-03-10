@@ -74,23 +74,22 @@ function Category() {
       sx={{
         width: "100%",
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(min(200px, 100%), 1fr))",
-        gap: 5,
+        gridTemplateColumns: "repeat(auto-fill, minmax(min(250px, 100%), 1fr))",
+        gap: 3,
       }}
     >
       {jobCategories.map((job) => (
-        <Card key={job.id} sx={{ boxShadow: "none" }}>
+        <Card key={job.id} variant="outlined" sx={{ alignContent: "center" }}>
           <CardContent
             sx={{
-              height: "100%",
               display: "flex",
               gap: 2,
               alignItems: "center",
             }}
           >
-            <Box sx={{ backgroundColor: "#f7f7f8", p: 1.5 }}>{job.icon}</Box>
+            <Box>{job.icon}</Box>
             <Box>
-              <Typography variant="h7" component="div">
+              <Typography variant="h7" sx={{ fontWeight: "medium" }}>
                 {job.title}
               </Typography>
               <Typography variant="body2" color="text.secondary">

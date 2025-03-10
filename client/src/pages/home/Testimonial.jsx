@@ -17,7 +17,7 @@ function Testimonial() {
         gap: 5,
       }}
     >
-      <Card sx={{ mt: 2 }}>
+      <Card sx={{ py: 2 }}>
         <CardContent sx={{ height: "100%" }}>
           <Box>
             <Rating name="read-only" value={value} readOnly />
@@ -29,16 +29,16 @@ function Testimonial() {
               Temporibus, porro?
             </Typography>
           </Box>
-          <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
+          <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
             <Box>
-              <p>Name here</p>
-              <p>Position</p>
+              <p>Sam Partol</p>
+              <Typography variant="subtitle2">Cloud Engineer</Typography>
             </Box>
           </Stack>
         </CardContent>
       </Card>
-      <Card sx={{ mt: 2 }}>
+      <Card sx={{ py: 2 }}>
         <CardContent sx={{ height: "100%" }}>
           <Box>
             <Rating name="read-only" value={value} readOnly />
@@ -50,16 +50,16 @@ function Testimonial() {
               Temporibus, porro?
             </Typography>
           </Box>
-          <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
+          <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
             <Box>
-              <p>Name here</p>
-              <p>Position</p>
+              <p>Brunin Besiy</p>
+              <Typography variant="subtitle2">Software Engineer</Typography>
             </Box>
           </Stack>
         </CardContent>
       </Card>
-      <Card sx={{ mt: 2 }}>
+      <Card sx={{ py: 2 }}>
         <CardContent sx={{ height: "100%" }}>
           <Box>
             <Rating name="read-only" value={value} readOnly />
@@ -71,11 +71,11 @@ function Testimonial() {
               Temporibus, porro?
             </Typography>
           </Box>
-          <Stack direction="row" spacing={2} sx={{ mt: 5 }}>
+          <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
             <Box>
-              <p>Name here</p>
-              <p>Position</p>
+              <p>John Doe</p>
+              <Typography variant="subtitle2">Graphic Designer</Typography>
             </Box>
           </Stack>
         </CardContent>
