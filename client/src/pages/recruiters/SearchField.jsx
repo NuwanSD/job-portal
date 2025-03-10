@@ -67,9 +67,9 @@ const ButtonContainer = styled("div")(({ theme }) => ({
 export default function SearchField() {
   return (
     <Box>
-      <Search sx={{ border: 1 }}>
+      <Search sx={{ border: 2, borderColor: "#1976D2" }}>
         <SearchIconWrapper>
-          <SearchIcon sx={{ color: "blue" }} />
+          <SearchIcon sx={{ color: "#1976D2" }} />
         </SearchIconWrapper>
         <StyledInputBase
           placeholder="Search by: Job title, Position, Keyword"
@@ -80,7 +80,7 @@ export default function SearchField() {
             variant="contained"
             sx={{ px: 2, py: 1.5, width: { xs: "100%", sm: "auto" } }}
           >
-            Find Job
+            Find Company
           </Button>
         </ButtonContainer>
       </Search>

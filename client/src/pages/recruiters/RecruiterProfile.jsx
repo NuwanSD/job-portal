@@ -74,10 +74,10 @@ const RecruiterProfile = () => {
   }, [recruiterId]);
 
   return (
-    <div>
+    <Box sx={{ py: 10 }}>
       <section>
         <Container sx={{ py: 5 }}>
-          <Card>
+          <Card variant="outlined" sx={{ boxShadow: 2 }}>
             <CardContent>
               <Box
                 sx={{
@@ -89,7 +89,7 @@ const RecruiterProfile = () => {
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <img src={Logo} alt="Logo" width={82} />
                   <Box>
-                    <Typography sx={{ fontWeight: "bold" }} variant="h5">
+                    <Typography sx={{ fontWeight: "medium" }} variant="h5">
                       {recruiter.name}
                     </Typography>
                     <Typography color="textSecondary">
@@ -103,7 +103,7 @@ const RecruiterProfile = () => {
                     sx={{ textTransform: "none" }}
                     endIcon={<ArrowForwardIcon />}
                   >
-                    View Open Position
+                    Open Position
                   </Button>
                 </Box>
               </Box>
@@ -253,13 +253,15 @@ const RecruiterProfile = () => {
 
       <section>
         <Container sx={{ py: 10 }}>
-          <Typography variant="h4">Open Position (05)</Typography>
+          <Typography variant="h4" sx={{ fontWeight: "medium" }}>
+            Open Positions
+          </Typography>
           <Box sx={{ mt: 10 }}>
             <OpenPosition recruiter={recruiter} />
           </Box>
         </Container>
       </section>
-    </div>
+    </Box>
   );
 };
 

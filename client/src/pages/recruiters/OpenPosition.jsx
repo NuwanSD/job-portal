@@ -55,11 +55,15 @@ function OpenPosition({ recruiter }) {
       }}
     >
       {openJob.map((j) => (
-        <Card key={j.posted_job_id} sx={{ width: "100%" }} variant="outlined">
+        <Card
+          key={j.posted_job_id}
+          sx={{ width: "100%", boxShadow: 2 }}
+          variant="outlined"
+        >
           <CardActionArea LinkComponent="a" href={`/job/${j.posted_job_id}`}>
             <CardContent sx={{ height: "100%" }}>
               <Box>
-                <Typography variant="h6" component="div">
+                <Typography variant="h5" sx={{ fontWeight: "medium", mb: 1 }}>
                   {j.job_title}
                 </Typography>
                 <Box sx={{ display: "flex", gap: 1 }}>
@@ -88,7 +92,7 @@ function OpenPosition({ recruiter }) {
                 </Box>
               </Box>
               <Box
-                sx={{ mt: 4, display: "flex", alignContent: "center", gap: 2 }}
+                sx={{ mt: 3, display: "flex", alignContent: "center", gap: 2 }}
               >
                 <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />
                 <Typography>{j.company_name}</Typography>

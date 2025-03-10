@@ -8,17 +8,17 @@ const Recruiter = () => {
     <div>
       <section>
         <Container sx={{ py: 10 }}>
-          <Typography variant="h4" sx={{}}>
+          <Typography variant="h4" sx={{ fontWeight: "medium" }}>
             Find Your Dream Company
           </Typography>
-          <Box sx={{ mt: 5 }}>
+          <Box sx={{ mt: 8 }}>
             <SearchField />
           </Box>
         </Container>
       </section>
 
       <section>
-        <Container sx={{ py: 5 }}>
+        <Container sx={{ py: 8 }}>
           <Companies />
         </Container>
       </section>

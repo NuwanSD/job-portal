@@ -38,13 +38,20 @@ function Companies() {
       }}
     >
       {recruiter.map((r) => (
-        <Card key={r.user_id} variant="outlined" sx={{ borderRadius: 2 }}>
+        <Card
+          key={r.user_id}
+          variant="outlined"
+          sx={{ borderRadius: 2, boxShadow: 2 }}
+        >
           <CardActionArea LinkComponent="a" href={`/recruiters/${r.user_id}`}>
             <CardContent sx={{ height: "100%" }}>
               <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-                <img src={Logo} alt="" width={82} />
+                <img src={Logo} alt="" width={74} />
                 <Box>
-                  <Typography variant="h6" component="div" sx={{ ml: 0.5 }}>
+                  <Typography
+                    variant="h5"
+                    sx={{ ml: 0.5, fontWeight: "medium" }}
+                  >
                     {r.name}
                   </Typography>
                   <Typography
