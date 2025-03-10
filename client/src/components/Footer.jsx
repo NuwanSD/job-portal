@@ -42,6 +42,7 @@ const Footer = () => {
                   size="small"
                   color="primary"
                   focused
+                  defaultValue="spotlight@in.com"
                   sx={{ backgroundColor: "white", borderRadius: 1 }}
                 />
                 <Button variant="contained" sx={{ textTransform: "none" }}>
@@ -137,7 +138,7 @@ const Footer = () => {
         <Divider sx={{ backgroundColor: "white" }} />
         <Box sx={{ py: 5, display: "flex", justifyContent: "space-between" }}>
           <Typography variant="h7">
-            © 2025 Jobpilot All Rights Reserved
+            © 2025 JOBSPOTLIGHT, All Rights Reserved
           </Typography>
           <Box
             sx={{
