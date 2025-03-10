@@ -67,7 +67,7 @@ const ButtonContainer = styled("div")(({ theme }) => ({
 export default function SearchField() {
   return (
     <Box>
-      <Search sx={{ border: 1 }}>
+      <Search sx={{ border: 2, borderColor: "#1976D2" }}>
         <SearchIconWrapper>
           <SearchIcon sx={{ color: "blue" }} />
         </SearchIconWrapper>
@@ -77,8 +77,14 @@ export default function SearchField() {
         />
         <ButtonContainer sx={{ mr: 0.5 }}>
           <Button
-            variant="outlined"
-            sx={{ px: 2, py: 1.5, width: { xs: "100%", sm: "auto" } }}
+            variant="contained"
+            sx={{
+              px: 2,
+              py: 1.5,
+              width: { xs: "100%", sm: "auto" },
+              backgroundColor: "#000",
+              color: "#fff",
+            }}
           >
             <TuneIcon sx={{ mr: 1 }} /> Filters
           </Button>

@@ -58,7 +58,7 @@ function FeaturedJob() {
       {postedJob.map((job) => (
         <Card
           key={job.job_id}
-          sx={{ width: "100%", borderColor: "#1976D2" }}
+          sx={{ width: "100%", boxShadow: 2 }}
           variant="outlined"
         >
           <CardActionArea LinkComponent="a" href="/job">

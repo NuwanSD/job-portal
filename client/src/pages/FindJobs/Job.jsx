@@ -7,13 +7,13 @@ const Job = () => {
   return (
     <div>
       <Container sx={{ py: 15 }}>
-        <Typography variant="h4" sx={{}}>
-          Find your dream job
+        <Typography variant="h4" sx={{ fontWeight: "medium" }}>
+          Find Your Dream Job
         </Typography>
-        <Box sx={{ mt: 5 }}>
+        <Box sx={{ mt: 8 }}>
           <SearchField />
         </Box>
-        <Box sx={{ mt: 10 }}>
+        <Box sx={{ mt: 15 }}>
           <FeaturedJob />
         </Box>
       </Container>
