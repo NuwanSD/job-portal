@@ -64,11 +64,11 @@ const Register = () => {
 
       await axios.post("http://localhost:3000/user/register", formatedValues);
 
-      console.log(formatedValues);
+      //console.log(formatedValues);
 
       navigate("/login", { replace: true });
     } catch (error) {
-      console.log(error?.message);
+      console.log(error);
     } finally {
     }
     form.reset();

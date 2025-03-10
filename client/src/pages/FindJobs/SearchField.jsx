@@ -69,7 +69,7 @@ export default function SearchField() {
     <Box>
       <Search sx={{ border: 2, borderColor: "#1976D2" }}>
         <SearchIconWrapper>
-          <SearchIcon sx={{ color: "blue" }} />
+          <SearchIcon sx={{ color: "#1976D2" }} />
         </SearchIconWrapper>
         <StyledInputBase
           placeholder="Search by: Job title, Position, Keyword"

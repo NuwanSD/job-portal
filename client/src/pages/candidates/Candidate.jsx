@@ -9,8 +9,8 @@ const Candidate = () => {
     <div>
       <section>
         <Container sx={{ py: 10 }}>
-          <Typography variant="h5" sx={{ mb: 5 }}>
-            Find Best Employers
+          <Typography variant="h4" sx={{ mb: 8, fontWeight: "medium" }}>
+            Find Best Candidate
           </Typography>
           <SearchField />
         </Container>

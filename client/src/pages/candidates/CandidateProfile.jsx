@@ -31,6 +31,7 @@ import { FaInstagramSquare } from "react-icons/fa";
 
 import { getAllJobSeekers, getJobSeekerById } from "../../helper/jobSeeker";
 import { getUserById } from "../../helper/helper";
+import UserImg from "../../assets/user.png";
 
 const CandidateProfile = () => {
   const { id } = useParams();
@@ -70,102 +71,30 @@ const CandidateProfile = () => {
   return (
     <div>
       <Container>
-        <Card sx={{ mt: 10 }}>
-          <CardContent>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-              }}
-            >
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Avatar
-                  alt="Cody Fisher"
-                  src={""}
-                  sx={{ width: 82, height: 82 }}
-                />
-                <Box>
-                  <Typography variant="h6">{candidate.name}</Typography>
-                  <Typography color="textSecondary">
-                    {candidate.description}
-                  </Typography>
-                </Box>
-              </Box>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <BookmarkBorderOutlinedIcon
-                  sx={{ p: 1.5, borderRadius: 1, bgcolor: "#f7f7f8" }}
-                />
-                <Button
-                  size="large"
-                  variant="contained"
-                  startIcon={<MailOutlineOutlinedIcon />}
-                  sx={{ textTransform: "none" }}
-                >
-                  Send Mail
-                </Button>
-              </Box>
-            </Box>
-          </CardContent>
-        </Card>
-
         <Box
           sx={{
-            py: 10,
+            py: 15,
             display: { xs: "row", md: "flex" },
             justifyContent: "space-between",
             gap: 5,
           }}
         >
           <Box>
-            <Typography sx={{ fontWeight: "bold" }} gutterBottom>
-              BIOGRAPHY
-            </Typography>
-            <Typography gutterBottom>{candidate.looking_for}</Typography>
+            <Card sx={{ width: "400px" }} variant="outlined">
+              <CardContent sx={{ alignItems: "center", gap: 1 }}>
+                <Box>
+                  <img src={UserImg} alt="User" width="215px" />
+                </Box>
+                <Box>
+                  <Typography variant="h6">{candidate.name}</Typography>
+                  <Typography color="textSecondary">
+                    {candidate.description}
+                  </Typography>
+                </Box>
+              </CardContent>
+            </Card>
 
-            <Typography sx={{ fontWeight: "bold", mt: 4 }} gutterBottom>
-              COVER LETTER
-            </Typography>
-            <Typography gutterBottom>
-              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-              ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-              magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
-              vel augue laoreet rutrum faucibus dolor auctor. Cras mattis
-              consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac
-              consectetur ac, vestibulum at eros. Praesent commodo cursus magna,
-              vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
-              augue laoreet rutrum faucibus dolor auctor. Cras mattis
-              consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
-              facilisis in, egestas eget quam. Morbi leo risus, porta ac
-              consectetur ac, vestibulum at eros. Praesent commodo cursus magna,
-              vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
-              augue laoreet rutrum faucibus dolor auctor.
-            </Typography>
-
-            <Divider sx={{ mt: 5 }} />
-
-            <Box sx={{ my: 5 }}>
-              <Typography variant="h6">Follow me Social Media:</Typography>
-              <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
-                <Link href={""} sx={{ color: "inherit" }}>
-                  <FaLinkedin size={28} />
-                </Link>
-                <Link href={""} sx={{ color: "inherit" }}>
-                  <FaFacebookSquare size={28} />
-                </Link>
-                <Link href={""} sx={{ color: "inherit" }}>
-                  <FaXTwitter size={28} />
-                </Link>
-                <Link href={""} sx={{ color: "inherit" }}>
-                  <FaInstagramSquare size={28} />
-                </Link>
-              </Box>
-            </Box>
-          </Box>
-
-          <Box>
-            <Card variant="outlined" sx={{ width: "400px" }}>
+            <Card variant="outlined" sx={{ mt: 2, width: "400px" }}>
               <CardContent>
                 <Box>
                   <Box sx={{ display: "flex", mt: 2 }}>
@@ -272,6 +201,54 @@ const CandidateProfile = () => {
                 </Box>
               </CardContent>
             </Card>
+          </Box>
+
+          <Box sx={{ mt: { xs: 2, md: 0, xl: 0 } }}>
+            <Typography sx={{ fontWeight: "bold" }} gutterBottom>
+              BIOGRAPHY
+            </Typography>
+            <Typography gutterBottom>{candidate.looking_for}</Typography>
+
+            <Typography sx={{ fontWeight: "bold", mt: 4 }} gutterBottom>
+              COVER LETTER
+            </Typography>
+            <Typography gutterBottom>
+              Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+              dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
+              ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+              magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus
+              vel augue laoreet rutrum faucibus dolor auctor. Cras mattis
+              consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
+              facilisis in, egestas eget quam. Morbi leo risus, porta ac
+              consectetur ac, vestibulum at eros. Praesent commodo cursus magna,
+              vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+              augue laoreet rutrum faucibus dolor auctor. Cras mattis
+              consectetur purus sit amet fermentum. Cras justo odio, dapibus ac
+              facilisis in, egestas eget quam. Morbi leo risus, porta ac
+              consectetur ac, vestibulum at eros. Praesent commodo cursus magna,
+              vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel
+              augue laoreet rutrum faucibus dolor auctor.
+            </Typography>
+
+            <Divider sx={{ mt: 5 }} />
+
+            <Box sx={{ my: 5 }}>
+              <Typography variant="h6">Follow me Social Media:</Typography>
+              <Box sx={{ mt: 2, display: "flex", gap: 2 }}>
+                <Link href={""} sx={{ color: "inherit" }}>
+                  <FaLinkedin size={28} />
+                </Link>
+                <Link href={""} sx={{ color: "inherit" }}>
+                  <FaFacebookSquare size={28} />
+                </Link>
+                <Link href={""} sx={{ color: "inherit" }}>
+                  <FaXTwitter size={28} />
+                </Link>
+                <Link href={""} sx={{ color: "inherit" }}>
+                  <FaInstagramSquare size={28} />
+                </Link>
+              </Box>
+            </Box>
           </Box>
         </Box>
       </Container>
