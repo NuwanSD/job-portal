@@ -56,11 +56,15 @@ function RelatedJob() {
       }}
     >
       {postedJob.map((job) => (
-        <Card key={job.posted_job_id} sx={{ width: "100%" }} variant="outlined">
+        <Card
+          key={job.posted_job_id}
+          sx={{ width: "100%", boxShadow: 2 }}
+          variant="outlined"
+        >
           <CardActionArea LinkComponent="a" href={`/job/${job.posted_job_id}`}>
             <CardContent sx={{ height: "100%" }}>
               <Box>
-                <Typography variant="h6" component="div">
+                <Typography variant="h5" sx={{ fontWeight: "medium", mb: 1 }}>
                   {job.job_title}
                 </Typography>
                 <Box sx={{ display: "flex", gap: 1 }}>
@@ -89,7 +93,7 @@ function RelatedJob() {
                 </Box>
               </Box>
               <Box
-                sx={{ mt: 4, display: "flex", alignContent: "center", gap: 2 }}
+                sx={{ mt: 3, display: "flex", alignContent: "center", gap: 1 }}
               >
                 <VerifiedOutlinedIcon sx={{ color: "#1976D2" }} />
                 <Typography>{job.company_name}</Typography>

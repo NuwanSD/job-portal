@@ -84,9 +84,11 @@ const JobDetail = () => {
             }}
           >
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <img src={Icon} alt="facebook" width={74} />
+              <img src={Icon} alt="facebook" width={68} />
               <Box>
-                <Typography variant="h5">{postedJob.job_title}</Typography>
+                <Typography variant="h5" sx={{ fontWeight: "medium" }}>
+                  {postedJob.job_title}
+                </Typography>
                 <Typography
                   sx={{ display: "flex", gap: 1 }}
                   color="text.secondary"
@@ -141,7 +143,7 @@ const JobDetail = () => {
 
       <section>
         <Container sx={{ py: 15 }}>
-          <Typography variant="h4" sx={{ mb: 5 }}>
+          <Typography variant="h4" sx={{ mb: 8, fontWeight: "medium" }}>
             Related Jobs
           </Typography>
           <RelatedJob />
