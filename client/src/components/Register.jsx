@@ -12,7 +12,7 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { replace, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 
@@ -80,7 +80,7 @@ const Register = () => {
         py: 5,
         display: "flex",
         justifyContent: "center",
-        background: "#EFF3FD",
+        background: "#f7f7f8",
       }}
     >
       <Card sx={{ boxShadow: 2 }}>

@@ -85,7 +85,7 @@ const Login = () => {
           py: 10,
           display: "flex",
           justifyContent: "center",
-          background: "#EFF3FD",
+          background: "#f7f7f8",
         }}
       >
         <Card

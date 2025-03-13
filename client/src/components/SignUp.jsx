@@ -35,7 +35,7 @@ const SignUp = () => {
         flexDirection: "column",
         justifyContent: "center",
         height: "100vh",
-        background: "#EFF3FD",
+        background: "#f7f7f8",
       }}
     >
       <Typography variant="h4">Join as a job seeker or recruiter</Typography>
