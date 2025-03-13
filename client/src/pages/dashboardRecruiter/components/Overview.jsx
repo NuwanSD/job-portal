@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Avatar,
   Box,
@@ -10,13 +10,31 @@ import {
 } from "@mui/material";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import RecentlyPostedJobs from "./RecentlyPostedJobs";
+import { useAuthStore } from "../../../store/authStore";
+import { getUserById } from "../../../helper/helper";
 
 const Overview = () => {
+  const { auth } = useAuthStore();
+
+  const user_id = auth.userId;
+
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getUserById({ user_id });
+
+      setUser(response.data[0]);
+    };
+
+    fetchData();
+  }, [user_id]);
+
   return (
     <Box sx={{ py: 8 }}>
-      <Typography variant="h6">Hello, Future Lab</Typography>
+      <Typography variant="h6">Hello, {user.name}</Typography>
       <Typography color="textSecondary">
-        Hello is your daily activities and applications
+        This is your daily activities and applications
       </Typography>
 
       <Box

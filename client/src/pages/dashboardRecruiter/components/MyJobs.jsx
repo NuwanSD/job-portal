@@ -1,20 +1,16 @@
 import React from "react";
-import { Box, Typography, Container, Pagination } from "@mui/material";
-import RecentlyAppliedJobs from "../../dashboardCandidate/components/RecentlyAppliedJobs";
+import { Box, Typography } from "@mui/material";
+import RecentlyPostedJobs from "./RecentlyPostedJobs";
 
 const MyJobs = () => {
   return (
     <Box sx={{ py: 8 }}>
       <Typography variant="h6" gutterBottom>
-        My Jobs(589)
+        My Jobs
       </Typography>
       <Box sx={{ py: 5 }}>
-        <RecentlyAppliedJobs />
+        <RecentlyPostedJobs />
       </Box>
-
-      {/* <Box sx={{ py: 6, display: "flex", justifyContent: "center" }}>
-        <Pagination count={10} variant="outlined" color="primary" />
-      </Box> */}
     </Box>
   );
 };

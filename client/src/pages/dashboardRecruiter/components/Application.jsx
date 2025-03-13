@@ -4,8 +4,6 @@ import {
   Typography,
   Card,
   CardContent,
-  CardActionArea,
-  CardActions,
   Divider,
   Avatar,
   List,
@@ -13,56 +11,60 @@ import {
   ListItemText,
   Link,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Profile from "../../../assets/user.png";
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import { getAllPostedJob } from "../../../helper/postedJob";
+import { getAllAppliedJob } from "../../../helper/appliedJob";
+import { getAllUsers } from "../../../helper/helper";
+import { getAllJobSeekers } from "../../../helper/jobSeeker";
 
-const candidates = [
-  {
-    id: 1,
-    imageURL: Profile,
-    name: "Cody Fisher",
-    status: "Software Engineer",
-    location: "New York",
-  },
-  {
-    id: 2,
-    imageURL: Profile,
-    name: "Alex Johnson",
-    status: "Data Scientist",
-    location: "San Francisco",
-  },
-  {
-    id: 3,
-    imageURL: Profile,
-    name: "Morgan Smith",
-    status: "Product Manager",
-    location: "Austin",
-  },
-  {
-    id: 4,
-    imageURL: Profile,
-    name: "Jordan Taylor",
-    status: "UX Designer",
-    location: "Chicago",
-  },
-  {
-    id: 5,
-    imageURL: Profile,
-    name: "Riley Martinez",
-    status: "DevOps Engineer",
-    location: "Boston",
-  },
-  {
-    id: 6,
-    imageURL: Profile,
-    name: "Casey Brown",
-    status: "QA Engineer",
-    location: "Denver",
-  },
-];
+const Application = ({ user_id }) => {
+  const [applicants, setApplicants] = useState([]);
 
-const Application = () => {
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const allPostedJobs = await getAllPostedJob();
+        const allAppliedJobs = await getAllAppliedJob();
+        const allUsers = await getAllUsers();
+        const allJobSeekers = await getAllJobSeekers();
+
+        const filteredPostedJobs = allPostedJobs.data.filter(
+          (p) => p.user_id === user_id
+        );
+
+        //filtered users by looking at appliedJobs
+        const applications = filteredPostedJobs.flatMap((u) =>
+          allAppliedJobs.data.filter((a) => a.posted_job_id === u.posted_job_id)
+        );
+
+        const userData = applications.map((a) => {
+          const users = allUsers.data.find((u) => u.user_id === a.user_id);
+          const userDetails = allJobSeekers.data.find(
+            (d) => d.user_id === a.user_id
+          );
+
+          return {
+            user_id: users.user_id,
+            name: users.name,
+            applied_date: a.applied_date,
+            description: userDetails.description,
+            experience: userDetails.experience,
+            education: userDetails.education,
+            photo_url: userDetails.photo_url,
+            status: userDetails.status,
+          };
+        });
+
+        setApplicants(userData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [user_id]);
+
   return (
     <Box sx={{ py: 8 }}>
       <Box
@@ -91,15 +93,15 @@ const Application = () => {
           gap: 3,
         }}
       >
-        {candidates.map((candidate) => (
-          <Card variant="outlined">
+        {applicants.map((user) => (
+          <Card variant="outlined" key={user.user_id}>
             <CardContent>
               <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-                <Avatar src={candidate.imageURL} />
+                <Avatar src={user.photo_url} />
                 <Box>
-                  <Typography variant="h6">{candidate.name}</Typography>
+                  <Typography variant="h6">{user.name}</Typography>
                   <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    {candidate.status}
+                    {user.description}
                   </Typography>
                 </Box>
               </Box>
@@ -110,7 +112,7 @@ const Application = () => {
                     <ListItemText
                       primary={
                         <Typography sx={{ color: "text.secondary" }}>
-                          7 Years Experience
+                          Experience: {user.experience}
                         </Typography>
                       }
                     />
@@ -119,7 +121,7 @@ const Application = () => {
                     <ListItemText
                       primary={
                         <Typography sx={{ color: "text.secondary" }}>
-                          Education: Master Degree
+                          Education: {user.education}
                         </Typography>
                       }
                     />
@@ -128,7 +130,7 @@ const Application = () => {
                     <ListItemText
                       primary={
                         <Typography sx={{ color: "text.secondary" }}>
-                          Applied: Jan 23, 2022
+                          Applied: {user.applied_date}
                         </Typography>
                       }
                     />

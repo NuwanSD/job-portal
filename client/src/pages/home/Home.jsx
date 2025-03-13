@@ -145,7 +145,7 @@ const Home = () => {
         <Box sx={{ py: 15 }}>
           <Container>
             <Typography variant="h4" sx={{ fontWeight: "medium" }}>
-              Top Companies
+              Best Companies
             </Typography>
             <Box sx={{ mt: 8 }}>
               <Companies />

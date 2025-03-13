@@ -10,9 +10,14 @@ import Setting from "./components/Settings";
 
 import Sidebar from "./components/Sidebar";
 import Application from "./components/Application";
+import { useAuthStore } from "../../store/authStore";
 
 const Dashboard = () => {
   const [selectedTab, setSelectedTab] = useState("Overview");
+
+  const { auth } = useAuthStore();
+
+  const user_id = auth.userId;
 
   const renderContent = () => {
     switch (selectedTab) {
@@ -25,7 +30,7 @@ const Dashboard = () => {
       case "Saved Candidates":
         return <SavedCandidates key="SavedCandidates" />;
       case "Job Application":
-        return <Application key="JobApplications" />;
+        return <Application key="JobApplications" user_id={user_id} />;
       case "Settings":
         return <Setting key="settings" />;
       default:

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,6 +12,10 @@ import Icon from "../../../assets/facebook.svg";
 import { Box, Typography } from "@mui/material";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import { useAuthStore } from "../../../store/authStore";
+import { getAllPostedJob, getPostedJobById } from "../../../helper/postedJob";
+import { getAllJobs } from "../../../helper/job";
+import { getAllAppliedJob } from "../../../helper/appliedJob";
 
 const columns = [
   {
@@ -35,29 +39,6 @@ const columns = [
     label: "ACTION",
     dataKey: "action",
   },
-];
-
-const rows = [
-  {
-    id: 1,
-    job: "Engineer",
-    status: "Active",
-    applications: "798 Applications",
-  },
-  {
-    id: 2,
-    job: "Doctor",
-    status: "Active",
-    applications: "798 Applications",
-  },
-  { id: 3, job: "Teacher", status: "Active", applications: "798 Applications" },
-  {
-    id: 4,
-    job: "Artist",
-    status: "Expire",
-    applications: "798 Applications",
-  },
-  { id: 5, job: "Chef", status: "Active", applications: "798 Applications" },
 ];
 
 const VirtuosoTableComponents = {
@@ -115,13 +96,10 @@ function rowContent(_index, row) {
                   <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                     <img src={Icon} alt="facebook" width={74} />
                     <Box>
-                      <Typography variant="h6">{row.job}</Typography>
+                      <Typography variant="h6">{row.title}</Typography>
                       <Box sx={{ display: { md: "flex" }, gap: 1 }}>
                         <Typography variant="body2" color="textSecondary">
-                          Full Time
-                        </Typography>
-                        <Typography variant="body2" color="textSecondary">
-                          27 days remaing
+                          {row.job_type}
                         </Typography>
                       </Box>
                     </Box>
@@ -131,12 +109,21 @@ function rowContent(_index, row) {
               case "status":
                 return (
                   <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-                    {row.status === "Active" ? (
-                      <CheckCircleOutlineOutlinedIcon color="success" />
+                    {row.status === 1 ? (
+                      <Box
+                        sx={{ display: "flex", gap: 1, alignItems: "center" }}
+                      >
+                        <CheckCircleOutlineOutlinedIcon color="success" />
+                        <Typography variant="body2">Active</Typography>
+                      </Box>
                     ) : (
-                      <CancelOutlinedIcon color="error" />
+                      <Box
+                        sx={{ display: "flex", gap: 1, alignItems: "center" }}
+                      >
+                        <CancelOutlinedIcon color="error" />
+                        <Typography variant="body2">Inactive</Typography>
+                      </Box>
                     )}
-                    <Typography variant="body2">{row.status}</Typography>
                   </Box>
                 );
 
@@ -172,10 +159,47 @@ function rowContent(_index, row) {
 }
 
 export default function RecentlyPostedJobs() {
+  const { auth } = useAuthStore();
+
+  const [postedJob, setPostedJob] = useState([]);
+
+  const user_id = auth.userId;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const postedJobs = await getAllPostedJob();
+        const jobs = await getAllJobs();
+        const appliedJobs = await getAllAppliedJob();
+
+        const matchUser = postedJobs.data.filter((u) => u.user_id === user_id);
+
+        const modifiedJob = matchUser.map((u) => {
+          const filteredJob = jobs.data.find((p) => p.job_id === u.job_id);
+          const applicant = appliedJobs.data.filter(
+            (a) => a.posted_job_id === u.posted_job_id
+          );
+
+          return {
+            ...u,
+            title: filteredJob ? filteredJob.title : null,
+            applications: applicant.length,
+          };
+        });
+
+        setPostedJob(modifiedJob);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [user_id]);
+
   return (
     <Paper style={{ height: 400, width: "100%" }}>
       <TableVirtuoso
-        data={rows}
+        data={postedJob}
         components={VirtuosoTableComponents}
         fixedHeaderContent={fixedHeaderContent}
         itemContent={rowContent}
