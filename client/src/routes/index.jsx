@@ -16,12 +16,12 @@ import SignUp from "../components/SignUp";
 import Register from "../components/Register";
 
 //Dashboard users
-import Dashboard from "../pages/dashboard/Dashboard";
-import EmployeeDashboard from "../pages/empDashboard/Dashboard";
+import DashboardCandidate from "../pages/dashboardCandidate/Dashboard";
+import DashboardRecruiter from "../pages/dashboardRecruiter/Dashboard";
 
 //Profile users
-import Profile from "../pages/editProfile/Profile";
-import EmployeeProfile from "../pages/empProfile/Profile";
+import ProfileCandidate from "../pages/profileCandidate/Profile";
+import ProfileRecruiter from "../pages/profileRecruiter/Profile";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -48,11 +48,11 @@ const AppRoutes = () => {
       element:
         auth.role === "candidate" ? (
           <AuthorizeUser>
-            <Dashboard />
+            <DashboardCandidate />
           </AuthorizeUser>
         ) : (
           <AuthorizeUser>
-            <EmployeeDashboard />
+            <DashboardRecruiter />
           </AuthorizeUser>
         ),
     },
@@ -61,11 +61,11 @@ const AppRoutes = () => {
       element:
         auth.role === "candidate" ? (
           <AuthorizeUser>
-            <Profile />
+            <ProfileCandidate />
           </AuthorizeUser>
         ) : (
           <AuthorizeUser>
-            <EmployeeProfile />
+            <ProfileRecruiter />
           </AuthorizeUser>
         ),
     },
