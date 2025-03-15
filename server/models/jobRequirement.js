@@ -14,11 +14,19 @@ const JobRequirement = {
   },
 
   saveRecord: (data, callback) => {
-    const query =
-      "INSERT INTO job_requirement (requirement_id, posted_job_id, description) VALUES (?, ?, ?)";
-    const { requirement_id, posted_job_id, description } = data;
+    if (!Array.isArray(data)) {
+      data = [data];
+    }
 
-    db.query(query, [requirement_id, posted_job_id, description], callback);
+    const values = data.map(({ posted_job_id, description }) => [
+      posted_job_id,
+      description,
+    ]);
+
+    const query =
+      "INSERT INTO job_requirement ( posted_job_id, description) VALUES ?";
+
+    db.query(query, [values], callback);
   },
 
   deleteRecord: (requirement_id, callback) => {

@@ -27,23 +27,26 @@ const RequirementController = {
   },
 
   saveRecord: (req, res) => {
-    const { requirement_id, posted_job_id, description } = req.body;
+    const payload = req.body;
 
-    if (
-      requirement_id === undefined ||
-      posted_job_id === undefined ||
-      description === undefined
-    ) {
-      return res.status(400).send("All fields are required");
+    let values = [];
+    if (Array.isArray(payload)) {
+      values = payload.map((req) => ({
+        posted_job_id: req.posted_job_id,
+        description: req.description,
+      }));
+    } else {
+      values.push({
+        posted_job_id: req.posted_job_id,
+        description: req.description,
+      });
     }
 
-    const newData = {
-      requirement_id,
-      posted_job_id,
-      description,
-    };
+    if (values.length === 0) {
+      return res.status(400).send("Invalid request payload");
+    }
 
-    RequirementModel.saveRecord(newData, (err, result) => {
+    RequirementModel.saveRecord(values, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
