@@ -21,7 +21,7 @@ const Dashboard = () => {
   const renderContent = () => {
     switch (selectedTab) {
       case "Overview":
-        return <Overview key="overview" />;
+        return <Overview key="overview" user_id={user_id} />;
       case "My Jobs":
         return <MyJobs key="MyJobs" user_id={user_id} />;
       case "Saved Candidates":

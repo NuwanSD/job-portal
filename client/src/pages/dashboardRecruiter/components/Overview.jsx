@@ -13,11 +13,7 @@ import RecentlyPostedJobs from "./RecentlyPostedJobs";
 import { useAuthStore } from "../../../store/authStore";
 import { getUserById } from "../../../helper/helper";
 
-const Overview = () => {
-  const { auth } = useAuthStore();
-
-  const user_id = auth.userId;
-
+const Overview = ({ user_id }) => {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -122,7 +118,7 @@ const Overview = () => {
       </Box>
 
       <Box sx={{ py: 2 }}>
-        <RecentlyPostedJobs />
+        <RecentlyPostedJobs user_id={user_id} />
       </Box>
     </Box>
   );

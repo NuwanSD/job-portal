@@ -170,7 +170,6 @@ export function rowContent(_index, row, handleUpdate) {
 
 export default function RecentlyPostedJobs({ user_id }) {
   const [postedJob, setPostedJob] = useState([]);
-  const [requirements, setRequirements] = useState([]);
 
   const { isModalOpen, toggleModal } = useModalStore();
   const { posted_job, posted_job_id, storePostedJob, storePostedJobId } =
