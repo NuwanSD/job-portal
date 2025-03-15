@@ -27,27 +27,31 @@ const JobBenefitController = {
   },
 
   saveRecord: (req, res) => {
-    const { posted_job_id, description, benefit_tag } = req.body;
+    const payload = req.body;
 
-    if (
-      posted_job_id === undefined ||
-      description === undefined ||
-      benefit_tag === undefined
-    ) {
-      return res.status(400).send("All field are required");
+    let values = [];
+    if (Array.isArray(payload)) {
+      values = payload.map((item) => ({
+        posted_job_id: item.posted_job_id,
+        description: item.description,
+        benefit_tag: item.benefit_tag,
+      }));
+    } else {
+      values.push({
+        posted_job_id: item.posted_job_id,
+        description: item.description,
+        benefit_tag: item.benefit_tag,
+      });
     }
 
-    const newData = {
-      posted_job_id,
-      description,
-      benefit_tag,
-    };
+    if (values.length === 0) {
+      return res.status(400).send("Invalid request payload");
+    }
 
-    JobBenefitModel.saveRecord(newData, (err, result) => {
+    JobBenefitModel.saveRecord(values, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
-
       return res.status(201).send(result);
     });
   },

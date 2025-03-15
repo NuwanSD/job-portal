@@ -12,11 +12,20 @@ const JobBenefit = {
   },
 
   saveRecord: (data, callback) => {
-    const query =
-      "INSERT INTO job_benefit (posted_job_id, description, benefit_tag) VALUES (?, ?, ?)";
-    const { posted_job_id, description, benefit_tag } = data;
+    if (!Array.isArray(data)) {
+      data = [data];
+    }
 
-    db.query(query, [posted_job_id, description, benefit_tag], callback);
+    const values = data.map(({ posted_job_id, description, benefit_tag }) => [
+      posted_job_id,
+      description,
+      benefit_tag,
+    ]);
+
+    const query =
+      "INSERT INTO job_benefit (posted_job_id, description, benefit_tag) VALUES ?";
+
+    db.query(query, [values], callback);
   },
 
   deleteRecord: (benefit_id, callback) => {
