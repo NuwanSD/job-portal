@@ -27,10 +27,9 @@ const JobBenefitController = {
   },
 
   saveRecord: (req, res) => {
-    const { benefit_id, posted_job_id, description, benefit_tag } = req.body;
+    const { posted_job_id, description, benefit_tag } = req.body;
 
     if (
-      benefit_id === undefined ||
       posted_job_id === undefined ||
       description === undefined ||
       benefit_tag === undefined
@@ -39,7 +38,6 @@ const JobBenefitController = {
     }
 
     const newData = {
-      benefit_id,
       posted_job_id,
       description,
       benefit_tag,
