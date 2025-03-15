@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Divider, Box, TextField, Button } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Benefit from "./Benefit";
+import { getRecruiterById } from "../../helper/recruiter";
 
 const formSchema = z.object({
   description: z.string().nonempty("Description is required"),
@@ -18,32 +19,60 @@ const formSchema = z.object({
     .int("Team size must be an integer"),
 });
 
-const Founding = () => {
+const Founding = ({ user_id }) => {
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description:
-        "Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta acconsectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel",
-      vision:
-        "Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta acconsectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel",
-      website: "www.dddddc.com",
-      founded: "1924.05.06",
-      organization_type: "Private",
-      industry_type: "Information Technology",
-      team_size: 100,
+      description: "",
+      vision: "",
+      website: "",
+      founded: "",
+      organization_type: "",
+      industry_type: "",
+      team_size: "",
     },
   });
 
-  const onSubmit = (values) => {
+  const { reset } = form;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getRecruiterById({ user_id });
+
+        const data = response.data[0];
+
+        reset({
+          description: data.description,
+          vision: data.vision,
+          website: data.website,
+          founded: data.founded,
+          organization_type: data.organization_type,
+          industry_type: data.industry_type,
+          team_size: data.team_size,
+          facebook_url: data.facebook_url,
+          instagram_url: data.instagram_url,
+          linkedin_url: data.linkedin_url,
+          x_url: data.x_url,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, [user_id, reset]);
+
+  const onSubmit = async (values) => {
     console.log(values);
   };
 
   return (
     <Box sx={{ width: "100%", py: 10 }}>
-      <Box component="form" onSubmit={form.handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <Typography sx={{ fontWeight: "bold" }} gutterBottom>
           DESCRIPTION
         </Typography>
+
         <Controller
           name="description"
           control={form.control}
@@ -60,26 +89,6 @@ const Founding = () => {
             />
           )}
         />
-        {/* <Typography sx={{ fontWeight: "bold", mt: 4 }} gutterBottom>
-        Benefits
-      </Typography>
-
-      <Controller
-        name="benefits"
-        control={form.control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            margin="dense"
-            label="Benefits"
-            size="small"
-            multiline
-            error={!!form.formState.errors.benefits}
-            helperText={form.formState.errors.benefits?.message}
-            sx={{ width: "100%" }}
-          />
-        )}
-      /> */}
 
         <Typography sx={{ fontWeight: "bold", mt: 4 }} gutterBottom>
           Vision
@@ -123,6 +132,7 @@ const Founding = () => {
               )}
             />
           </Box>
+
           <Box sx={{ display: "flex", gap: 2 }}>
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" gutterBottom>
@@ -147,7 +157,7 @@ const Founding = () => {
 
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" gutterBottom>
-                Team_size:
+                Team Size
               </Typography>
               <Controller
                 name="team_size"
@@ -166,6 +176,7 @@ const Founding = () => {
               />
             </Box>
           </Box>
+
           <Box sx={{ display: "flex", gap: 2 }}>
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" gutterBottom>
@@ -192,7 +203,7 @@ const Founding = () => {
 
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" gutterBottom>
-                Industry Type:
+                Industry Type
               </Typography>
               <Controller
                 name="industry_type"
@@ -212,6 +223,95 @@ const Founding = () => {
             </Box>
           </Box>
 
+          <Box sx={{ mt: 3 }}>
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <Box sx={{ width: "100%" }}>
+                <Typography variant="h6" gutterBottom>
+                  Facebook
+                </Typography>
+                <Controller
+                  name="facebook_url"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="dense"
+                      label="Facebook"
+                      size="small"
+                      error={!!form.formState.errors.facebook_url}
+                      helperText={form.formState.errors.facebook_url?.message}
+                      sx={{ width: "100%" }}
+                    />
+                  )}
+                />
+              </Box>
+
+              <Box sx={{ width: "100%" }}>
+                <Typography variant="h6" gutterBottom>
+                  Instagram
+                </Typography>
+                <Controller
+                  name="instagram_url"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="dense"
+                      label="Instagram"
+                      size="small"
+                      error={!!form.formState.errors.instagram_url}
+                      helperText={form.formState.errors.instagram_url?.message}
+                      sx={{ width: "100%" }}
+                    />
+                  )}
+                />
+              </Box>
+            </Box>
+            <Box sx={{ display: "flex", gap: 2 }}>
+              <Box sx={{ width: "100%" }}>
+                <Typography variant="h6" gutterBottom>
+                  Linkedin
+                </Typography>
+                <Controller
+                  name="linkedin_url"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="dense"
+                      label="Linkedin"
+                      size="small"
+                      error={!!form.formState.errors.linkedin_url}
+                      helperText={form.formState.errors.linkedin_url?.message}
+                      sx={{ width: "100%" }}
+                    />
+                  )}
+                />
+              </Box>
+
+              <Box sx={{ width: "100%" }}>
+                <Typography variant="h6" gutterBottom>
+                  X
+                </Typography>
+                <Controller
+                  name="x_url"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      margin="dense"
+                      label="X"
+                      size="small"
+                      error={!!form.formState.errors.x_url}
+                      helperText={form.formState.errors.x_url?.message}
+                      sx={{ width: "100%" }}
+                    />
+                  )}
+                />
+              </Box>
+            </Box>
+          </Box>
+
           <Button
             type="submit"
             variant="contained"
@@ -220,7 +320,7 @@ const Founding = () => {
             Save Chanages
           </Button>
         </Box>
-      </Box>
+      </form>
 
       <Divider />
 

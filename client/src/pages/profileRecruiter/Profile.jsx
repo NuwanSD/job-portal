@@ -8,16 +8,21 @@ import Setting from "./Settings";
 import Founding from "./Founding";
 
 import Sidebar from "./Sidebar";
+import { useAuthStore } from "../../store/authStore";
 
 const Profile = () => {
   const [selectedTab, setSelectedTab] = useState("Overview");
+
+  const { auth } = useAuthStore();
+
+  const user_id = auth.userId;
 
   const renderContent = () => {
     switch (selectedTab) {
       case "Personal":
         return <Personl />;
       case "Founding":
-        return <Founding />;
+        return <Founding user_id={user_id} />;
       case "Photo":
         return <Photo />;
       case "Settings":

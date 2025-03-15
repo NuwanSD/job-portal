@@ -15,9 +15,12 @@ import AdbIcon from "@mui/icons-material/Adb";
 import { useNavigate } from "react-router-dom";
 import useLoginStore from "../store/loginStore";
 import { useAuthStore } from "../store/authStore";
+import useUserStore from "../store/userStore";
 
 const Navbar = () => {
   const { auth } = useAuthStore();
+
+  const { user, user_id, storeUser, storeUserId } = useUserStore();
 
   const pages = [
     { name: "Home", path: "/" },
@@ -37,6 +40,11 @@ const Navbar = () => {
 
   const handleLogout = () => {
     logout();
+
+    storeUser(null);
+    storeUserId(null);
+
+    localStorage.removeItem("user");
 
     navigate("/", { replace: true });
     handleCloseUserMenu();
@@ -237,7 +245,7 @@ const Navbar = () => {
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
                     component="a"
-                    href="/profile/:id"
+                    href={`/profile/${auth.userId}`}
                     sx={{ textDecoration: "none", color: "inherit" }}
                   >
                     Profile
