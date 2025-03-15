@@ -67,8 +67,6 @@ export default function PostJobForm({ user_id, jobs, tags }) {
   const { posted_job, posted_job_id, storePostedJob, storePostedJobId } =
     usePostedJobStore();
 
-  console.log(posted_job);
-
   const form = useForm({
     //resolver: zodResolver(formSchema),
     defaultValues: posted_job
@@ -104,101 +102,189 @@ export default function PostJobForm({ user_id, jobs, tags }) {
 
   async function onSubmit(values) {
     try {
-      const posted_job_id = uuidv4();
+      if (!posted_job) {
+        console.log("Values to be posted new job: ", values);
 
-      const posted_date = new Date().toISOString().split("T")[0];
+        const posted_job_id = uuidv4();
 
-      //adding common attributes
-      const formattedValues = {
-        ...values,
-        posted_job_id,
-        user_id,
-        posted_date,
-      };
+        const posted_date = new Date().toISOString().split("T")[0];
 
-      //console.log(formattedValues);
-
-      //Seperate Core details
-      const {
-        job_benefits_1,
-        job_benefits_2,
-        job_benefits_3,
-        job_benefits_4,
-        job_benefits_tag_1,
-        job_benefits_tag_2,
-        job_benefits_tag_3,
-        job_benefits_tag_4,
-        job_requirement_1,
-        job_requirement_2,
-        job_requirement_3,
-        job_requirement_4,
-        tags,
-        ...rest
-      } = formattedValues;
-
-      const coreResponse = await savePostedJob(rest);
-      console.log("core", coreResponse);
-
-      //Posted Job requirements
-      const formattedRequirement = [];
-
-      formattedRequirement.push({
-        posted_job_id: posted_job_id,
-        description: job_requirement_1,
-      });
-      formattedRequirement.push({
-        posted_job_id: posted_job_id,
-        description: job_requirement_2,
-      });
-      formattedRequirement.push({
-        posted_job_id: posted_job_id,
-        description: job_requirement_3,
-      });
-      formattedRequirement.push({
-        posted_job_id: posted_job_id,
-        description: job_requirement_4,
-      });
-
-      const reqResponse = await saveJobRequirement(formattedRequirement);
-      console.log(reqResponse);
-
-      //Seperate Job Requirements
-      const formattedBenefits = [];
-
-      formattedBenefits.push({
-        posted_job_id: posted_job_id,
-        description: job_benefits_1,
-        benefit_tag: job_benefits_tag_1,
-      });
-      formattedBenefits.push({
-        posted_job_id: posted_job_id,
-        description: job_benefits_2,
-        benefit_tag: job_benefits_tag_2,
-      });
-      formattedBenefits.push({
-        posted_job_id: posted_job_id,
-        description: job_benefits_3,
-        benefit_tag: job_benefits_tag_3,
-      });
-      formattedBenefits.push({
-        posted_job_id: posted_job_id,
-        description: job_benefits_4,
-        benefit_tag: job_benefits_tag_4,
-      });
-
-      const beneResponse = await saveJobBenefit(formattedBenefits);
-      console.log(beneResponse);
-
-      //Posted Job tags
-      const formattedTags = tags.map((id) => {
-        return {
-          tag_id: id,
+        //adding common attributes
+        const formattedValues = {
+          ...values,
           posted_job_id,
+          user_id,
+          posted_date,
         };
-      });
 
-      const tagResponse = await saveAllocatedTag(formattedTags);
-      console.log(tagResponse);
+        //console.log(formattedValues);
+
+        //Seperate Core details
+        const {
+          job_benefits_1,
+          job_benefits_2,
+          job_benefits_3,
+          job_benefits_4,
+          job_benefits_tag_1,
+          job_benefits_tag_2,
+          job_benefits_tag_3,
+          job_benefits_tag_4,
+          job_requirement_1,
+          job_requirement_2,
+          job_requirement_3,
+          job_requirement_4,
+          tags,
+          ...rest
+        } = formattedValues;
+
+        const coreResponse = await savePostedJob(rest);
+        console.log("core", coreResponse);
+
+        //Posted Job requirements
+        const formattedRequirement = [];
+
+        formattedRequirement.push({
+          posted_job_id: posted_job_id,
+          description: job_requirement_1,
+        });
+        formattedRequirement.push({
+          posted_job_id: posted_job_id,
+          description: job_requirement_2,
+        });
+        formattedRequirement.push({
+          posted_job_id: posted_job_id,
+          description: job_requirement_3,
+        });
+        formattedRequirement.push({
+          posted_job_id: posted_job_id,
+          description: job_requirement_4,
+        });
+
+        const reqResponse = await saveJobRequirement(formattedRequirement);
+        console.log(reqResponse);
+
+        //Seperate Job Requirements
+        const formattedBenefits = [];
+
+        formattedBenefits.push({
+          posted_job_id: posted_job_id,
+          description: job_benefits_1,
+          benefit_tag: job_benefits_tag_1,
+        });
+        formattedBenefits.push({
+          posted_job_id: posted_job_id,
+          description: job_benefits_2,
+          benefit_tag: job_benefits_tag_2,
+        });
+        formattedBenefits.push({
+          posted_job_id: posted_job_id,
+          description: job_benefits_3,
+          benefit_tag: job_benefits_tag_3,
+        });
+        formattedBenefits.push({
+          posted_job_id: posted_job_id,
+          description: job_benefits_4,
+          benefit_tag: job_benefits_tag_4,
+        });
+
+        const beneResponse = await saveJobBenefit(formattedBenefits);
+        console.log(beneResponse);
+
+        //Posted Job tags
+        const formattedTags = tags.map((id) => {
+          return {
+            tag_id: id,
+            posted_job_id,
+          };
+        });
+
+        const tagResponse = await saveAllocatedTag(formattedTags);
+        console.log(tagResponse);
+      } else {
+        console.log("Values to be update: ", values);
+
+        //Seperate Core details
+        const {
+          job_benefits_1,
+          job_benefits_2,
+          job_benefits_3,
+          job_benefits_4,
+          job_benefits_tag_1,
+          job_benefits_tag_2,
+          job_benefits_tag_3,
+          job_benefits_tag_4,
+          job_requirement_1,
+          job_requirement_2,
+          job_requirement_3,
+          job_requirement_4,
+          tags,
+          ...rest
+        } = values;
+
+        //const coreResponse = await savePostedJob(rest);
+        console.log("core", rest);
+
+        //Posted Job requirements
+        const formattedRequirement = [];
+
+        formattedRequirement.push({
+          posted_job_id: posted_job_id,
+          description: job_requirement_1,
+        });
+        formattedRequirement.push({
+          posted_job_id: posted_job_id,
+          description: job_requirement_2,
+        });
+        formattedRequirement.push({
+          posted_job_id: posted_job_id,
+          description: job_requirement_3,
+        });
+        formattedRequirement.push({
+          posted_job_id: posted_job_id,
+          description: job_requirement_4,
+        });
+
+        //const reqResponse = await saveJobRequirement(formattedRequirement);
+        console.log("requirements: ", formattedRequirement);
+
+        //Seperate Job Requirements
+        const formattedBenefits = [];
+
+        formattedBenefits.push({
+          posted_job_id: posted_job_id,
+          description: job_benefits_1,
+          benefit_tag: job_benefits_tag_1,
+        });
+        formattedBenefits.push({
+          posted_job_id: posted_job_id,
+          description: job_benefits_2,
+          benefit_tag: job_benefits_tag_2,
+        });
+        formattedBenefits.push({
+          posted_job_id: posted_job_id,
+          description: job_benefits_3,
+          benefit_tag: job_benefits_tag_3,
+        });
+        formattedBenefits.push({
+          posted_job_id: posted_job_id,
+          description: job_benefits_4,
+          benefit_tag: job_benefits_tag_4,
+        });
+
+        //const beneResponse = await saveJobBenefit(formattedBenefits);
+        console.log("Benefits: ", formattedBenefits);
+
+        //Posted Job tags
+        const formattedTags = tags.map((id) => {
+          return {
+            tag_id: id,
+            posted_job_id,
+          };
+        });
+
+        //const tagResponse = await saveAllocatedTag(formattedTags);
+        console.log("tagResponse: ", formattedTags);
+      }
 
       form.reset();
       toggleModal(!isModalOpen);
@@ -211,14 +297,17 @@ export default function PostJobForm({ user_id, jobs, tags }) {
     <Dialog
       open={isModalOpen}
       onClose={() => {
+        storePostedJob(null);
         toggleModal(!isModalOpen);
       }}
     >
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <DialogTitle>Post A New Job</DialogTitle>
+        <DialogTitle>
+          {posted_job ? "Update A Posted Job" : "Post A New Job"}
+        </DialogTitle>
         <DialogContent>
           <DialogContentText gutterBottom>
-            Fill in the below detiails to post a new job
+            Click submit button when you are done
           </DialogContentText>
 
           <Box sx={{ py: 2 }}>
@@ -725,12 +814,15 @@ export default function PostJobForm({ user_id, jobs, tags }) {
           <Box sx={{ display: "flex", gap: 1, justifyContent: "right" }}>
             <Button
               variant="outlined"
-              onClick={() => toggleModal(!isModalOpen)}
+              onClick={() => {
+                storePostedJob(null);
+                toggleModal(!isModalOpen);
+              }}
             >
               Cancel
             </Button>
             <Button type="submit" variant="contained">
-              Submit
+              {posted_job ? "Update" : "Submit"}
             </Button>
           </Box>
         </DialogActions>
