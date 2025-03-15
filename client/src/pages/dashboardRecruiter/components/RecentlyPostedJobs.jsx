@@ -16,6 +16,12 @@ import { useAuthStore } from "../../../store/authStore";
 import { getAllPostedJob, getPostedJobById } from "../../../helper/postedJob";
 import { getAllJobs } from "../../../helper/job";
 import { getAllAppliedJob } from "../../../helper/appliedJob";
+import useModalStore from "../../../store/modal";
+import usePostedJobStore from "../../../store/store";
+import { getAllJobRequirement } from "../../../helper/jobRequirement";
+import { getAllJobBenefit } from "../../../helper/jobBenefit";
+import { getAllJobTag } from "../../../helper/jobTag";
+import { getAllAllocatedTag } from "../../../helper/tagAllocate";
 
 const columns = [
   {
@@ -82,7 +88,7 @@ function fixedHeaderContent() {
   );
 }
 
-function rowContent(_index, row) {
+export function rowContent(_index, row, handleUpdate) {
   return (
     <>
       {columns.map((column) => (
@@ -147,6 +153,9 @@ function rowContent(_index, row) {
                       },
                     }}
                     variant="outlined"
+                    onClick={() => {
+                      handleUpdate(row);
+                    }}
                   >
                     View Details
                   </Button>
@@ -159,12 +168,13 @@ function rowContent(_index, row) {
   );
 }
 
-export default function RecentlyPostedJobs() {
-  const { auth } = useAuthStore();
-
+export default function RecentlyPostedJobs({ user_id }) {
   const [postedJob, setPostedJob] = useState([]);
+  const [requirements, setRequirements] = useState([]);
 
-  const user_id = auth.userId;
+  const { isModalOpen, toggleModal } = useModalStore();
+  const { posted_job, posted_job_id, storePostedJob, storePostedJobId } =
+    usePostedJobStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -172,6 +182,9 @@ export default function RecentlyPostedJobs() {
         const postedJobs = await getAllPostedJob();
         const jobs = await getAllJobs();
         const appliedJobs = await getAllAppliedJob();
+        const requirements = await getAllJobRequirement();
+        const benefits = await getAllJobBenefit();
+        const tags = await getAllAllocatedTag();
 
         const matchUser = postedJobs.data.filter((u) => u.user_id === user_id);
 
@@ -180,11 +193,23 @@ export default function RecentlyPostedJobs() {
           const applicant = appliedJobs.data.filter(
             (a) => a.posted_job_id === u.posted_job_id
           );
+          const reqMap = requirements.data.filter(
+            (r) => r.posted_job_id === u.posted_job_id
+          );
+          const benMap = benefits.data.filter(
+            (b) => b.posted_job_id === u.posted_job_id
+          );
+          const tagMap = tags.data.filter(
+            (t) => t.posted_job_id === u.posted_job_id
+          );
 
           return {
             ...u,
             title: filteredJob ? filteredJob.title : null,
             applications: applicant.length,
+            requirements: reqMap,
+            benefits: benMap,
+            tags: tagMap,
           };
         });
 
@@ -197,13 +222,19 @@ export default function RecentlyPostedJobs() {
     fetchData();
   }, [user_id]);
 
+  const handleUpdate = (PostedJob) => {
+    storePostedJobId(PostedJob.posted_job_id);
+    storePostedJob(PostedJob);
+    toggleModal(!isModalOpen);
+  };
+
   return (
     <Paper style={{ height: 400, width: "100%" }} variant="outlined">
       <TableVirtuoso
         data={postedJob}
         components={VirtuosoTableComponents}
         fixedHeaderContent={fixedHeaderContent}
-        itemContent={rowContent}
+        itemContent={(index, row) => rowContent(index, row, handleUpdate)}
       />
     </Paper>
   );

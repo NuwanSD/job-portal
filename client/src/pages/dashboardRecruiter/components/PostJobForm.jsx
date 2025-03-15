@@ -36,6 +36,7 @@ import { savePostedJob } from "../../../helper/postedJob";
 import { saveJobRequirement } from "../../../helper/jobRequirement";
 import { saveJobBenefit } from "../../../helper/jobBenefit";
 import { saveAllocatedTag } from "../../../helper/tagAllocate";
+import usePostedJobStore from "../../../store/store";
 
 //Temporary disable form validation part
 const formSchema = z.object({
@@ -63,23 +64,42 @@ const MenuProps = {
 
 export default function PostJobForm({ user_id, jobs, tags }) {
   const { isModalOpen, toggleModal } = useModalStore();
+  const { posted_job, posted_job_id, storePostedJob, storePostedJobId } =
+    usePostedJobStore();
+
+  console.log(posted_job);
 
   const form = useForm({
     //resolver: zodResolver(formSchema),
-    defaultValues: {
-      posted_job_id: "",
-      user_id: "",
-      job_id: "",
-      salary: "",
-      posted_date: "",
-      expire_date: "",
-      job_type: "",
-      job_location: "",
-      description: "",
-      job_level: "",
-      experience: "",
-      status: "",
-    },
+    defaultValues: posted_job
+      ? {
+          posted_job_id: posted_job.posted_job_id,
+          user_id: posted_job.user_id,
+          job_id: posted_job.job_id,
+          salary: posted_job.salary,
+          posted_date: posted_job.posted_date,
+          expire_date: posted_job.expire_date,
+          job_type: posted_job.job_type,
+          job_location: posted_job.job_location,
+          description: posted_job.description,
+          job_level: posted_job.job_level,
+          experience: posted_job.experience,
+          status: posted_job.status,
+          tags: posted_job.tags.map((tag) => tag.tag_id),
+          job_requirement_1: posted_job.requirements[0].description,
+          job_requirement_2: posted_job.requirements[1].description,
+          job_requirement_3: posted_job.requirements[2].description,
+          job_requirement_4: posted_job.requirements[3].description,
+          job_benefits_1: posted_job.benefits[0].description,
+          job_benefits_tag_1: posted_job.benefits[0].benefit_tag,
+          job_benefits_2: posted_job.benefits[1].description,
+          job_benefits_tag_2: posted_job.benefits[1].benefit_tag,
+          job_benefits_3: posted_job.benefits[2].description,
+          job_benefits_tag_3: posted_job.benefits[2].benefit_tag,
+          job_benefits_4: posted_job.benefits[3].description,
+          job_benefits_tag_4: posted_job.benefits[3].benefit_tag,
+        }
+      : undefined,
   });
 
   async function onSubmit(values) {
@@ -660,19 +680,17 @@ export default function PostJobForm({ user_id, jobs, tags }) {
             <Controller
               name="tags"
               control={form.control}
-              defaultValue={[]} // Initialize with an empty array
+              defaultValue={[]}
               render={({ field }) => (
                 <Autocomplete
                   multiple
                   id="tags-filled"
-                  options={tags} // Provide the full tag objects [{ tag_id, tag }]
+                  options={tags}
                   getOptionLabel={(option) => option.tag} // Display tag names in the dropdown
                   isOptionEqualToValue={(option, value) =>
-                    option.tag === value.tag
+                    option.tag_id === value.tag_id
                   } // Match tags properly
-                  value={field.value.map(
-                    (id) => tags.find((tag) => tag.tag_id === id) || ""
-                  )} // Convert tag_id to full objects for display
+                  value={tags.filter((tag) => field.value.includes(tag.tag_id))} // )Convert tag_id to full objects for display
                   onChange={(event, newValue) => {
                     const selectedTagIds = newValue.map((tag) => tag.tag_id); // Map selected tags to their tag_id
                     field.onChange(selectedTagIds); // Pass tag_id array to the form

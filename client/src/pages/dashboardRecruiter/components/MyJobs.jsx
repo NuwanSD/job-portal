@@ -51,7 +51,7 @@ const MyJobs = ({ user_id }) => {
         </Button>
       </Box>
       <Box sx={{ py: 5 }}>
-        <RecentlyPostedJobs />
+        <RecentlyPostedJobs user_id={user_id} />
       </Box>
 
       {/*Dialog Form*/}
