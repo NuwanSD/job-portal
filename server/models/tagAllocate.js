@@ -12,12 +12,27 @@ const TagAllocate = {
     db.query(query, [tag_id, posted_job_id], callback);
   },
 
-  saveRecord: (data, callback) => {
-    const query =
-      "INSERT INTO tag_allocate (tag_id, posted_job_id ) VALUES (?, ?)";
-    const { tag_id, posted_job_id } = data;
+  // saveRecord: (data, callback) => {
+  //   const query =
+  //     "INSERT INTO tag_allocate (tag_id, posted_job_id ) VALUES (?, ?)";
+  //   const { tag_id, posted_job_id } = data;
 
-    db.query(query, [tag_id, posted_job_id], callback);
+  //   db.query(query, [tag_id, posted_job_id], callback);
+  // },
+
+  saveRecord: (data, callback) => {
+    if (!Array.isArray(data)) {
+      data = [data];
+    }
+
+    const values = data.map(({ tag_id, posted_job_id }) => [
+      tag_id,
+      posted_job_id,
+    ]);
+
+    const query = "INSERT INTO tag_allocate (tag_id, posted_job_id) VALUES ?";
+
+    db.query(query, [values], callback);
   },
 
   deleteRecord: (tag_id, posted_job_id, callback) => {

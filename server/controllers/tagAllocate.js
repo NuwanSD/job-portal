@@ -28,18 +28,26 @@ const TagAllocateController = {
   },
 
   saveRecord: (req, res) => {
-    const { tag_id, posted_job_id } = req.body;
+    const payload = req.body;
 
-    if (tag_id === undefined || posted_job_id === undefined) {
-      return res.status(400).send("All fields are required");
+    let values = [];
+    if (Array.isArray(payload)) {
+      values = payload.map((tag) => ({
+        tag_id: tag.tag_id,
+        posted_job_id: tag.posted_job_id,
+      }));
+    } else {
+      values.push({
+        tag_id: payload.tag_id,
+        posted_job_id: payload.posted_job_id,
+      });
     }
 
-    const newData = {
-      tag_id,
-      posted_job_id,
-    };
+    if (values.length === 0) {
+      return res.status(400).send("Invalid request payload");
+    }
 
-    TagModel.saveRecord(newData, (err, result) => {
+    TagModel.saveRecord(values, (err, result) => {
       if (err) {
         return res.status(500).send("Internal Server Error");
       }
