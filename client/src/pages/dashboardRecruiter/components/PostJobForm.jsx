@@ -31,9 +31,9 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
-import { top100Films } from "./Data";
 import useModalStore from "../../../store/modal";
 
+//Temporary disable form validation part
 const formSchema = z.object({
   job_id: z.number(),
   salary: z.string(),
@@ -44,9 +44,6 @@ const formSchema = z.object({
   experience: z.string(),
   status: z.string(),
   expire_date: z.string(),
-  // requirements: z.array(z.object({ posted_job_id: z.string().optional() })),
-  // benefits: z.array(z.object({ posted_job_id: z.string().optional() })),
-  // tags: z.array(z.object({ posted_job_id: z.string().optional() })),
 });
 
 const ITEM_HEIGHT = 48;
@@ -60,11 +57,11 @@ const MenuProps = {
   },
 };
 
-export default function PostJobForm({ user_id, jobs }) {
+export default function PostJobForm({ user_id, jobs, tags }) {
   const { isModalOpen, toggleModal } = useModalStore();
 
   const form = useForm({
-    resolver: zodResolver(formSchema),
+    //resolver: zodResolver(formSchema),
     defaultValues: {
       posted_job_id: "",
       user_id: "",
@@ -87,6 +84,7 @@ export default function PostJobForm({ user_id, jobs }) {
 
       const posted_date = new Date().toISOString().split("T")[0];
 
+      //Core details to post a job
       const formattedValues = {
         ...values,
 
@@ -96,6 +94,10 @@ export default function PostJobForm({ user_id, jobs }) {
       };
 
       console.log(formattedValues);
+
+      //Posted Job requirements
+      //Posted Job benefits
+      //Posted Job tags
 
       form.reset();
       toggleModal(!isModalOpen);
@@ -342,6 +344,277 @@ export default function PostJobForm({ user_id, jobs }) {
             </Box>
           </Box>
 
+          {/*Job Requirements*/}
+          <Box sx={{ py: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Job Requirements
+            </Typography>
+            <Box>
+              <Controller
+                name="job_requirement_1"
+                control={form.control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    sx={{ width: "100%" }}
+                    label="Add description"
+                    variant="outlined"
+                    margin="dense"
+                    error={!!form.formState.errors.job_requirement_1}
+                    helperText={
+                      form.formState.errors.job_requirement_1?.message
+                    }
+                  />
+                )}
+              />
+              <Controller
+                name="job_requirement_2"
+                control={form.control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    sx={{ width: "100%" }}
+                    label="Add description"
+                    variant="outlined"
+                    margin="dense"
+                    error={!!form.formState.errors.job_requirement_2}
+                    helperText={
+                      form.formState.errors.job_requirement_2?.message
+                    }
+                  />
+                )}
+              />
+              <Controller
+                name="job_requirement_3"
+                control={form.control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    sx={{ width: "100%" }}
+                    label="Add description"
+                    variant="outlined"
+                    margin="dense"
+                    error={!!form.formState.errors.job_requirement_3}
+                    helperText={
+                      form.formState.errors.job_requirement_3?.message
+                    }
+                  />
+                )}
+              />
+              <Controller
+                name="job_requirement_4"
+                control={form.control}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    sx={{ width: "100%" }}
+                    label="Add description"
+                    variant="outlined"
+                    margin="dense"
+                    error={!!form.formState.errors.job_requirement_4}
+                    helperText={
+                      form.formState.errors.job_requirement_4?.message
+                    }
+                  />
+                )}
+              />
+            </Box>
+          </Box>
+
+          <Divider />
+
+          {/*Job Benefits*/}
+          <Box sx={{ py: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Job Benefits
+            </Typography>
+            <Box>
+              <Box display={"flex"} gap={1}>
+                <Controller
+                  name="job_benefits_1"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      sx={{ width: "100%" }}
+                      label="Add description"
+                      variant="outlined"
+                      margin="dense"
+                      error={!!form.formState.errors.job_benefits_1}
+                      helperText={form.formState.errors.job_benefits_1?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="job_benefits_tag_1"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      sx={{ width: "30%" }}
+                      label="Define tag"
+                      variant="outlined"
+                      margin="dense"
+                      error={!!form.formState.errors.job_benefits_tag_1}
+                      helperText={
+                        form.formState.errors.job_benefits_tag_1?.message
+                      }
+                    />
+                  )}
+                />
+              </Box>
+              <Box display={"flex"} gap={1}>
+                <Controller
+                  name="job_benefits_2"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      sx={{ width: "100%" }}
+                      label="Add description"
+                      variant="outlined"
+                      margin="dense"
+                      error={!!form.formState.errors.job_benefits_2}
+                      helperText={form.formState.errors.job_benefits_2?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="job_benefits_tag_2"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      sx={{ width: "30%" }}
+                      label="Define tag"
+                      variant="outlined"
+                      margin="dense"
+                      error={!!form.formState.errors.job_benefits_tag_2}
+                      helperText={
+                        form.formState.errors.job_benefits_tag_2?.message
+                      }
+                    />
+                  )}
+                />
+              </Box>
+              <Box display={"flex"} gap={1}>
+                <Controller
+                  name="job_benefits_3"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      sx={{ width: "100%" }}
+                      label="Add description"
+                      variant="outlined"
+                      margin="dense"
+                      error={!!form.formState.errors.job_benefits_3}
+                      helperText={form.formState.errors.job_benefits_3?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="job_benefits_tag_3"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      sx={{ width: "30%" }}
+                      label="Define tag"
+                      variant="outlined"
+                      margin="dense"
+                      error={!!form.formState.errors.job_benefits_tag_3}
+                      helperText={
+                        form.formState.errors.job_benefits_tag_3?.message
+                      }
+                    />
+                  )}
+                />
+              </Box>
+              <Box display={"flex"} gap={1}>
+                <Controller
+                  name="job_benefits_4"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      sx={{ width: "100%" }}
+                      label="Add description"
+                      variant="outlined"
+                      margin="dense"
+                      error={!!form.formState.errors.job_benefits_4}
+                      helperText={form.formState.errors.job_benefits_4?.message}
+                    />
+                  )}
+                />
+                <Controller
+                  name="job_benefits_tag_4"
+                  control={form.control}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      sx={{ width: "30%" }}
+                      label="Define tag"
+                      variant="outlined"
+                      margin="dense"
+                      error={!!form.formState.errors.job_benefits_tag_4}
+                      helperText={
+                        form.formState.errors.job_benefits_tag_4?.message
+                      }
+                    />
+                  )}
+                />
+              </Box>
+            </Box>
+          </Box>
+
+          <Divider />
+
+          {/*Job Tag Allocate*/}
+          <Box sx={{ py: 2 }}>
+            <Typography variant="h6" gutterBottom>
+              Job Tags
+            </Typography>
+
+            <Controller
+              name="tags"
+              control={form.control}
+              defaultValue={[]}
+              render={({ field }) => (
+                <Autocomplete
+                  multiple
+                  id="tags-filled"
+                  options={tags.map((option) => option.tag)}
+                  defaultValue={field.value}
+                  onChange={(event, newValue) => field.onChange(newValue)}
+                  freeSolo
+                  renderTags={(value, getTagProps) =>
+                    value.map((option, index) => {
+                      const { key, ...tagProps } = getTagProps({ index });
+                      return (
+                        <Chip
+                          variant="outlined"
+                          label={option}
+                          key={key}
+                          {...tagProps}
+                        />
+                      );
+                    })
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      label="Tags"
+                      placeholder="Select tags"
+                    />
+                  )}
+                />
+              )}
+            />
+          </Box>
+        </DialogContent>
+
+        <DialogActions>
           <Box sx={{ display: "flex", gap: 1, justifyContent: "right" }}>
             <Button
               variant="outlined"
@@ -353,7 +626,7 @@ export default function PostJobForm({ user_id, jobs }) {
               Submit
             </Button>
           </Box>
-        </DialogContent>
+        </DialogActions>
       </form>
     </Dialog>
   );

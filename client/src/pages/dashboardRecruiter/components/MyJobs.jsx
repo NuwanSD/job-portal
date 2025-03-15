@@ -7,18 +7,22 @@ import PostJobForm from "./PostJobForm";
 
 import useModalStore from "../../../store/modal";
 import { getAllJobs } from "../../../helper/job";
+import { getAllJobTag } from "../../../helper/jobTag";
 
 const MyJobs = ({ user_id }) => {
   const { isModalOpen, toggleModal } = useModalStore();
 
   const [jobs, setJobs] = useState([]);
+  const [tags, setTags] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getAllJobs();
+        const jobs = await getAllJobs();
+        const tags = await getAllJobTag();
 
-        setJobs(response.data);
+        setJobs(jobs.data);
+        setTags(tags.data);
       } catch (error) {
         console.log(error);
       }
@@ -51,7 +55,7 @@ const MyJobs = ({ user_id }) => {
       </Box>
 
       {/*Dialog Form*/}
-      {isModalOpen && <PostJobForm user_id={user_id} jobs={jobs} />}
+      {isModalOpen && <PostJobForm user_id={user_id} jobs={jobs} tags={tags} />}
     </Box>
   );
 };
