@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Box, Container, Divider } from "@mui/material";
 
 import Overview from "./components/Overview";
-import PostJob from "./components/PostJob";
 import MyJobs from "./components/MyJobs";
 import SavedCandidates from "./components/SavedCandidates";
 import Setting from "./components/Settings";
@@ -23,8 +22,6 @@ const Dashboard = () => {
     switch (selectedTab) {
       case "Overview":
         return <Overview key="overview" />;
-      case "Post Jobs":
-        return <PostJob key="PostJob" />;
       case "My Jobs":
         return <MyJobs key="MyJobs" user_id={user_id} />;
       case "Saved Candidates":

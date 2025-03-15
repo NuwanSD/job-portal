@@ -84,10 +84,9 @@ export default function PostJobForm({ user_id, jobs, tags }) {
 
       const posted_date = new Date().toISOString().split("T")[0];
 
-      //Core details to post a job
+      //adding common attributes
       const formattedValues = {
         ...values,
-
         posted_job_id,
         user_id,
         posted_date,
@@ -95,9 +94,91 @@ export default function PostJobForm({ user_id, jobs, tags }) {
 
       console.log(formattedValues);
 
+      //Seperate Core details
+      const {
+        job_benefits_1,
+        job_benefits_2,
+        job_benefits_3,
+        job_benefits_4,
+        job_benefits_tag_1,
+        job_benefits_tag_2,
+        job_benefits_tag_3,
+        job_benefits_tag_4,
+        job_requirement_1,
+        job_requirement_2,
+        job_requirement_3,
+        job_requirement_4,
+        tags,
+        ...rest
+      } = formattedValues;
+
+      console.log(rest);
+
       //Posted Job requirements
-      //Posted Job benefits
+      const formattedRequirement = [];
+
+      const data1 = {
+        posted_job_id: posted_job_id,
+        description: job_requirement_1,
+      };
+      const data2 = {
+        posted_job_id: posted_job_id,
+        description: job_requirement_2,
+      };
+      const data3 = {
+        posted_job_id: posted_job_id,
+        description: job_requirement_3,
+      };
+      const data4 = {
+        posted_job_id: posted_job_id,
+        description: job_requirement_4,
+      };
+
+      formattedRequirement.push(data1);
+      formattedRequirement.push(data2);
+      formattedRequirement.push(data3);
+      formattedRequirement.push(data4);
+
+      console.log(formattedRequirement);
+
+      const formattedBenefits = [];
+
+      const b1 = {
+        posted_job_id: posted_job_id,
+        description: job_benefits_1,
+        benefit_tag: job_benefits_tag_1,
+      };
+      const b2 = {
+        posted_job_id: posted_job_id,
+        description: job_benefits_2,
+        benefit_tag: job_benefits_tag_2,
+      };
+      const b3 = {
+        posted_job_id: posted_job_id,
+        description: job_benefits_3,
+        benefit_tag: job_benefits_tag_3,
+      };
+      const b4 = {
+        posted_job_id: posted_job_id,
+        description: job_benefits_4,
+        benefit_tag: job_benefits_tag_4,
+      };
+
+      formattedBenefits.push(b1);
+      formattedBenefits.push(b2);
+      formattedBenefits.push(b3);
+      formattedBenefits.push(b4);
+
+      console.log(formattedBenefits);
+
       //Posted Job tags
+      const formattedTags = tags.map((id) => {
+        return {
+          id,
+          posted_job_id,
+        };
+      });
+      console.log(formattedTags);
 
       form.reset();
       toggleModal(!isModalOpen);
@@ -579,22 +660,30 @@ export default function PostJobForm({ user_id, jobs, tags }) {
             <Controller
               name="tags"
               control={form.control}
-              defaultValue={[]}
+              defaultValue={[]} // Initialize with an empty array
               render={({ field }) => (
                 <Autocomplete
                   multiple
                   id="tags-filled"
-                  options={tags.map((option) => option.tag)}
-                  defaultValue={field.value}
-                  onChange={(event, newValue) => field.onChange(newValue)}
-                  freeSolo
+                  options={tags} // Provide the full tag objects [{ tag_id, tag }]
+                  getOptionLabel={(option) => option.tag} // Display tag names in the dropdown
+                  isOptionEqualToValue={(option, value) =>
+                    option.tag === value.tag
+                  } // Match tags properly
+                  value={field.value.map(
+                    (id) => tags.find((tag) => tag.tag_id === id) || ""
+                  )} // Convert tag_id to full objects for display
+                  onChange={(event, newValue) => {
+                    const selectedTagIds = newValue.map((tag) => tag.tag_id); // Map selected tags to their tag_id
+                    field.onChange(selectedTagIds); // Pass tag_id array to the form
+                  }}
                   renderTags={(value, getTagProps) =>
                     value.map((option, index) => {
                       const { key, ...tagProps } = getTagProps({ index });
                       return (
                         <Chip
                           variant="outlined"
-                          label={option}
+                          label={option.tag} // Display the tag name in the Chip
                           key={key}
                           {...tagProps}
                         />

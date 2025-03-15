@@ -26,15 +26,7 @@ const Sidebar = ({ setSelectedTab }) => {
           <ListItemText primary="Overview" />
         </ListItemButton>
       </ListItem>
-      <ListItem>
-        <ListItemButton
-          sx={{ gap: 1 }}
-          onClick={(event) => handleListItemClick(event, "Post Jobs")}
-        >
-          <AddCircleOutlineOutlinedIcon />
-          <ListItemText primary="Post Jobs" />
-        </ListItemButton>
-      </ListItem>
+
       <ListItem>
         <ListItemButton
           sx={{ gap: 1 }}
