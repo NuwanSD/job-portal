@@ -26,7 +26,7 @@ const Dashboard = () => {
       case "Post Jobs":
         return <PostJob key="PostJob" />;
       case "My Jobs":
-        return <MyJobs key="MyJobs" />;
+        return <MyJobs key="MyJobs" user_id={user_id} />;
       case "Saved Candidates":
         return <SavedCandidates key="SavedCandidates" />;
       case "Job Application":

@@ -72,6 +72,7 @@ function fixedHeaderContent() {
           sx={{
             backgroundColor: "background.paper",
             textAlign: "center",
+            fontWeight: "bold",
           }}
         >
           {column.label}
@@ -83,7 +84,7 @@ function fixedHeaderContent() {
 
 function rowContent(_index, row) {
   return (
-    <React.Fragment>
+    <>
       {columns.map((column) => (
         <TableCell
           key={column.dataKey}
@@ -154,7 +155,7 @@ function rowContent(_index, row) {
           })()}
         </TableCell>
       ))}
-    </React.Fragment>
+    </>
   );
 }
 
@@ -197,7 +198,7 @@ export default function RecentlyPostedJobs() {
   }, [user_id]);
 
   return (
-    <Paper style={{ height: 400, width: "100%" }}>
+    <Paper style={{ height: 400, width: "100%" }} variant="outlined">
       <TableVirtuoso
         data={postedJob}
         components={VirtuosoTableComponents}
