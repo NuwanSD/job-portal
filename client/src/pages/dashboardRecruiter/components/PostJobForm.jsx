@@ -32,6 +32,10 @@ import dayjs from "dayjs";
 import { z } from "zod";
 import { v4 as uuidv4 } from "uuid";
 import useModalStore from "../../../store/modal";
+import { savePostedJob } from "../../../helper/postedJob";
+import { saveJobRequirement } from "../../../helper/jobRequirement";
+import { saveJobBenefit } from "../../../helper/jobBenefit";
+import { saveAllocatedTag } from "../../../helper/tagAllocate";
 
 //Temporary disable form validation part
 const formSchema = z.object({
@@ -92,7 +96,7 @@ export default function PostJobForm({ user_id, jobs, tags }) {
         posted_date,
       };
 
-      console.log(formattedValues);
+      //console.log(formattedValues);
 
       //Seperate Core details
       const {
@@ -112,73 +116,69 @@ export default function PostJobForm({ user_id, jobs, tags }) {
         ...rest
       } = formattedValues;
 
-      console.log(rest);
+      const coreResponse = await savePostedJob(rest);
+      console.log("core", coreResponse);
 
       //Posted Job requirements
       const formattedRequirement = [];
 
-      const data1 = {
+      formattedRequirement.push({
         posted_job_id: posted_job_id,
         description: job_requirement_1,
-      };
-      const data2 = {
+      });
+      formattedRequirement.push({
         posted_job_id: posted_job_id,
         description: job_requirement_2,
-      };
-      const data3 = {
+      });
+      formattedRequirement.push({
         posted_job_id: posted_job_id,
         description: job_requirement_3,
-      };
-      const data4 = {
+      });
+      formattedRequirement.push({
         posted_job_id: posted_job_id,
         description: job_requirement_4,
-      };
+      });
 
-      formattedRequirement.push(data1);
-      formattedRequirement.push(data2);
-      formattedRequirement.push(data3);
-      formattedRequirement.push(data4);
+      const reqResponse = await saveJobRequirement(formattedRequirement);
+      console.log(reqResponse);
 
-      console.log(formattedRequirement);
-
+      //Seperate Job Requirements
       const formattedBenefits = [];
 
-      const b1 = {
+      formattedBenefits.push({
         posted_job_id: posted_job_id,
         description: job_benefits_1,
         benefit_tag: job_benefits_tag_1,
-      };
-      const b2 = {
+      });
+      formattedBenefits.push({
         posted_job_id: posted_job_id,
         description: job_benefits_2,
         benefit_tag: job_benefits_tag_2,
-      };
-      const b3 = {
+      });
+      formattedBenefits.push({
         posted_job_id: posted_job_id,
         description: job_benefits_3,
         benefit_tag: job_benefits_tag_3,
-      };
-      const b4 = {
+      });
+      formattedBenefits.push({
         posted_job_id: posted_job_id,
         description: job_benefits_4,
         benefit_tag: job_benefits_tag_4,
-      };
+      });
 
-      formattedBenefits.push(b1);
-      formattedBenefits.push(b2);
-      formattedBenefits.push(b3);
-      formattedBenefits.push(b4);
-
-      console.log(formattedBenefits);
+      const beneResponse = await saveJobBenefit(formattedBenefits);
+      console.log(beneResponse);
 
       //Posted Job tags
       const formattedTags = tags.map((id) => {
         return {
-          id,
+          tag_id: id,
           posted_job_id,
         };
       });
-      console.log(formattedTags);
+
+      const tagResponse = await saveAllocatedTag(formattedTags);
+      console.log(tagResponse);
 
       form.reset();
       toggleModal(!isModalOpen);
