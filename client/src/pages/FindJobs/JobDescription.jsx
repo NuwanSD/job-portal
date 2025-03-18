@@ -120,7 +120,7 @@ const JobDescription = ({ postedJob }) => {
               width: "200px",
             }}
           >
-            <MapOutlinedIcon sx={{ color: "blue", display: "block" }} />
+            <MapOutlinedIcon sx={{ color: "#1976D2", display: "block" }} />
             <Typography variant="h6">Job Location</Typography>
             <Typography color="textSecondary">
               {postedJob.job_location}

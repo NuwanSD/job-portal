@@ -20,6 +20,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { getAllPostedJob } from "../../helper/postedJob";
 import { getAllUsers } from "../../helper/helper";
 import { getAllJobs } from "../../helper/job";
+import JobApplication from "./JobApplication";
+import { useAuthStore } from "../../store/authStore";
+import { saveAppliedJob } from "../../helper/appliedJob";
 
 const JobDetail = () => {
   const [open, setOpen] = useState(false);
@@ -27,6 +30,8 @@ const JobDetail = () => {
   const [postedJob, setPostedJob] = useState([]);
 
   const { jobId } = useParams();
+
+  const { auth } = useAuthStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,6 +78,27 @@ const JobDetail = () => {
     setOpen(false);
   };
 
+  const handleSubmit = async () => {
+    const user_id = auth.userId;
+    const applied_date = new Date().toISOString().split("T")[0];
+    const posted_job_id = postedJob.posted_job_id;
+
+    const data = {
+      user_id,
+      applied_date,
+      posted_job_id,
+    };
+
+    try {
+      const response = await saveAppliedJob(data);
+      console.log(response);
+
+      handleClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
       <section>
@@ -81,9 +107,18 @@ const JobDetail = () => {
             sx={{
               display: "flex",
               justifyContent: "space-between",
+              background: "#f7f7f8",
+              p: 2,
+              borderRadius: 3,
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
               <img src={Icon} alt="facebook" width={68} />
               <Box>
                 <Typography variant="h5" sx={{ fontWeight: "medium" }}>
@@ -116,12 +151,13 @@ const JobDetail = () => {
                 </Typography>
               </Box>
             </Box>
+
             <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
               <BookmarkBorderOutlinedIcon
                 sx={{
                   p: 1,
-                  backgroundColor: "#f7f7f8",
-                  color: "blue",
+                  backgroundColor: "white",
+                  color: "#1976D2",
                   borderRadius: 1,
                 }}
               />
@@ -150,21 +186,7 @@ const JobDetail = () => {
         </Container>
       </section>
 
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        PaperProps={{
-          component: "form",
-          onSubmit: (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries(formData.entries());
-            const email = formJson.email;
-            console.log(email);
-            handleClose();
-          },
-        }}
-      >
+      <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Apply Job: Senior Software Engineer</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -172,31 +194,16 @@ const JobDetail = () => {
             Repellendus animi perferendis laudantium fuga voluptate tempore nemo
             quas omnis suscipit rem?
           </DialogContentText>
-          <TextField
-            autoFocus
-            required
-            margin="dense"
-            id="name"
-            name="email"
-            label="Email Address"
-            type="email"
-            fullWidth
-          />
-          <TextField
-            id="outlined-multiline-static"
-            label="Message To Hiring Team"
-            multiline
-            fullWidth
-            margin="dense"
-            rows={4}
-          />
+
+          <JobApplication />
         </DialogContent>
+
         <DialogActions>
           <Button onClick={handleClose} variant="outlined">
             Cancel
           </Button>
-          <Button type="submit" variant="contained">
-            Submit
+          <Button variant="contained" onClick={handleSubmit}>
+            Continue
           </Button>
         </DialogActions>
       </Dialog>

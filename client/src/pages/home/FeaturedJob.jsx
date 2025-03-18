@@ -55,9 +55,9 @@ function FeaturedJob() {
         gap: 2,
       }}
     >
-      {postedJob.map((job) => (
+      {postedJob.map((job, index) => (
         <Card
-          key={job.job_id}
+          key={index}
           sx={{ width: "100%", boxShadow: 2 }}
           variant="outlined"
         >

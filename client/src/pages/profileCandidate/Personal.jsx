@@ -1,30 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Divider, Box, TextField, Button } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import userDetailtsFetch from "../../hook/userDetails.hook";
 
 const formSchema = z.object({});
 
 const Personal = () => {
+  const [{ isLoading, apiData, serverError }] = userDetailtsFetch();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      description:
-        "Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta acconsectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel",
-      looking_for:
-        "Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta acconsectetur ac, vestibulum at eros. Praesent commodo cursus magna, vel",
-      website: "bobeffient@gmail.com",
-      birthday: "2001-03-21",
-      gender: "Male",
-      education: "Bachelor of Computer Science",
-      experience: "3 Years",
-      status: "Married",
-      nationality: "Canadian",
+      description: "",
+      looking_for: "",
+      website: "",
+      birthday: "",
+      gender: "",
+      education: "",
+      experience: "",
+      status: "",
+      nationality: "",
     },
   });
 
-  const onSubmit = (values) => {
+  useEffect(() => {
+    if (apiData) {
+      form.reset({
+        description: apiData.description,
+        looking_for: apiData.looking_for,
+        website: apiData.website,
+        birthday: apiData.birthday,
+        gender: apiData.gender,
+        education: apiData.education,
+        experience: apiData.experience,
+        status: apiData.status,
+        nationality: apiData.nationality,
+      });
+    }
+  }, [apiData]);
+
+  const onSubmit = async (values) => {
     console.log(values);
   };
 

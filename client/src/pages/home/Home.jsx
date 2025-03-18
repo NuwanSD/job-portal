@@ -1,8 +1,6 @@
 import React from "react";
 import { Box, Button, Container, Typography } from "@mui/material";
-import TextField from "@mui/material/TextField";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
-
 import Banner from "../../assets/img-04.jpg";
 import SelectActionCard from "./Vacancies";
 import Work from "./Work";
@@ -36,14 +34,16 @@ const Home = () => {
                 <SearchField />
               </Box>
             </Box>
-            <Box>
-              <img
-                src={Banner}
-                width="500px"
-                alt="image"
-                style={{ borderRadius: "12px" }}
-              />
-            </Box>
+            {/* <img width="500px" alt="image" style={{ borderRadius: "12px" }} /> */}
+            <Box
+              component="img"
+              src={Banner}
+              alt="Banner-image"
+              sx={{
+                width: { xs: "350px", md: "500px" },
+                borderRadius: "12px",
+              }}
+            />
           </Box>
           <Box sx={{ mt: 10 }}>
             <BannerCards />

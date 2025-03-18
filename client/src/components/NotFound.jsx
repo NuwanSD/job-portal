@@ -1,5 +1,6 @@
 import ArrowForward from "@mui/icons-material/ArrowForward";
 import { Box, Button, Container, Typography } from "@mui/material";
+import { SearchOff } from "@mui/icons-material";
 
 const NotFound = () => {
   return (
@@ -11,6 +12,7 @@ const NotFound = () => {
             alignItems: "center",
           }}
         >
+          <SearchOff sx={{ fontSize: 82 }} color="primary" />
           <Typography gutterBottom variant="h4">
             Opps! Page Not Found
           </Typography>

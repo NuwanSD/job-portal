@@ -111,8 +111,9 @@ const Profile = () => {
     }
   }, [apiData]);
 
-  const onSubmit = (values) => {
-    const response = updateUser(values);
+  //Do not change this works fine using
+  const onSubmit = async (values) => {
+    const response = await updateUser(values);
     console.log(response);
   };
 
