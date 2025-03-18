@@ -12,6 +12,7 @@ import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import RecentlyAppliedJobs from "./RecentlyAppliedJobs";
 import { useAuthStore } from "../../../store/authStore";
 import { getUserById } from "../../../helper/helper";
+import { Link } from "react-router-dom";
 
 const Overview = () => {
   const { auth } = useAuthStore();
@@ -39,9 +40,9 @@ const Overview = () => {
 
       <Box
         sx={{
-          py: 4,
+          py: 2,
           display: "flex",
-          gap: 2,
+          gap: 1,
         }}
       >
         <Card
@@ -114,6 +115,8 @@ const Overview = () => {
                 variant="contained"
                 endIcon={<ArrowForwardOutlinedIcon />}
                 sx={{ background: "white", color: "#E05151" }}
+                component={Link}
+                to={`/profile/${user_id}`}
               >
                 Edit Profile
               </Button>
