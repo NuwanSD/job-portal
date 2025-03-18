@@ -187,7 +187,7 @@ const JobDetail = () => {
       </section>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Apply Job: Senior Software Engineer</DialogTitle>
+        <DialogTitle>Apply Job: {postedJob.job_title}</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit.

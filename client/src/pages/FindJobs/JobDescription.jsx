@@ -144,6 +144,12 @@ const JobDescription = ({ postedJob }) => {
                 <div key={b.benefit_id}>
                   <Typography
                     sx={{
+                      bgcolor: "#e6f0ff",
+                      display: "inline",
+                      textAlign: "center",
+                      border: 1,
+                      borderRadius: 1,
+                      px: 2,
                       whiteSpace: "nowrap",
                     }}
                   >
