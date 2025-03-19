@@ -1,37 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Box, TextField, Button } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Cover from "../../assets/banner-img.jpg";
 import Logo from "../../assets/facebook.svg";
+import { updateUser } from "../../helper/helper";
+import useFetch from "../../hook/fetch.hook";
 
 const formSchema = z.object({});
 
 const Personal = () => {
-  //Get user from localStorage
-  const result = localStorage.getItem("user");
-
-  const user = result ? JSON.parse(result) : null;
+  const [{ isLoading, apiData, serverError }] = useFetch();
 
   const form = useForm({
     //resolver: zodResolver(formSchema),
-    defaultValues: user
-      ? {
-          user_id: user.user_id,
-          username: user.username,
-          name: user.name,
-          email: user.email,
-          phone: user.phone,
-          city: user.city,
-          country: user.country,
-        }
-      : undefined,
+    defaultValues: {
+      user_id: "",
+      username: "",
+      name: "",
+      email: "",
+      phone: "",
+      city: "",
+      country: "",
+    },
   });
 
+  useEffect(() => {
+    if (apiData) {
+      form.reset({
+        name: apiData.name,
+        email: apiData.email,
+        phone: apiData.phone,
+        city: apiData.city,
+        country: apiData.country,
+      });
+    }
+  }, [apiData]);
+
   async function onSubmit(values) {
+    console.log(values);
     try {
-      console.log(values);
+      const data = values;
+
+      const update = await updateUser(data);
+
+      console.log(update);
     } catch (error) {
       console.log(error);
     }
@@ -54,46 +68,28 @@ const Personal = () => {
       </Box>
 
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Typography sx={{ fontWeight: "bold" }} gutterBottom>
-          USERNAME
-        </Typography>
-        <Controller
-          name="username"
-          control={form.control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              margin="dense"
-              label="Username"
-              size="small"
-              multiline
-              error={!!form.formState.errors.username}
-              helperText={form.formState.errors.username?.message}
-              sx={{ width: "100%" }}
-            />
-          )}
-        />
+        <Box sx={{ width: "100%" }}>
+          <Typography sx={{ fontWeight: "bold" }} gutterBottom>
+            ORGANIZATIONAL NAME
+          </Typography>
 
-        <Typography sx={{ fontWeight: "bold", mt: 4 }} gutterBottom>
-          ORGANIZATIONAL NAME
-        </Typography>
-
-        <Controller
-          name="name"
-          control={form.control}
-          render={({ field }) => (
-            <TextField
-              {...field}
-              margin="dense"
-              label="Name"
-              size="small"
-              multiline
-              error={!!form.formState.errors.name}
-              helperText={form.formState.errors.name?.message}
-              sx={{ width: "100%" }}
-            />
-          )}
-        />
+          <Controller
+            name="name"
+            control={form.control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                margin="dense"
+                label="Name"
+                size="small"
+                multiline
+                error={!!form.formState.errors.name}
+                helperText={form.formState.errors.name?.message}
+                sx={{ width: "100%" }}
+              />
+            )}
+          />
+        </Box>
 
         <Box sx={{ my: 4 }}>
           <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
@@ -119,7 +115,7 @@ const Personal = () => {
             </Box>
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" gutterBottom>
-                Email:
+                Email
               </Typography>
               <Controller
                 name="email"
@@ -161,7 +157,7 @@ const Personal = () => {
             </Box>
             <Box sx={{ width: "100%" }}>
               <Typography variant="h6" gutterBottom>
-                Country:
+                Country
               </Typography>
               <Controller
                 name="country"
