@@ -16,11 +16,14 @@ import { useNavigate } from "react-router-dom";
 import useLoginStore from "../store/loginStore";
 import { useAuthStore } from "../store/authStore";
 import useUserStore from "../store/userStore";
+import useUserDataStore from "../store/userDetailStore";
+import { getJobSeekerById } from "../helper/jobSeeker";
 
 const Navbar = () => {
   const { auth } = useAuthStore();
 
   const { user, user_id, storeUser, storeUserId } = useUserStore();
+  const { id, data, storeId, storeUserData } = useUserDataStore();
 
   const pages = [
     { name: "Home", path: "/" },
@@ -48,6 +51,15 @@ const Navbar = () => {
 
     navigate("/", { replace: true });
     handleCloseUserMenu();
+  };
+
+  const handleUserChange = async () => {
+    try {
+      const userData = await getJobSeekerById({ user_id });
+      storeUserData(userData.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleOpenNavMenu = (event) => {
@@ -244,6 +256,7 @@ const Navbar = () => {
               >
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
+                    onClick={handleUserChange}
                     component="a"
                     href={`/profile/${auth.userId}`}
                     sx={{ textDecoration: "none", color: "inherit" }}

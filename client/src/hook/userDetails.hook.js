@@ -11,7 +11,7 @@ export default function userDetailtsFetch(query) {
 
   const [getData, setData] = useState({
     isLoading: false,
-    apiData: undefined,
+    apiData: null,
     status: null,
     serverError: null,
   });
