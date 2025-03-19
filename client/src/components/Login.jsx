@@ -18,8 +18,6 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuthStore } from "../store/authStore";
 import useLoginStore from "../store/loginStore";
-import { getUserById } from "../helper/helper";
-import useUserStore from "../store/userStore";
 
 const formSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -30,8 +28,6 @@ const Login = () => {
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
-
-  const { user, user_id, storeUser, storeUserId } = useUserStore();
 
   const { setUser } = useAuthStore();
 
@@ -72,14 +68,6 @@ const Login = () => {
       setUser(user_id, role);
 
       useLoginStore.getState().login(token);
-
-      const userResponse = await getUserById({ user_id });
-
-      //Store user object
-      localStorage.setItem("user", JSON.stringify(userResponse.data[0]));
-
-      storeUser(userResponse.data[0]);
-      storeUserId(user_id);
 
       navigate(`/profile/${user_id}`, { replace: true });
     } catch (error) {
